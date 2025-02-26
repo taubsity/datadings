@@ -44,9 +44,13 @@ $(document).ready(function () {
                         <div class="authors-box">${rowData.Autoren || "Keine Angabe"}</div>
                         <hr>
                         <strong>Studienart:</strong> ${rowData["Studiendesign/Studienart"] || "Keine Angabe"}<br>
+                        <hr>
                         <strong>Methodische Qualität:</strong> ${rowData["Methdische Qualität"] || "Keine Angabe"}<br>
+                        <hr>
                         <strong>Tumorentität:</strong> ${rowData["Tumor Entität"] || "Keine Angabe"}<br>
+                        <hr>
                         <strong>Präregistriert:</strong> ${rowData["Präregestriert"] || "Keine Angabe"}<br>
+                        <hr>
                         <strong>Metaanalyse:</strong> ${rowData.Metanalayse || "Keine Angabe"}
                     </div>
                 `;
