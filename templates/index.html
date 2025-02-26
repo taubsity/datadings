@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Studien-Datenbank</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css') }}"
+		/>
+	</head>
+	<body>
+		<div class="container mt-4">
+			<p>
+				Die Datenbank enthält eine Liste von Studien, die in der medizinischen
+				Literatur zitiert werden. Die Datenbank enthält Informationen zu den
+				Autoren, dem Titel, der Anzahl der Zitationen, dem Jahr, der
+				Oxford-Evidenz, dem Impact-Faktor und dem Journal.
+			</p>
+			<table id="csvTable" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Erstautor</th>
+						<th>Letztautor</th>
+						<th>Titel</th>
+						<th>Zitationen</th>
+						<th>Jahr</th>
+						<th>Oxford Evidenz</th>
+						<th>Impact-Faktor</th>
+						<th>Journal</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+		<script src="{{ url_for('static', filename='script.js') }}"></script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+/* Container aligned to the left */
+.container {
+	max-width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Ensure the table itself is left-aligned */
+#csvTable {
+	width: auto;
+	text-align: left;
+}
+
+/* Set a maximum width for all table columns and enable text wrapping */
+#csvTable tbody tr td {
+	max-width: 200px; /* Adjust max width as needed */
+	white-space: normal; /* Allows text wrapping */
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Expandable content aligned left */
+.expandable-content {
+	padding: 10px;
+	background-color: #f8f9fa;
+	border-left: 3px solid #007bff;
+	font-size: 14px;
+	text-align: left;
+
+	/* Ensure max width and align left */
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+
+	/* Ensure text wraps properly */
+	white-space: normal;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+/* Abstract and Authors should wrap inside the box */
+.abstract-box,
+.authors-box {
+	background-color: #ffffff;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+
+	/* Ensure text wraps inside */
+	white-space: normal;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+
+	/* Keep it inside the max-width */
+	max-width: 100%;
+}
+
+/* Align expandable content to the left under the first column */
+#csvTable tbody tr.child {
+	white-space: normal !important;
+	display: flex;
+	justify-content: flex-start; /* Align left */
+	padding-left: 20px; /* Optional: Add left padding for better readability */
+}
+
+p {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
