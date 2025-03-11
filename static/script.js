@@ -25,38 +25,36 @@ $(document).ready(function () {
             ]
         });
 
-        // Handle row expansion
+        // Handle modal popup for row details.
         $("#csvTable tbody").on("click", "button.expand-btn", function () {
             var tr = $(this).closest("tr");
             var row = table.row(tr);
+            var rowData = row.data();
 
-            if (row.child.isShown()) {
-                row.child.hide();
-                $(this).text("+");
-            } else {
-                var rowData = row.data();
-                var details = `
-                    <div class="expandable-content">
-                        <strong>Abstract:</strong>
-                        <div class="abstract-box">${rowData.Abstract || "Keine Angabe"}</div>
-                        <hr>
-                        <strong>Autoren:</strong>
-                        <div class="authors-box">${rowData.Autoren || "Keine Angabe"}</div>
-                        <hr>
-                        <strong>Studienart:</strong> ${rowData["Studiendesign/Studienart"] || "Keine Angabe"}<br>
-                        <hr>
-                        <strong>Methodische Qualität:</strong> ${rowData["Methdische Qualität"] || "Keine Angabe"}<br>
-                        <hr>
-                        <strong>Tumorentität:</strong> ${rowData["Tumor Entität"] || "Keine Angabe"}<br>
-                        <hr>
-                        <strong>Präregistriert:</strong> ${rowData["Präregestriert"] || "Keine Angabe"}<br>
-                        <hr>
-                        <strong>Metaanalyse:</strong> ${rowData.Metanalayse || "Keine Angabe"}
-                    </div>
-                `;
-                row.child(details).show();
-                $(this).text("-");
-            }
+            var details = `
+                <div class="expandable-content">
+                    <strong>Abstract:</strong>
+                    <div class="abstract-box">${rowData.Abstract || "Keine Angabe"}</div>
+                    <hr>
+                    <strong>Autoren:</strong>
+                    <div class="authors-box">${rowData.Autoren || "Keine Angabe"}</div>
+                    <hr>
+                    <strong>Studienart:</strong> ${rowData["Studiendesign/Studienart"] || "Keine Angabe"}<br>
+                    <hr>
+                    <strong>Methodische Qualität:</strong> ${rowData["Methdische Qualität"] || "Keine Angabe"}<br>
+                    <hr>
+                    <strong>Tumorentität:</strong> ${rowData["Tumor Entität"] || "Keine Angabe"}<br>
+                    <hr>
+                    <strong>Präregistriert:</strong> ${rowData["Präregestriert"] || "Keine Angabe"}<br>
+                    <hr>
+                    <strong>Metaanalyse:</strong> ${rowData.Metanalayse || "Keine Angabe"}
+                </div>
+            `;
+            $("#detailModal .modal-body").html(details);
+
+            // Show the modal using Bootstrap 5
+            var modal = new bootstrap.Modal(document.getElementById('detailModal'));
+            modal.show();
         });
     });
 });
