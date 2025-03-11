@@ -2,18 +2,12 @@ $(document).ready(function () {
     $.getJSON("/data", function (data) {
         var table = $("#csvTable").DataTable({
             data: data,
-            searching: false, // Deaktiviert die Suchleiste
-            ordering: false,  // Deaktiviert die Sortierung
-            paging: false, // Deaktiviert die Seitenzahlen (alle Zeilen anzeigen)
-            info: false, // Versteckt "Showing X of Y entries"
-            lengthChange: false, // Versteckt die "Show X entries"-Option
+            searching: false,       // Deaktiviert die Suchleiste
+            ordering: false,        // Deaktiviert die Sortierung
+            paging: false,          // Alle Zeilen anzeigen
+            info: false,            // Versteckt "Showing X of Y entries"
+            lengthChange: false,    // Versteckt die "Show X entries"-Option
             columns: [
-                { 
-                    data: null,
-                    className: "dt-center",
-                    defaultContent: '<button class="expand-btn btn btn-sm btn-primary">+</button>',
-                    orderable: false
-                },
                 { data: "First Author", title: "Erstautor", orderable: false },
                 { data: "Last Author", title: "Letztautor", orderable: false },
                 { data: "Title", title: "Titel", orderable: false },
@@ -25,10 +19,9 @@ $(document).ready(function () {
             ]
         });
 
-        // Handle modal popup for row details.
-        $("#csvTable tbody").on("click", "button.expand-btn", function () {
-            var tr = $(this).closest("tr");
-            var row = table.row(tr);
+        // Bind click event to entire table rows.
+        $("#csvTable tbody").on("click", "tr", function () {
+            var row = table.row(this);
             var rowData = row.data();
 
             var details = `
