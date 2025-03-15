@@ -13,7 +13,7 @@ $(document).ready(function () {
                 { data: "Title", title: "Titel", orderable: false },
                 { data: "Citation Count", title: "Zitationen", orderable: false },
                 { data: "Publikationsjahr", title: "Jahr", orderable: false },
-                { data: "Oxford Evidence Level", title: "Oxford Evidenz", orderable: false },
+                { data: "Oxford Evidence Level", title: "Oxford Evidenz (KI ✨)", orderable: false },
                 { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
                 { data: "Journal", title: "Journal", orderable: false }
             ]

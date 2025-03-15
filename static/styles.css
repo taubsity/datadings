@@ -16,6 +16,11 @@
     height: 60px; /* Adjust the height as needed */
 }
 
+/* Change cursor to pointer when hovering over table rows */
+#csvTable tbody tr:hover {
+    cursor: pointer;
+}
+
 /* Set a maximum width for all table columns and enable text wrapping */
 #csvTable tbody tr td {
 	max-width: 200px; /* Adjust max width as needed */
