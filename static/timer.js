@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     var timerElement = document.getElementById("timer");
 
+    // If the page was reloaded, remove the stored start time.
+    var navEntries = performance.getEntriesByType("navigation");
+    if (navEntries.length > 0 && navEntries[0].type === "reload") {
+        localStorage.removeItem("appStartTime");
+    }
+
     // Check if an app start time is already saved; if not, save the current time.
     var storedStartTime = localStorage.getItem("appStartTime");
     if (!storedStartTime) {
