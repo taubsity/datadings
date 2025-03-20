@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     var timerElement = document.getElementById("timer");
-    var startTime = Date.now();
+
+    // Check if an app start time is already saved; if not, save the current time.
+    var storedStartTime = localStorage.getItem("appStartTime");
+    if (!storedStartTime) {
+        storedStartTime = Date.now();
+        localStorage.setItem("appStartTime", storedStartTime);
+    }
+    var startTime = parseInt(storedStartTime, 10);
     var countdownTime = 4 * 60 * 1000; // 4 minutes in milliseconds
 
     function updateTimer() {
