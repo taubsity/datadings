@@ -21,27 +21,16 @@ $(document).ready(function () {
 
         // Bind click event to entire table rows.
         $("#csvTable tbody").on("click", "tr", function () {
-            var row = table.row(this);
-            var rowData = row.data();
-
-            var details = `
-                <div class="expandable-content">
-                    <strong>Abstract:</strong>
-                    <div class="abstract-box">${rowData.Abstract || "Keine Angabe"}</div>
-                    <strong>Autoren:</strong>
-                    <div class="authors-box">${rowData.Autoren || "Keine Angabe"}</div>
-                    <strong>Studienart:</strong> ${rowData["Studiendesign/Studienart"] || "Keine Angabe"}<br>
-                    <strong>Methodische Qualität:</strong> ${rowData["Methdische Qualität"] || "Keine Angabe"}<br>
-                    <strong>Tumorentität:</strong> ${rowData["Tumor Entität"] || "Keine Angabe"}<br>
-                    <strong>Präregistriert:</strong> ${rowData["Präregestriert"] || "Keine Angabe"}<br>
-                    <strong>Metaanalyse:</strong> ${rowData.Metanalayse || "Keine Angabe"}
-                </div>
-            `;
-            $("#detailModal .modal-body").html(details);
-
-            // Show the modal using Bootstrap 5
-            var modal = new bootstrap.Modal(document.getElementById('detailModal'));
-            modal.show();
+            var rowData = table.row(this).data();
+            var rowIndex = table.row(this).index();
+            window.location.href = "/detail/" + rowIndex;
         });
+
+        // Remove or comment out the following lines:
+        // $("#csvTable tbody").on("click", "tr", function () {
+        //     var row = table.row(this);
+        //     var rowData = row.data();
+        //     // ... code that shows the modal ...
+        // });
     });
 });

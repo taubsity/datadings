@@ -76,3 +76,38 @@ p {
 	margin-bottom: 20px;
 	margin-top: 20px;
 }
+
+/* Detail page specific styling */
+.detail-body {
+    background-color: #6c757d; /* Grey background for the entire page */
+}
+
+.detail-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	width: 100%;
+}
+
+.detail-card {
+    width: 80%;
+}
+
+/* Adjust paragraph styling within the detail card */
+.detail-card .card-body p {
+    margin: 0 0 0.1em 0.1em;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+/* Fixed column widths for the detail view table */
+.detail-table th {
+    width: 40%;
+    white-space: nowrap;
+}
+
+.detail-table td {
+    width: 60%;
+    word-wrap: break-word;
+}

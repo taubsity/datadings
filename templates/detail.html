@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <title>Studien-Datenbank Detail</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='styles.css') }}"
+    />
+</head>
+<body class="detail-body">
+    <div class="container detail-container">
+        <div class="card detail-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Detailansicht</h5>
+                <button type="button" class="btn-close" aria-label="Close" onclick="window.history.back()"></button>
+            </div>
+            <div class="card-body">
+                <p><strong>Abstract:</strong> {{ row.Abstract or "Keine Angabe" }}</p>
+                <p><strong>Autoren:</strong> {{ row.Autoren or "Keine Angabe" }}</p>
+                <p><strong>Citation Trend:</strong> {{ row.Citation_Trend or "Keine Angabe" }}</p>
+                <p><strong>Studiendesign/Studienart:</strong> {{ row.Studiendesign or "Keine Angabe" }}</p>
+                <p><strong>Methdische Qualität:</strong> {{ row.Methdische_Qualität or "Keine Angabe" }}</p>
+                <p><strong>Tumor Entität:</strong> {{ row.Tumor_Entität or "Keine Angabe" }}</p>
+                <p><strong>Präregestriert:</strong> {{ row.Präregestriert or "Keine Angabe" }}</p>
+                <p><strong>Metanalayse:</strong> {{ row.Metanalyse or "Keine Angabe" }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

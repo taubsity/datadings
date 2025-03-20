@@ -51,5 +51,13 @@ def get_data():
     return jsonify(data)
 
 
+@app.route("/detail/<int:row_id>")
+def detail(row_id):
+    data = load_data()  # from the load_data() function
+    if 0 <= row_id < len(data):
+        return render_template("detail.html", row=data[row_id])
+    return "Detail not found", 404
+
+
 if __name__ == "__main__":
     app.run(debug=True)
