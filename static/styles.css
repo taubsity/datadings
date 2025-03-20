@@ -101,7 +101,8 @@ p {
 
 /* Adjust paragraph styling within the detail card */
 .detail-card .card-body p {
-    margin: 0 0 0.1em 0.1em;
+	font-size: 18px;
+    margin: 0.2em;
     width: 100%;
     overflow-wrap: break-word;
 }

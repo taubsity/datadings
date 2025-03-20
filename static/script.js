@@ -8,14 +8,14 @@ $(document).ready(function () {
             info: false,            // Versteckt "Showing X of Y entries"
             lengthChange: false,    // Versteckt die "Show X entries"-Option
             columns: [
-                { data: "First Author", title: "Erstautor", orderable: false },
-                { data: "Last Author", title: "Letztautor", orderable: false },
-                { data: "Title", title: "Titel", orderable: false },
-                { data: "Citation Count", title: "Zitationen", orderable: false },
-                { data: "Publikationsjahr", title: "Jahr", orderable: false },
-                { data: "Oxford Evidence Level", title: "Oxford Evidenz (KI ✨)", orderable: false },
-                { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
-                { data: "Journal", title: "Journal", orderable: false }
+            { data: "First Author", title: "Erstautor", orderable: false },
+            { data: "Last Author", title: "Letztautor", orderable: false },
+            { data: "Title", title: "Titel", orderable: false },
+            { data: "Citation Count", title: "Zitationen", orderable: false },
+            { data: "Publikationsjahr", title: "Jahr", orderable: false },
+            { data: "Oxford Evidence Level", title: "Oxford Evidenz <br>(KI ✨)", orderable: false },
+            { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
+            { data: "Journal", title: "Journal", orderable: false }
             ]
         });
 
