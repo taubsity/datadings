@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_from_directory
 import pandas as pd
 
 app = Flask(__name__)
@@ -57,6 +57,11 @@ def detail(row_id):
     if 0 <= row_id < len(data):
         return render_template("detail.html", row=data[row_id])
     return "Detail not found", 404
+
+
+@app.route("/timer.js")
+def timer_js():
+    return send_from_directory("static", "timer.js")
 
 
 if __name__ == "__main__":

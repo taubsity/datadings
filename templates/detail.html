@@ -13,6 +13,7 @@
     />
 </head>
 <body class="detail-body">
+    <div id="timer">00:00:00</div>
     <div class="container detail-container">
         <div class="card detail-card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -31,5 +32,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='timer.js') }}"></script>
 </body>
 </html>

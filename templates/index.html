@@ -18,6 +18,7 @@
 		/>
 	</head>
 	<body>
+			<div id="timer">00:00:00</div>
 		<div class="container mt-4">
 			<p>
 				Die Datenbank enthält eine Liste von Studien, die in der medizinischen
@@ -60,5 +61,6 @@
 		<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 		<script src="{{ url_for('static', filename='script.js') }}"></script>
+		<script src="{{ url_for('static', filename='timer.js') }}"></script>
 	</body>
 </html>
