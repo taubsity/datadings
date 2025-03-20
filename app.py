@@ -48,6 +48,8 @@ def index():
 @app.route("/data")
 def get_data():
     data = load_data()
+    import random
+    random.shuffle(data)  # Shuffle rows on each page reload
     return jsonify(data)
 
 
