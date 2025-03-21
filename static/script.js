@@ -16,9 +16,9 @@ $(document).ready(function () {
                         // Use a unique radio group name per row
                         var groupName = "ranking_" + meta.row;
                         return '<div class="ranking-options">' +
-                               '<input type="radio" name="'+groupName+'" value="1"> ' +
-                               '<input type="radio" name="'+groupName+'" value="2"> ' +
-                               '<input type="radio" name="'+groupName+'" value="3">' +
+                               '<input type="radio" name="'+groupName+'" value="1" class="rank-radio" data-rank="1"> ' +
+                               '<input type="radio" name="'+groupName+'" value="2" class="rank-radio" data-rank="2"> ' +
+                               '<input type="radio" name="'+groupName+'" value="3" class="rank-radio" data-rank="3">' +
                                '</div>';
                     }
                 },
@@ -33,11 +33,33 @@ $(document).ready(function () {
             ]
         });
 
-        // Bind click event to entire table rows.
-        $("#csvTable tbody").on("click", "tr", function () {
-            var rowData = table.row(this).data();
-            var rowIndex = table.row(this).index();
-            window.location.href = "/detail/" + rowIndex;
+        // Track used ranks
+        var usedRanks = {};
+
+        // Handle radio button clicks
+        $("#csvTable").on("click", ".rank-radio", function(e) {
+            e.stopPropagation(); // Prevent row click event
+            
+            var selectedRank = $(this).data("rank");
+            var currentRadioName = $(this).attr("name");
+            
+            // If this rank is already used elsewhere, find and uncheck it
+            if (usedRanks[selectedRank] && usedRanks[selectedRank] !== currentRadioName) {
+                $(".rank-radio[data-rank='" + selectedRank + "']:checked").prop("checked", false);
+            }
+            
+            // Update the tracking of which radio group is using which rank
+            usedRanks[selectedRank] = currentRadioName;
+        });
+
+        // Bind click event to entire table rows (excluding the radio buttons).
+        $("#csvTable tbody").on("click", "tr", function(e) {
+            // Only navigate if the click wasn't on a radio button
+            if (!$(e.target).hasClass("rank-radio")) {
+                var rowData = table.row(this).data();
+                var rowIndex = table.row(this).index();
+                window.location.href = "/detail/" + rowIndex;
+            }
         });
     });
 });
