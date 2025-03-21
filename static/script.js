@@ -8,14 +8,28 @@ $(document).ready(function () {
             info: false,            // Versteckt "Showing X of Y entries"
             lengthChange: false,    // Versteckt die "Show X entries"-Option
             columns: [
-            { data: "First Author", title: "Erstautor", orderable: false },
-            { data: "Last Author", title: "Letztautor", orderable: false },
-            { data: "Title", title: "Titel", orderable: false },
-            { data: "Citation Count", title: "Zitationen", orderable: false },
-            { data: "Publikationsjahr", title: "Jahr", orderable: false },
-            { data: "Oxford Evidence Level", title: "Oxford Evidenz <br>(KI ✨)", orderable: false },
-            { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
-            { data: "Journal", title: "Journal", orderable: false }
+                { 
+                    data: null,
+                    title: "Ranking<br>1. 2. 3.",
+                    orderable: false,
+                    render: function(data, type, row, meta) {
+                        // Use a unique radio group name per row
+                        var groupName = "ranking_" + meta.row;
+                        return '<div class="ranking-options">' +
+                               '<input type="radio" name="'+groupName+'" value="1"> ' +
+                               '<input type="radio" name="'+groupName+'" value="2"> ' +
+                               '<input type="radio" name="'+groupName+'" value="3">' +
+                               '</div>';
+                    }
+                },
+                { data: "First Author", title: "Erstautor", orderable: false },
+                { data: "Last Author", title: "Letztautor", orderable: false },
+                { data: "Title", title: "Titel", orderable: false },
+                { data: "Citation Count", title: "Zitationen", orderable: false },
+                { data: "Publikationsjahr", title: "Jahr", orderable: false },
+                { data: "Oxford Evidence Level", title: "Oxford Evidenz <br>(KI ✨)", orderable: false },
+                { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
+                { data: "Journal", title: "Journal", orderable: false },
             ]
         });
 
@@ -25,12 +39,5 @@ $(document).ready(function () {
             var rowIndex = table.row(this).index();
             window.location.href = "/detail/" + rowIndex;
         });
-
-        // Remove or comment out the following lines:
-        // $("#csvTable tbody").on("click", "tr", function () {
-        //     var row = table.row(this);
-        //     var rowData = row.data();
-        //     // ... code that shows the modal ...
-        // });
     });
 });
