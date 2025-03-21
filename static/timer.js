@@ -20,6 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
         var elapsedTime = Date.now() - startTime;
         var remainingTime = countdownTime - elapsedTime;
 
+        // Change timer text color to red when there are 30 seconds or less left.
+        if (remainingTime <= 30000) {
+            timerElement.style.color = "red";
+        } else {
+            timerElement.style.color = "";
+        }
+
         if (remainingTime <= 0) {
             timerElement.textContent = "00:00:00";
             clearInterval(timerInterval);
