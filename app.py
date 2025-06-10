@@ -45,6 +45,11 @@ def index():
     return render_template("start.html")
 
 
+@app.route("/study")
+def study():
+    return render_template("index.html")
+
+
 @app.route("/data")
 def get_data():
     data = load_data()
