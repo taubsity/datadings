@@ -6,19 +6,31 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // If the page was reloaded, remove the stored start time.
-    var navEntries = performance.getEntriesByType("navigation");
-    if (navEntries.length > 0 && navEntries[0].type === "reload") {
-        localStorage.removeItem("studyStartTime");
+    // Check if timer should start (only if coming from start page)
+    var shouldStartTimer = sessionStorage.getItem("startTimer");
+    if (shouldStartTimer === "true") {
+        sessionStorage.removeItem("startTimer");
+        startStudyTimer();
     }
 
-    // Check if a study start time is already saved; if not, save the current time.
+    // Check if a study start time exists
     var storedStartTime = localStorage.getItem("studyStartTime");
-    if (!storedStartTime) {
-        storedStartTime = Date.now();
-        localStorage.setItem("studyStartTime", storedStartTime);
+    if (storedStartTime) {
+        startTimerDisplay(parseInt(storedStartTime, 10));
     }
-    var startTime = parseInt(storedStartTime, 10);
+});
+
+// Function to start the timer (called when study begins)
+function startStudyTimer() {
+    var startTime = Date.now();
+    localStorage.setItem("studyStartTime", startTime);
+    startTimerDisplay(startTime);
+}
+
+function startTimerDisplay(startTime) {
+    var timerElement = document.getElementById("timer");
+    if (!timerElement) return;
+    
     var countdownTime = 4 * 60 * 1000; // 4 minutes in milliseconds
 
     function updateTimer() {
@@ -48,9 +60,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var timerInterval = setInterval(updateTimer, 1000);
-});
-
-// Function to start the timer (called from script.js)
-function startStudyTimer() {
-    localStorage.setItem("studyStartTime", Date.now());
+    updateTimer(); // Call immediately to show initial time
 }

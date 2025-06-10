@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    // Start the timer when the study begins
-    startStudyTimer();
+    // Timer will be started by timer.js when coming from start page
     
     $.getJSON("/data", function (data) {
         var table = $("#csvTable").DataTable({

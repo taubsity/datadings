@@ -12,7 +12,12 @@
 	<body class="start-page-body">
 		<h1>Hello, welcome to the start page!</h1>
 
-		<form action="/study" method="POST" class="user-id-form">
+		<form
+			action="/study"
+			method="POST"
+			class="user-id-form"
+			onsubmit="prepareStudyStart()"
+		>
 			<label for="user_id">Please enter your User ID:</label>
 			<input
 				type="text"
@@ -23,5 +28,12 @@
 			/>
 			<button type="submit" class="start-button">Start Study</button>
 		</form>
+
+		<script>
+			function prepareStudyStart() {
+				// Set flag to start timer when study page loads
+				sessionStorage.setItem("startTimer", "true");
+			}
+		</script>
 	</body>
 </html>
