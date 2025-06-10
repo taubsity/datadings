@@ -9,9 +9,9 @@
 	--light-bg: #f8f9fa;
 	--border-color: #ddd;
 	--border-radius: 5px;
-	--spacing-sm: 4px;
-	--spacing-md: 8px;
-	--spacing-lg: 16px;
+	--spacing-sm: 8px;
+	--spacing-md: 15px;
+	--spacing-lg: 20px;
 	--font-size: 14px;
 	--font-family: Arial, sans-serif;
 	--transition: all 0.2s ease;
@@ -69,7 +69,7 @@ p {
 
 /* Buttons - unified styling */
 .btn {
-	padding: 10px var(--spacing-lg);
+	padding: 10px var(--spacing-md);
 	border: none;
 	border-radius: var(--border-radius);
 	cursor: pointer;
