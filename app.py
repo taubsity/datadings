@@ -1,7 +1,17 @@
-from flask import Flask, render_template, jsonify, send_from_directory
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    send_from_directory,
+    request,
+    session,
+    redirect,
+    url_for,
+)
 import pandas as pd
 
 app = Flask(__name__)
+app.secret_key = "your-secret-key-change-this"  # Add a secret key for sessions
 
 
 # Load CSV Data
@@ -45,15 +55,28 @@ def index():
     return render_template("start.html")
 
 
-@app.route("/study")
+@app.route("/study", methods=["GET", "POST"])
 def study():
-    return render_template("index.html")
+    if request.method == "POST":
+        user_id = request.form.get("user_id")
+        if user_id and user_id.strip():
+            session["user_id"] = user_id.strip()
+            return render_template("index.html")
+        else:
+            # Redirect back to start if no user ID provided
+            return redirect(url_for("index"))
+    else:
+        # If GET request, check if user_id exists in session
+        if "user_id" not in session:
+            return redirect(url_for("index"))
+        return render_template("index.html")
 
 
 @app.route("/data")
 def get_data():
     data = load_data()
     import random
+
     random.shuffle(data)  # Shuffle rows on each page reload
     return jsonify(data)
 

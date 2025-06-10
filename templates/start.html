@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body class="start-page-body">
-    <h1>Hello, welcome to the start page!</h1>
-    <a href="/study" class="start-button">Start Study</a>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Start Page</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css') }}"
+		/>
+	</head>
+	<body class="start-page-body">
+		<h1>Hello, welcome to the start page!</h1>
+
+		<form action="/study" method="POST" class="user-id-form">
+			<label for="user_id">Please enter your User ID:</label>
+			<input
+				type="text"
+				id="user_id"
+				name="user_id"
+				required
+				placeholder="Enter your ID"
+			/>
+			<button type="submit" class="start-button">Start Study</button>
+		</form>
+	</body>
 </html>

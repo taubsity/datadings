@@ -13,12 +13,12 @@
 
 /* Set a fixed height for all table rows */
 #csvTable tbody tr {
-    height: 60px; /* Adjust the height as needed */
+	height: 60px; /* Adjust the height as needed */
 }
 
 /* Change cursor to pointer when hovering over table rows */
 #csvTable tbody tr:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 /* Set a maximum width for all table columns and enable text wrapping */
@@ -84,79 +84,107 @@ p {
 
 /* Detail page specific styling */
 .detail-body {
-    background-color: #6c757d; /* Grey background for the entire page */
+	background-color: #6c757d; /* Grey background for the entire page */
 }
 
 .detail-container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 }
 
 .detail-card {
-    width: 80%;
+	width: 80%;
 }
 
 /* Adjust paragraph styling within the detail card */
 .detail-card .card-body p {
 	font-size: 18px;
-    margin: 0.2em;
-    width: 100%;
-    overflow-wrap: break-word;
+	margin: 0.2em;
+	width: 100%;
+	overflow-wrap: break-word;
 }
 
 /* Fixed column widths for the detail view table */
 .detail-table th {
-    width: 40%;
-    white-space: nowrap;
+	width: 40%;
+	white-space: nowrap;
 }
 
 .detail-table td {
-    width: 60%;
-    word-wrap: break-word;
+	width: 60%;
+	word-wrap: break-word;
 }
 
 /* Timer display styling */
 #timer {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    z-index: 1000;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background-color: #ffffff;
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 16px;
+	z-index: 1000;
 }
 
 /* Start page styling */
 .start-page-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	font-family: Arial, sans-serif;
 }
 
 .start-button {
-    margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+	margin-top: 20px;
+	padding: 15px 30px;
+	font-size: 18px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
 }
 
 .start-button:hover {
-    background-color: #0056b3;
-    color: white;
-    text-decoration: none;
+	background-color: #0056b3;
+	color: white;
+	text-decoration: none;
+}
+
+/* User ID form styling */
+.user-id-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+	margin-top: 20px;
+}
+
+.user-id-form label {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.user-id-form input[type="text"] {
+	padding: 10px 15px;
+	font-size: 16px;
+	border: 2px solid #ddd;
+	border-radius: 5px;
+	width: 250px;
+	text-align: center;
+}
+
+.user-id-form input[type="text"]:focus {
+	outline: none;
+	border-color: #007bff;
 }
