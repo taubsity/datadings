@@ -130,3 +130,33 @@ p {
     font-size: 16px;
     z-index: 1000;
 }
+
+/* Start page styling */
+.start-page-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.start-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.start-button:hover {
+    background-color: #0056b3;
+    color: white;
+    text-decoration: none;
+}
