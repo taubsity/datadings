@@ -3,35 +3,46 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Start Page</title>
+		<title>Study Application</title>
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='styles.css') }}"
 		/>
 	</head>
-	<body class="start-page-body">
-		<h1>Hello, welcome to the start page!</h1>
+	<body class="start-page flex-center full-height">
+		<div class="card">
+			<div class="card-body text-center">
+				<h1 class="mb-2">Welcome to the Study</h1>
+				<p class="mb-3">
+					Please enter your User ID to begin the research study.
+				</p>
 
-		<form
-			action="/study"
-			method="POST"
-			class="user-id-form"
-			onsubmit="prepareStudyStart()"
-		>
-			<label for="user_id">Please enter your User ID:</label>
-			<input
-				type="text"
-				id="user_id"
-				name="user_id"
-				required
-				placeholder="Enter your ID"
-			/>
-			<button type="submit" class="start-button">Start Study</button>
-		</form>
+				<form
+					action="/study"
+					method="POST"
+					onsubmit="prepareStudyStart()"
+				>
+					<div class="form-group">
+						<label for="user_id" class="form-label">User ID</label>
+						<input
+							type="text"
+							id="user_id"
+							name="user_id"
+							class="form-input"
+							required
+							placeholder="Enter your ID"
+							style="width: 250px; margin: 0 auto;"
+						/>
+					</div>
+					<button type="submit" class="btn btn-primary mt-2">
+						Start Study
+					</button>
+				</form>
+			</div>
+		</div>
 
 		<script>
 			function prepareStudyStart() {
-				// Set flag to start timer when study page loads
 				sessionStorage.setItem("startTimer", "true");
 			}
 		</script>

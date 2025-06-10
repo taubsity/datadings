@@ -1,90 +1,266 @@
-/* Container aligned to the left */
+/* CSS Custom Properties for consistent theming */
+:root {
+	--primary-color: #007bff;
+	--primary-hover: #0056b3;
+	--secondary-color: #6c757d;
+	--success-color: #28a745;
+	--danger-color: #dc3545;
+	--warning-color: #ffc107;
+	--light-bg: #f8f9fa;
+	--border-color: #ddd;
+	--border-radius: 5px;
+	--spacing-sm: 4px;
+	--spacing-md: 8px;
+	--spacing-lg: 16px;
+	--font-size: 14px;
+	--font-family: Arial, sans-serif;
+	--transition: all 0.2s ease;
+}
+
+/* Global reset and base styles */
+* {
+	font-size: var(--font-size);
+	font-family: var(--font-family);
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	line-height: 1.5;
+	padding-bottom: 70px; /* Space for footer */
+}
+
+/* Layout utilities */
 .container {
 	max-width: 90%;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 auto;
+	padding: var(--spacing-md);
 }
 
-/* Ensure the table itself is left-aligned */
-#csvTable {
-	width: auto;
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.full-height {
+	min-height: 100vh;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 var(--spacing-md) 0;
+	font-weight: 600;
+}
+
+p {
+	margin: var(--spacing-md) 0;
+	line-height: 1.6;
+}
+
+/* Buttons - unified styling */
+.btn {
+	padding: 10px var(--spacing-lg);
+	border: none;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	transition: var(--transition);
+	font-weight: 500;
+}
+
+.btn-primary {
+	background-color: var(--primary-color);
+	color: white;
+}
+
+.btn-primary:hover {
+	background-color: var(--primary-hover);
+	color: white;
+	text-decoration: none;
+}
+
+.btn-close {
+	background: none;
+	border: none;
+	font-size: 1.2em;
+	cursor: pointer;
+	padding: var(--spacing-sm);
+}
+
+/* Close button for detail view */
+.btn-close-detail {
+	background-color: var(--primary-color);
+	color: white;
+	border: none;
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	transition: var(--transition);
+	font-weight: 500;
+}
+
+.btn-close-detail:hover {
+	background-color: var(--primary-hover);
+	color: white;
+}
+
+/* Form elements */
+.form-group {
+	margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+	font-weight: 600;
+	margin-bottom: var(--spacing-sm);
+	display: block;
+}
+
+.form-input {
+	width: 100%;
+	padding: 10px var(--spacing-md);
+	border: 2px solid var(--border-color);
+	border-radius: var(--border-radius);
+	transition: var(--transition);
+}
+
+.form-input:focus {
+	outline: none;
+	border-color: var(--primary-color);
+}
+
+/* Cards */
+.card {
+	background: white;
+	border: 1px solid var(--border-color);
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+	background-color: var(--light-bg);
+	padding: var(--spacing-md);
+	border-bottom: 1px solid var(--border-color);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.card-body {
+	padding: var(--spacing-md);
+}
+
+/* Table styling */
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: var(--spacing-lg);
+	table-layout: fixed; /* Forces consistent column widths */
+}
+
+.table th,
+.table td {
+	padding: 12px var(--spacing-sm);
 	text-align: left;
+	border-bottom: 1px solid var(--border-color);
+	vertical-align: top;
+	height: 60px; /* Fixed height for all cells */
+	overflow: hidden; /* Prevent content from expanding cell */
 }
 
-/* Set a fixed height for all table rows */
-#csvTable tbody tr {
-	height: 60px; /* Adjust the height as needed */
+.table th {
+	background-color: var(--light-bg);
+	font-weight: 600;
+	position: sticky;
+	top: 0;
 }
 
-/* Change cursor to pointer when hovering over table rows */
-#csvTable tbody tr:hover {
+.table tbody tr {
+	transition: var(--transition);
+	height: 60px; /* Fixed row height */
+}
+
+.table tbody tr:hover {
+	background-color: var(--primary-hover);
 	cursor: pointer;
 }
 
-/* Set a maximum width for all table columns and enable text wrapping */
-#csvTable tbody tr td {
-	max-width: 200px; /* Adjust max width as needed */
-	white-space: normal; /* Allows text wrapping */
+.table tbody tr td {
+	max-width: 200px;
+	white-space: normal;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	height: 60px; /* Ensure consistent height */
+	box-sizing: border-box; /* Include padding in height calculation */
 }
 
-/* Expandable content aligned left */
-.expandable-content {
-	padding: 10px;
-	background-color: #f8f9fa;
-	font-size: 14px;
-	text-align: left;
-
-	/* Ensure max width and align left */
-	max-width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-
-	/* Ensure text wraps properly */
-	white-space: normal;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-}
-
-/* Abstract and Authors should wrap inside the box */
-.abstract-box,
-.authors-box {
-	background-color: #ffffff;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-
-	/* Ensure text wraps inside */
-	white-space: normal;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-
-	/* Keep it inside the max-width */
-	max-width: 100%;
-}
-
-/* Align expandable content to the left under the first column */
-#csvTable tbody tr.child {
-	white-space: normal !important;
+/* Ranking radio buttons */
+.ranking-options {
 	display: flex;
-	justify-content: flex-start; /* Align left */
-	padding-left: 20px; /* Optional: Add left padding for better readability */
+	gap: var(--spacing-sm);
+	align-items: center;
 }
 
-p {
-	width: 70%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 20px;
-	margin-top: 20px;
+.rank-radio {
+	margin: 0 2px;
+	cursor: pointer;
 }
 
-/* Detail page specific styling */
+.timer {
+	border-radius: var(--border-radius);
+	font-weight: 600;
+	border: none;
+}
+
+/* Footer component */
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: white;
+	border-top: 1px solid var(--border-color);
+	padding: var(--spacing-sm) var(--spacing-sm);
+	z-index: 1000;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 30px;
+}
+
+/* Page-specific layouts */
+.start-page {
+	background: linear-gradient(
+		135deg,
+		var(--primary-color) 0%,
+		var(--primary-hover) 100%
+	);
+	color: white;
+	text-align: center;
+}
+
+.start-page .card {
+	background: var(--light-bg);
+	color: var(--secondary-color);
+	max-width: 400px;
+	margin: 0 auto;
+}
+
 .detail-body {
-	background-color: #6c757d; /* Grey background for the entire page */
+	background-color: var(--secondary-color);
 }
 
 .detail-container {
@@ -97,20 +273,13 @@ p {
 
 .detail-card {
 	width: 80%;
+	max-width: 1000px;
 }
 
-/* Adjust paragraph styling within the detail card */
-.detail-card .card-body p {
-	font-size: 18px;
-	margin: 0.2em;
-	width: 100%;
-	overflow-wrap: break-word;
-}
-
-/* Fixed column widths for the detail view table */
 .detail-table th {
 	width: 40%;
 	white-space: nowrap;
+	background-color: var(--light-bg);
 }
 
 .detail-table td {
@@ -118,73 +287,91 @@ p {
 	word-wrap: break-word;
 }
 
-/* Timer display styling */
-#timer {
-	position: fixed;
-	top: 10px;
-	right: 10px;
-	background-color: #ffffff;
-	border: 1px solid #ddd;
-	padding: 5px 10px;
-	border-radius: 5px;
-	font-size: 16px;
-	z-index: 1000;
+/* Expandable content */
+.expandable-content {
+	padding: var(--spacing-md);
+	background-color: var(--light-bg);
+	border-left: 4px solid var(--primary-color);
+	margin: var(--spacing-sm) 0;
 }
 
-/* Start page styling */
-.start-page-body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
-	font-family: Arial, sans-serif;
+.content-box {
+	background: white;
+	padding: var(--spacing-md);
+	border: 1px solid var(--border-color);
+	border-radius: var(--border-radius);
+	margin: var(--spacing-sm) 0;
 }
 
-.start-button {
-	margin-top: 20px;
-	padding: 15px 30px;
-	font-size: 18px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	text-decoration: none;
-	display: inline-block;
+/* Responsive design */
+@media (max-width: 768px) {
+	.container {
+		max-width: 95%;
+		padding: var(--spacing-sm);
+	}
+
+	.table th,
+	.table td {
+		padding: var(--spacing-sm);
+		max-width: 150px;
+	}
+
+	.detail-card {
+		width: 95%;
+	}
+
+	.footer {
+		padding: var(--spacing-sm);
+		height: 45px;
+	}
+
+	.timer {
+		font-size: 12px;
+		padding: 6px var(--spacing-sm);
+	}
+
+	body {
+		padding-bottom: 65px; /* Adjust for smaller footer on mobile */
+	}
 }
 
-.start-button:hover {
-	background-color: #0056b3;
-	color: white;
-	text-decoration: none;
-}
-
-/* User ID form styling */
-.user-id-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 15px;
-	margin-top: 20px;
-}
-
-.user-id-form label {
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.user-id-form input[type="text"] {
-	padding: 10px 15px;
-	font-size: 16px;
-	border: 2px solid #ddd;
-	border-radius: 5px;
-	width: 250px;
+/* Utility classes */
+.text-center {
 	text-align: center;
 }
-
-.user-id-form input[type="text"]:focus {
-	outline: none;
-	border-color: #007bff;
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.mb-0 {
+	margin-bottom: 0;
+}
+.mb-1 {
+	margin-bottom: var(--spacing-sm);
+}
+.mb-2 {
+	margin-bottom: var(--spacing-md);
+}
+.mb-3 {
+	margin-bottom: var(--spacing-lg);
+}
+.mt-1 {
+	margin-top: var(--spacing-sm);
+}
+.mt-2 {
+	margin-top: var(--spacing-md);
+}
+.mt-3 {
+	margin-top: var(--spacing-lg);
+}
+.d-flex {
+	display: flex;
+}
+.justify-between {
+	justify-content: space-between;
+}
+.align-center {
+	align-items: center;
 }

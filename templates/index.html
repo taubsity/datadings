@@ -18,38 +18,65 @@
 		/>
 	</head>
 	<body>
-			<div id="timer">00:00:00</div>
-		<div class="container mt-4">
-			<p>
-				Die Datenbank enthält eine Liste von Studien, die in der medizinischen
-				Literatur zitiert werden. Die Datenbank enthält Informationen zu den
-				Autoren, dem Titel, der Anzahl der Zitationen, dem Jahr, der
-				Oxford-Evidenz, dem Impact-Faktor und dem Journal.
-			</p>
-			<table id="csvTable" class="table table-bordered table-hover">
-				<thead>
-					<tr>
-							<th>Ranking</th>
-							<th>Erstautor</th>
-							<th>Letztautor</th>
-							<th>Titel</th>
-							<th>Zitationen</th>
-							<th>Jahr</th>
-							<th>Oxford Evidenz</th>
-							<th>Impact-Faktor</th>
-							<th>Journal</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
+		<div class="container">
+			<div class="card mb-3">
+				<div class="card-body">
+					<p class="mb-0">
+						Die Datenbank enthält eine Liste von Studien aus der medizinischen
+						Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
+						Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
+						Impact-Faktor und dem Journal.<br />Sie die Studien nach ihrer
+						Relevanz (1 = höchste Priorität, 3 = niedrigste Priorität).<br />Klicken
+						Sie auf eine Zeile für weitere Details.
+					</p>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<table id="csvTable" class="table">
+						<thead>
+							<tr>
+								<th>Ranking</th>
+								<th>Erstautor</th>
+								<th>Letztautor</th>
+								<th>Titel</th>
+								<th>Zitationen</th>
+								<th>Jahr</th>
+								<th>Oxford Evidenz</th>
+								<th>Impact-Faktor</th>
+								<th>Journal</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer with timer -->
+		<div class="footer">
+			<div id="timer" class="timer">00:00:00</div>
 		</div>
 
 		<!-- Modal for detail view -->
-		<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Changed from modal-lg to modal-xl -->
+		<div
+			class="modal fade"
+			id="detailModal"
+			tabindex="-1"
+			aria-labelledby="detailModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-xl">
+				<!-- Changed from modal-lg to modal-xl -->
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
 					</div>
 					<div class="modal-body">
 						<!-- Modal content will be injected dynamically -->

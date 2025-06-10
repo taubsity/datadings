@@ -13,12 +13,13 @@
     />
 </head>
 <body class="detail-body">
-    <div id="timer">00:00:00</div>
     <div class="container detail-container">
         <div class="card detail-card">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header">
                 <h5 class="mb-0">Detailansicht</h5>
-                <button type="button" class="btn-close" aria-label="Close" onclick="window.history.back()"></button>
+                <button type="button" class="btn btn-close-detail" onclick="window.history.back()" aria-label="Schließen">
+                    ✕ Schließen
+                </button>
             </div>
             <div class="card-body">
                 <p><strong>Abstract:</strong> {{ row.Abstract or "Keine Angabe" }}</p>
@@ -32,6 +33,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer with timer -->
+    <div class="footer">
+        <div id="timer" class="timer">00:00:00</div>
+    </div>
+
     <script src="{{ url_for('static', filename='timer.js') }}"></script>
 </body>
 </html>
