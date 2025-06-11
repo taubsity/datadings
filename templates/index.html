@@ -17,111 +17,104 @@
 			href="{{ url_for('static', filename='styles.css') }}"
 		/>
 	</head>
-	<body>
-		<div class="container flex-center flex-column full-height">
-			<div class="card mb-3">
-				<div class="card-body">
-					<p class="mb-0">
-						Die Datenbank enthält eine Liste von Studien aus der medizinischen
-						Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
-						Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
-						Impact-Faktor und dem Journal.
-					</p>
-				</div>
+	<body class="flex-center flex-column">
+		<div class="card fixed-width-card">
+			<div class="card-body">
+				<p>
+					Die Datenbank enthält eine Liste von Studien aus der medizinischen
+					Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
+					Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
+					Impact-Faktor und dem Journal.
+				</p>
 			</div>
+		</div>
 
-			<!-- Confirmation Section - Always visible with fixed size -->
-			<div class="card mb-3 confirmation-card" id="confirmationSection">
-				<div class="card-header">
-					<h5 class="mb-0">Ihre Auswahl bestätigen</h5>
-				</div>
-				<div class="card-body">
-					<h6>Ihre Top 3 Studien:</h6>
-					<div class="selection-list">
-						<div class="selection-item mb-2" id="rank1">
-							<strong>1. Rang:</strong> <span class="study-placeholder">Bitte wählen Sie eine Studie aus</span>
-						</div>
-						<div class="selection-item mb-2" id="rank2">
-							<strong>2. Rang:</strong> <span class="study-placeholder">Bitte wählen Sie eine Studie aus</span>
-						</div>
-						<div class="selection-item mb-2" id="rank3">
-							<strong>3. Rang:</strong> <span class="study-placeholder">Bitte wählen Sie eine Studie aus</span>
-						</div>
-					</div>
-					<div class="status-message mt-2">
-						<small class="text-muted" id="statusText">Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden Ranking-Buttons (1, 2, 3) klicken.</small>
-					</div>
-					<div class="mt-3">
-						<button type="button" class="btn btn-secondary" id="confirmBtn" disabled>
-							Auswahl bestätigen
-						</button>
-						<small class="text-muted ms-2" id="buttonHelpText">Wählen Sie erst alle 3 Ränge aus</small>
-					</div>
-				</div>
+		<div class="card fixed-width-card">
+			<div class="card-body">
+				<table id="csvTable" class="table">
+					<thead>
+						<tr>
+							<th>Ranking</th>
+							<th>Erstautor</th>
+							<th>Letztautor</th>
+							<th>Titel</th>
+							<th>Zitationen</th>
+							<th>Jahr</th>
+							<th>Oxford Evidenz</th>
+							<th>Impact-Faktor</th>
+							<th>Journal</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
+		</div>
 
-			<!-- Confirmed Section -->
-			<div class="card mb-3" id="confirmedSection" style="display: none;">
-				<div class="card-header bg-success text-white">
-					<h5 class="mb-0">✓ Auswahl bestätigt</h5>
-				</div>
-				<div class="card-body">
-					<p class="text-success">Ihre Ranking-Auswahl wurde erfolgreich bestätigt und kann nicht mehr geändert werden.</p>
-					<div id="finalSummary"></div>
-				</div>
+		<div class="card fixed-width-card" id="confirmationSection">
+			<div class="card-header">
+				<h5>Ihre Auswahl bestätigen</h5>
 			</div>
-
-			<div class="card">
-				<div class="card-body">
-					<table id="csvTable" class="table">
-						<thead>
-							<tr>
-								<th>Ranking</th>
-								<th>Erstautor</th>
-								<th>Letztautor</th>
-								<th>Titel</th>
-								<th>Zitationen</th>
-								<th>Jahr</th>
-								<th>Oxford Evidenz</th>
-								<th>Impact-Faktor</th>
-								<th>Journal</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+			<div class="card-body">
+				<h6>Ihre Top 3 Studien:</h6>
+				<div class="selection-list">
+					<div class="selection-item" id="rank1">
+						<strong>1. Rang:</strong>
+						<span class="study-placeholder"
+							>Bitte wählen Sie eine Studie aus</span
+						>
+					</div>
+					<div class="selection-item" id="rank2">
+						<strong>2. Rang:</strong>
+						<span class="study-placeholder"
+							>Bitte wählen Sie eine Studie aus</span
+						>
+					</div>
+					<div class="selection-item" id="rank3">
+						<strong>3. Rang:</strong>
+						<span class="study-placeholder"
+							>Bitte wählen Sie eine Studie aus</span
+						>
+					</div>
+				</div>
+				<div class="status-message">
+					<small class="text-muted" id="statusText"
+						>Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden
+						Ranking-Buttons (1, 2, 3) klicken.</small
+					>
+				</div>
+				<div>
+					<button
+						type="button"
+						class="btn btn-secondary"
+						id="confirmBtn"
+						disabled
+					>
+						Auswahl bestätigen
+					</button>
 				</div>
 			</div>
 		</div>
 
+		<!-- Confirmed Section -->
+		<div
+			class="card fixed-width-card"
+			id="confirmedSection"
+			style="display: none"
+		>
+			<div class="card-header bg-success text-white">
+				<h5>✓ Auswahl bestätigt</h5>
+			</div>
+			<div class="card-body">
+				<p class="text-success">
+					Ihre Ranking-Auswahl wurde erfolgreich bestätigt und kann nicht mehr
+					geändert werden.
+				</p>
+				<div id="finalSummary"></div>
+			</div>
+		</div>
 		<!-- Footer with timer -->
 		<div class="footer">
 			<div id="timer" class="timer">00:00:00</div>
-		</div>
-
-		<!-- Modal for detail view -->
-		<div
-			class="modal fade"
-			id="detailModal"
-			tabindex="-1"
-			aria-labelledby="detailModalLabel"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog modal-dialog-centered modal-xl">
-				<!-- Changed from modal-lg to modal-xl -->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-					<div class="modal-body">
-						<!-- Modal content will be injected dynamically -->
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

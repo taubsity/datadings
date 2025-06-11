@@ -9,34 +9,22 @@
 			href="{{ url_for('static', filename='styles.css') }}"
 		/>
 	</head>
-	<body class="start-page flex-center full-height">
+	<body class="start-page flex-center">
 		<div class="card">
-			<div class="card-body text-center">
-				<h1 class="mb-2">Welcome to the Study</h1>
-				<p class="mb-3">
-					Please enter your User ID to begin the research study.
-				</p>
+			<div class="card-body">
+				<h1>Welcome to the Study</h1>
+				<p>Please enter your User ID to begin the research study.</p>
 
-				<form
-					action="/study"
-					method="POST"
-					onsubmit="prepareStudyStart()"
-				>
-					<div class="form-group">
-						<label for="user_id" class="form-label">User ID</label>
-						<input
-							type="text"
-							id="user_id"
-							name="user_id"
-							class="form-input"
-							required
-							placeholder="Enter your ID"
-							style="width: 250px; margin: 0 auto;"
-						/>
-					</div>
-					<button type="submit" class="btn btn-primary mt-2">
-						Start Study
-					</button>
+				<form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
+					<input
+						type="text"
+						id="user_id"
+						name="user_id"
+						class="form-input"
+						required
+						placeholder="Enter your ID"
+					/>
+					<button type="submit" class="btn btn-primary">Start Study</button>
 				</form>
 			</div>
 		</div>

@@ -13,7 +13,6 @@ $(document).ready(function () {
         CSV_TABLE: "#csvTable",
         CONFIRM_BTN: "#confirmBtn",
         STATUS_TEXT: "#statusText",
-        BUTTON_HELP_TEXT: "#buttonHelpText",
         CONFIRMATION_SECTION: "#confirmationSection",
         CONFIRMED_SECTION: "#confirmedSection",
         FINAL_SUMMARY: "#finalSummary"
@@ -39,7 +38,6 @@ $(document).ready(function () {
     // Cache frequently used jQuery objects
     const $confirmBtn = $(SELECTORS.CONFIRM_BTN);
     const $statusText = $(SELECTORS.STATUS_TEXT);
-    const $buttonHelpText = $(SELECTORS.BUTTON_HELP_TEXT);
     const $confirmationSection = $(SELECTORS.CONFIRMATION_SECTION);
     const $confirmedSection = $(SELECTORS.CONFIRMED_SECTION);
     const $finalSummary = $(SELECTORS.FINAL_SUMMARY);
@@ -105,9 +103,7 @@ $(document).ready(function () {
             .prop("disabled", !allRanksSelected)
             .toggleClass("btn-success", allRanksSelected)
             .toggleClass("btn-secondary", !allRanksSelected);
-        
-        $buttonHelpText.toggle(!allRanksSelected);
-        
+                
         // Update status message and rank displays
         updateStatusMessage(selectedRanks);
         
@@ -171,7 +167,7 @@ $(document).ready(function () {
             const study = findStudyByKey(studyKey);
             if (study) {
                 summaryHtml += `
-                    <div class="mb-2">
+                    <div>
                         <strong>${rank}. Rang:</strong> ${study['First Author']} - ${study['Title']}
                     </div>`;
             }
@@ -212,7 +208,7 @@ $(document).ready(function () {
         return [
             {
                 data: null,
-                title: "Ranking<br>1. 2. 3.",
+                title: "Ranking<br/>1. 2. 3.",
                 orderable: false,
                 render: renderRankingColumn
             },
@@ -221,7 +217,7 @@ $(document).ready(function () {
             { data: "Title", title: "Titel", orderable: false },
             { data: "Citation Count", title: "Zitationen", orderable: false },
             { data: "Publikationsjahr", title: "Jahr", orderable: false },
-            { data: "Oxford Evidence Level", title: "Oxford Evidenz <br>(KI ✨)", orderable: false },
+            { data: "Oxford Evidence Level", title: "KI✨<br/>Oxford Evidenz", orderable: false },
             { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
             { data: "Journal", title: "Journal", orderable: false }
         ];
