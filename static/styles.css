@@ -19,7 +19,6 @@
 
 /* Global reset and base styles */
 * {
-	font-size: var(--font-size);
 	font-family: var(--font-family);
 	box-sizing: border-box;
 }
@@ -51,20 +50,9 @@ body {
 	min-height: 100vh;
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 var(--spacing-md) 0;
-	font-weight: 600;
-}
-
 p {
 	margin: var(--spacing-md) 0;
-	line-height: 1.6;
+	line-height: 1.25;
 }
 
 /* Buttons - unified styling */
