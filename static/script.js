@@ -218,7 +218,7 @@ $(document).ready(function () {
             { data: "Citation Count", title: "Zitationen", orderable: false },
             { data: "Publikationsjahr", title: "Jahr", orderable: false },
             { data: "Oxford Evidence Level", title: "KI✨<br/>Oxford Evidenz", orderable: false },
-            { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
+            { data: "Impact Factor", title: "IF", orderable: false },
             { data: "Journal", title: "Journal", orderable: false }
         ];
     }

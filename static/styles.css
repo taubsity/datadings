@@ -19,6 +19,7 @@
 /* Global reset and base styles */
 * {
 	font-family: var(--font-family);
+	font-size: 14px;
 }
 
 html,
@@ -75,7 +76,7 @@ h5 {
 }
 
 .fixed-width-card {
-	width: 1300px;
+	width: 1600px;
 }
 
 .card-header {
@@ -145,6 +146,49 @@ h5 {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	table-layout: fixed;
+}
+
+.table td {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: var(--spacing-sm);
+}
+
+.table td {
+	height: 40px;
+	vertical-align: middle;
+}
+
+/* row numbers
+1 Rank
+2 First Author
+3 last Author
+4 Title
+5 citation
+6 Year
+7 oxford
+8 if
+9 journal
+*/
+
+.table th:nth-child(2), /* First Author column */
+.table td:nth-child(2) {
+	width: 6%;
+}
+.table th:nth-child(3), /* Last Author column */
+.table td:nth-child(3) {
+	width: 6%;
+}
+
+.table th:nth-child(4), /* Title column */
+.table td:nth-child(4) {
+	width: 50%;
+}
+
+.table th:nth-child(9), /* Journal column */
+.table td:nth-child(9) {
+	width: 8%;
 }
 
 /* Footer component */
