@@ -36,6 +36,7 @@ h5 {
 	padding: 0;
 }
 
+/* Utility classes */
 .flex-center {
 	display: flex;
 	justify-content: center;
@@ -46,6 +47,23 @@ h5 {
 	flex-direction: column;
 }
 
+.text-muted {
+	color: var(--secondary-color) !important;
+}
+
+.text-success {
+	color: var(--success-color) !important;
+}
+
+.text-white {
+	color: white !important;
+}
+
+.bg-success {
+	background-color: var(--success-color) !important;
+}
+
+/* Component styles */
 .card {
 	height: auto;
 	background: white;
@@ -74,6 +92,7 @@ h5 {
 	padding: var(--spacing-md);
 }
 
+/* Button styles */
 .btn {
 	padding: 10px var(--spacing-md);
 	border: none;
@@ -104,6 +123,7 @@ h5 {
 	color: white;
 }
 
+/* Form styles */
 .form {
 	margin-top: var(--spacing-md);
 }
@@ -118,6 +138,13 @@ h5 {
 .form-input:focus {
 	outline: none;
 	border-color: var(--primary-color);
+}
+
+/* Table styles */
+.table {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 
 /* Footer component */
@@ -135,6 +162,12 @@ h5 {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+}
+
+/* Timer styling */
+.timer {
+	font-weight: 600;
+	margin-right: var(--spacing-md);
 }
 
 /* Page-specific layouts */
@@ -165,6 +198,7 @@ h5 {
 	align-items: center;
 }
 
+/* Selection components */
 .selection-list {
 	overflow: hidden;
 }
@@ -185,33 +219,4 @@ h5 {
 	margin-top: var(--spacing-sm);
 	margin-bottom: var(--spacing-sm);
 	overflow: hidden;
-}
-
-/* Table styles */
-.table {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-}
-
-/* Timer styling */
-.timer {
-	font-weight: 600;
-	margin-right: var(--spacing-md);
-}
-
-.text-muted {
-	color: var(--secondary-color) !important;
-}
-
-.text-success {
-	color: var(--success-color) !important;
-}
-
-.text-white {
-	color: white !important;
-}
-
-.bg-success {
-	background-color: var(--success-color) !important;
 }
