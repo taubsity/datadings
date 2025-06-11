@@ -296,6 +296,110 @@ p {
 	margin: var(--spacing-sm) 0;
 }
 
+/* Confirmation section styles */
+.confirmed-selection {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-md);
+}
+
+.ranking-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.rank-radio:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.table tbody tr.disabled-row {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.table tbody tr.disabled-row:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: inherit;
+}
+
+/* Success alert styling */
+.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+.text-success {
+    color: var(--success-color) !important;
+}
+
+/* Confirmation card fixed sizing */
+.confirmation-card {
+    min-height: 220px; /* Fixed minimum height */
+}
+
+.confirmation-card .card-body {
+    min-height: 160px; /* Fixed content area height */
+}
+
+.selection-list {
+    min-height: 72px; /* Space for exactly 3 lines */
+}
+
+.selection-item {
+    height: 24px; /* Fixed height per item */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.study-placeholder {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+.status-message {
+    height: 20px; /* Fixed height for status message */
+    overflow: hidden;
+}
+
+.button-section {
+    height: 40px; /* Fixed height for button area */
+    display: flex;
+    align-items: center;
+}
+
+/* Button disabled styling */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+/* Text styling for incomplete selections */
+.text-muted {
+    color: var(--secondary-color) !important;
+}
+
+.text-warning {
+    color: var(--warning-color) !important;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
 	.container {

@@ -166,6 +166,27 @@ def get_rankings():
     return jsonify(user_sessions[session_id]["rankings"])
 
 
+@app.route("/confirm_rankings", methods=["POST"])
+def confirm_rankings():
+    session_id = session.get("session_id")
+    if not session_id or session_id not in user_sessions:
+        return jsonify({"error": "Invalid session"}), 400
+
+    data = request.get_json()
+    user_sessions[session_id]["confirmed"] = data.get("confirmed", False)
+    user_sessions[session_id]["confirmation_time"] = datetime.now()
+    return jsonify({"success": True})
+
+
+@app.route("/get_confirmation_status")
+def get_confirmation_status():
+    session_id = session.get("session_id")
+    if not session_id or session_id not in user_sessions:
+        return jsonify({"confirmed": False})
+
+    return jsonify({"confirmed": user_sessions[session_id].get("confirmed", False)})
+
+
 @app.route("/timer.js")
 def timer_js():
     return send_from_directory("static", "timer.js")

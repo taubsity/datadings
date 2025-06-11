@@ -30,6 +30,47 @@
 				</div>
 			</div>
 
+			<!-- Confirmation Section - Always visible with fixed size -->
+			<div class="card mb-3 confirmation-card" id="confirmationSection">
+				<div class="card-header">
+					<h5 class="mb-0">Ihre Auswahl bestätigen</h5>
+				</div>
+				<div class="card-body">
+					<h6>Ihre Top 3 Studien:</h6>
+					<div class="selection-list">
+						<div class="selection-item mb-2" id="rank1">
+							<strong>1. Rang:</strong> <span class="study-placeholder">Bitte wählen Sie eine Studie aus</span>
+						</div>
+						<div class="selection-item mb-2" id="rank2">
+							<strong>2. Rang:</strong> <span class="study-placeholder">Bitte wählen Sie eine Studie aus</span>
+						</div>
+						<div class="selection-item mb-2" id="rank3">
+							<strong>3. Rang:</strong> <span class="study-placeholder">Bitte wählen Sie eine Studie aus</span>
+						</div>
+					</div>
+					<div class="status-message mt-2">
+						<small class="text-muted" id="statusText">Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden Ranking-Buttons (1, 2, 3) klicken.</small>
+					</div>
+					<div class="mt-3">
+						<button type="button" class="btn btn-secondary" id="confirmBtn" disabled>
+							Auswahl bestätigen
+						</button>
+						<small class="text-muted ms-2" id="buttonHelpText">Wählen Sie erst alle 3 Ränge aus</small>
+					</div>
+				</div>
+			</div>
+
+			<!-- Confirmed Section -->
+			<div class="card mb-3" id="confirmedSection" style="display: none;">
+				<div class="card-header bg-success text-white">
+					<h5 class="mb-0">✓ Auswahl bestätigt</h5>
+				</div>
+				<div class="card-body">
+					<p class="text-success">Ihre Ranking-Auswahl wurde erfolgreich bestätigt und kann nicht mehr geändert werden.</p>
+					<div id="finalSummary"></div>
+				</div>
+			</div>
+
 			<div class="card">
 				<div class="card-body">
 					<table id="csvTable" class="table">
