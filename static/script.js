@@ -1,248 +1,368 @@
 $(document).ready(function () {
-    // Load rankings from server instead of sessionStorage
-    var savedRankings = {};
-    var isConfirmed = false;
-    var tableData = [];
+    // Constants
+    const ENDPOINTS = {
+        RANKINGS: "/get_rankings",
+        CONFIRMATION_STATUS: "/get_confirmation_status",
+        DATA: "/data",
+        SAVE_RANKING: "/save_ranking",
+        CONFIRM_RANKINGS: "/confirm_rankings"
+    };
     
-    // Fetch saved rankings from server
-    $.getJSON("/get_rankings", function(rankings) {
-        savedRankings = rankings;
-        checkConfirmationStatus();
-        initializeTable();
-    });
+    const SELECTORS = {
+        RANK_RADIO: ".rank-radio",
+        CSV_TABLE: "#csvTable",
+        CONFIRM_BTN: "#confirmBtn",
+        STATUS_TEXT: "#statusText",
+        BUTTON_HELP_TEXT: "#buttonHelpText",
+        CONFIRMATION_SECTION: "#confirmationSection",
+        CONFIRMED_SECTION: "#confirmedSection",
+        FINAL_SUMMARY: "#finalSummary"
+    };
     
-    function checkConfirmationStatus() {
-        // Check if rankings are confirmed
-        $.getJSON("/get_confirmation_status", function(data) {
-            isConfirmed = data.confirmed || false;
+    const MESSAGES = {
+        SELECT_STUDIES: "Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden Ranking-Buttons (1, 2, 3) klicken.",
+        ALL_SELECTED: "Alle Ränge ausgewählt. Sie können nun bestätigen.",
+        PLACEHOLDER: "Bitte wählen Sie eine Studie aus",
+        CONFIRM_DIALOG: "Sind Sie sicher, dass Sie Ihre Auswahl bestätigen möchten? Sie können diese danach nicht mehr ändern.",
+        CONFIRM_SUCCESS: "Ihre Auswahl wurde erfolgreich bestätigt!",
+        CONFIRM_ERROR: "Fehler beim Bestätigen der Auswahl. Bitte versuchen Sie es erneut.",
+        SAVE_ERROR: "Fehler beim Speichern. Bitte versuchen Sie es erneut."
+    };
+    
+    // State
+    let savedRankings = {};
+    let isConfirmed = false;
+    let tableData = [];
+    let saveTimeout = null;
+    let dataTable = null;
+    
+    // Cache frequently used jQuery objects
+    const $confirmBtn = $(SELECTORS.CONFIRM_BTN);
+    const $statusText = $(SELECTORS.STATUS_TEXT);
+    const $buttonHelpText = $(SELECTORS.BUTTON_HELP_TEXT);
+    const $confirmationSection = $(SELECTORS.CONFIRMATION_SECTION);
+    const $confirmedSection = $(SELECTORS.CONFIRMED_SECTION);
+    const $finalSummary = $(SELECTORS.FINAL_SUMMARY);
+    
+    // Initialize application
+    init();
+    
+    async function init() {
+        try {
+            await loadInitialData();
+            await initializeTable();
+            setupEventHandlers();
+        } catch (error) {
+            console.error('Initialization failed:', error);
+            showError('Fehler beim Laden der Anwendung.');
+        }
+    }
+    
+    async function loadInitialData() {
+        try {
+            const [rankings, confirmationData] = await Promise.all([
+                $.getJSON(ENDPOINTS.RANKINGS),
+                $.getJSON(ENDPOINTS.CONFIRMATION_STATUS)
+            ]);
+            
+            savedRankings = rankings || {};
+            isConfirmed = confirmationData?.confirmed || false;
             updateUIBasedOnConfirmation();
-        });
+        } catch (error) {
+            console.error('Failed to load initial data:', error);
+            throw error;
+        }
     }
     
     function updateUIBasedOnConfirmation() {
         if (isConfirmed) {
-            $("#confirmationSection").hide();
-            $("#confirmedSection").show();
+            $confirmationSection.hide();
+            $confirmedSection.show();
             disableRankingInputs();
             updateFinalSummary();
         } else {
-            $("#confirmedSection").hide();
-            $("#confirmationSection").show(); // Always show confirmation section
+            $confirmedSection.hide();
+            $confirmationSection.show();
             updateConfirmationState();
         }
     }
     
     function disableRankingInputs() {
-        $(".rank-radio").prop("disabled", true);
-        $("tbody tr").off("click"); // Remove click handlers
-        $("tbody tr").css("cursor", "default");
+        $(SELECTORS.RANK_RADIO).prop("disabled", true);
+        $(`${SELECTORS.CSV_TABLE} tbody tr`).off("click").css("cursor", "default");
     }
     
     function updateConfirmationState() {
-        var rankedCount = Object.keys(savedRankings).length;
-        var hasRank1 = Object.values(savedRankings).includes('1');
-        var hasRank2 = Object.values(savedRankings).includes('2');
-        var hasRank3 = Object.values(savedRankings).includes('3');
-        
-        var allRanksSelected = rankedCount >= 3 && hasRank1 && hasRank2 && hasRank3;
+        const rankings = Object.values(savedRankings);
+        const rankedCount = rankings.length;
+        const requiredRanks = ['1', '2', '3'];
+        const selectedRanks = new Set(rankings);
+        const hasAllRanks = requiredRanks.every(rank => selectedRanks.has(rank));
+        const allRanksSelected = rankedCount >= 3 && hasAllRanks;
         
         // Update button state
-        if (allRanksSelected) {
-            $("#confirmBtn").prop("disabled", false).removeClass("btn-secondary").addClass("btn-success");
-            $("#buttonHelpText").hide();
-        } else {
-            $("#confirmBtn").prop("disabled", true).removeClass("btn-success").addClass("btn-secondary");
-            $("#buttonHelpText").show();
-        }
+        $confirmBtn
+            .prop("disabled", !allRanksSelected)
+            .toggleClass("btn-success", allRanksSelected)
+            .toggleClass("btn-secondary", !allRanksSelected);
         
-        // Update status message
-        updateStatusMessage(hasRank1, hasRank2, hasRank3);
+        $buttonHelpText.toggle(!allRanksSelected);
         
-        // Update individual rank displays
-        updateRankDisplay('1', hasRank1);
-        updateRankDisplay('2', hasRank2);
-        updateRankDisplay('3', hasRank3);
+        // Update status message and rank displays
+        updateStatusMessage(selectedRanks);
+        requiredRanks.forEach(rank => updateRankDisplay(rank, selectedRanks.has(rank)));
     }
     
-    function updateStatusMessage(hasRank1, hasRank2, hasRank3) {
-        var missing = [];
-        if (!hasRank1) missing.push("1. Rang");
-        if (!hasRank2) missing.push("2. Rang");
-        if (!hasRank3) missing.push("3. Rang");
+    function updateStatusMessage(selectedRanks) {
+        const missing = ['1', '2', '3'].filter(rank => !selectedRanks.has(rank));
+        let statusText = "";
+        let className = "";
         
-        var statusText = "";
         if (missing.length === 3) {
-            statusText = "Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden Ranking-Buttons (1, 2, 3) klicken.";
-            $("#statusText").removeClass("text-warning").addClass("text-muted");
+            statusText = MESSAGES.SELECT_STUDIES;
+            className = "text-muted";
         } else if (missing.length > 0) {
-            statusText = `Noch fehlend: ${missing.join(", ")}`;
-            $("#statusText").removeClass("text-muted").addClass("text-warning");
+            statusText = `Noch fehlend: ${missing.map(r => `${r}. Rang`).join(", ")}`;
+            className = "text-warning";
         } else {
-            statusText = "Alle Ränge ausgewählt. Sie können nun bestätigen.";
-            $("#statusText").removeClass("text-muted text-warning").addClass("text-success");
+            statusText = MESSAGES.ALL_SELECTED;
+            className = "text-success";
         }
         
-        $("#statusText").text(statusText);
+        $statusText.text(statusText).removeClass().addClass(className);
     }
     
     function updateRankDisplay(rank, isSelected) {
-        var rankElement = $("#rank" + rank + " .study-placeholder");
+        const $rankElement = $(`#rank${rank} .study-placeholder`);
         
         if (isSelected) {
-            // Find the study for this rank
-            var studyKey = Object.keys(savedRankings).find(key => savedRankings[key] === rank);
-            if (studyKey) {
-                var study = findStudyByKey(studyKey);
-                if (study) {
-                    var displayText = `${study['First Author']} - ${study['Title']}`;
-                    rankElement.text(displayText).removeClass("study-placeholder").addClass("text-dark");
-                }
+            const studyKey = Object.keys(savedRankings).find(key => savedRankings[key] === rank);
+            const study = studyKey ? findStudyByKey(studyKey) : null;
+            
+            if (study) {
+                const displayText = `${study['First Author']} - ${study['Title']}`;
+                $rankElement
+                    .text(displayText)
+                    .removeClass("study-placeholder")
+                    .addClass("text-dark");
             }
         } else {
-            rankElement.text("Bitte wählen Sie eine Studie aus").removeClass("text-dark").addClass("study-placeholder");
+            $rankElement
+                .text(MESSAGES.PLACEHOLDER)
+                .removeClass("text-dark")
+                .addClass("study-placeholder");
         }
     }
     
     function updateFinalSummary() {
-        var summaryHtml = "<h6>Ihre bestätigten Top 3 Studien:</h6>";
+        let summaryHtml = "<h6>Ihre bestätigten Top 3 Studien:</h6>";
         
-        // Sort by rank
-        var sortedRankings = Object.entries(savedRankings).sort((a, b) => a[1] - b[1]);
+        const sortedRankings = Object.entries(savedRankings)
+            .filter(([, rank]) => parseInt(rank) <= 3)
+            .sort(([, a], [, b]) => parseInt(a) - parseInt(b));
         
-        sortedRankings.forEach(function([studyKey, rank]) {
-            var study = findStudyByKey(studyKey);
-            if (study && rank <= 3) {
-                summaryHtml += `<div class="mb-2">
-                    <strong>${rank}. Rang:</strong> ${study['First Author']} - ${study['Title']}
-                </div>`;
+        sortedRankings.forEach(([studyKey, rank]) => {
+            const study = findStudyByKey(studyKey);
+            if (study) {
+                summaryHtml += `
+                    <div class="mb-2">
+                        <strong>${rank}. Rang:</strong> ${study['First Author']} - ${study['Title']}
+                    </div>`;
             }
         });
         
-        $("#finalSummary").html(summaryHtml);
+        $finalSummary.html(summaryHtml);
     }
     
     function findStudyByKey(studyKey) {
-        return tableData.find(function(study) {
-            return (study["First Author"] + "_" + study["Title"]) === studyKey;
-        });
+        return tableData.find(study => 
+            `${study["First Author"]}_${study["Title"]}` === studyKey
+        );
     }
     
-    function initializeTable() {
-        $.getJSON("/data", function (data) {
-            tableData = data; // Store data for later reference
+    async function initializeTable() {
+        try {
+            const data = await $.getJSON(ENDPOINTS.DATA);
+            tableData = data;
             
-            var table = $("#csvTable").DataTable({
+            dataTable = $(SELECTORS.CSV_TABLE).DataTable({
                 data: data,
                 searching: false,
                 ordering: false,
                 paging: false,
                 info: false,
                 lengthChange: false,
-                columns: [
-                    { 
-                        data: null,
-                        title: "Ranking<br>1. 2. 3.",
-                        orderable: false,
-                        render: function(data, type, row, meta) {
-                            var groupName = "ranking_" + meta.row;
-                            var studyKey = row["First Author"] + "_" + row["Title"];
-                            var savedRank = savedRankings[studyKey] || '';
-                            var disabled = isConfirmed ? 'disabled' : '';
-                            
-                            return '<div class="ranking-options">' +
-                                   '<input type="radio" name="'+groupName+'" value="1" class="rank-radio" data-rank="1" data-study-key="'+studyKey+'" ' + (savedRank === '1' ? 'checked' : '') + ' ' + disabled + '> ' +
-                                   '<input type="radio" name="'+groupName+'" value="2" class="rank-radio" data-rank="2" data-study-key="'+studyKey+'" ' + (savedRank === '2' ? 'checked' : '') + ' ' + disabled + '> ' +
-                                   '<input type="radio" name="'+groupName+'" value="3" class="rank-radio" data-rank="3" data-study-key="'+studyKey+'" ' + (savedRank === '3' ? 'checked' : '') + ' ' + disabled + '>' +
-                                   '</div>';
-                        }
-                    },
-                    { data: "First Author", title: "Erstautor", orderable: false },
-                    { data: "Last Author", title: "Letztautor", orderable: false },
-                    { data: "Title", title: "Titel", orderable: false },
-                    { data: "Citation Count", title: "Zitationen", orderable: false },
-                    { data: "Publikationsjahr", title: "Jahr", orderable: false },
-                    { data: "Oxford Evidence Level", title: "Oxford Evidenz <br>(KI ✨)", orderable: false },
-                    { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
-                    { data: "Journal", title: "Journal", orderable: false },
-                ]
-            });
-
-            // Handle ranking changes (only if not confirmed)
-            $("#csvTable").on("click", ".rank-radio", function(e) {
-                if (isConfirmed) {
-                    e.preventDefault();
-                    return false;
-                }
-                
-                e.stopPropagation();
-                
-                var selectedRank = $(this).data("rank").toString();
-                var studyKey = $(this).data("study-key");
-                
-                // Update rankings and save to server
-                updateRankings(studyKey, selectedRank);
-            });
-
-            // Bind click event to entire table rows (excluding the radio buttons and only if not confirmed).
-            $("#csvTable tbody").on("click", "tr", function(e) {
-                // Only navigate if the click wasn't on a radio button and rankings aren't confirmed
-                if (!$(e.target).hasClass("rank-radio") && !isConfirmed) {
-                    var rowData = table.row(this).data();
-                    var rowIndex = table.row(this).index();
-                    window.location.href = "/detail/" + rowIndex;
-                }
+                columns: getTableColumns()
             });
             
             updateUIBasedOnConfirmation();
-        });
+        } catch (error) {
+            console.error('Failed to initialize table:', error);
+            throw error;
+        }
+    }
+    
+    function getTableColumns() {
+        return [
+            {
+                data: null,
+                title: "Ranking<br>1. 2. 3.",
+                orderable: false,
+                render: renderRankingColumn
+            },
+            { data: "First Author", title: "Erstautor", orderable: false },
+            { data: "Last Author", title: "Letztautor", orderable: false },
+            { data: "Title", title: "Titel", orderable: false },
+            { data: "Citation Count", title: "Zitationen", orderable: false },
+            { data: "Publikationsjahr", title: "Jahr", orderable: false },
+            { data: "Oxford Evidence Level", title: "Oxford Evidenz <br>(KI ✨)", orderable: false },
+            { data: "Impact Factor", title: "Impact-Faktor", orderable: false },
+            { data: "Journal", title: "Journal", orderable: false }
+        ];
+    }
+    
+    function renderRankingColumn(data, type, row, meta) {
+        const groupName = `ranking_${meta.row}`;
+        const studyKey = `${row["First Author"]}_${row["Title"]}`;
+        const savedRank = savedRankings[studyKey] || '';
+        const disabled = isConfirmed ? 'disabled' : '';
+        
+        return `
+            <div class="ranking-options">
+                ${[1, 2, 3].map(rank => 
+                    `<input type="radio" name="${groupName}" value="${rank}" 
+                     class="rank-radio" data-rank="${rank}" data-study-key="${studyKey}" 
+                     ${savedRank === rank.toString() ? 'checked' : ''} ${disabled}>`
+                ).join(' ')}
+            </div>`;
+    }
+    
+    function setupEventHandlers() {
+        // Ranking radio button clicks
+        $(SELECTORS.CSV_TABLE).on("click", SELECTORS.RANK_RADIO, handleRankingClick);
+        
+        // Table row clicks for navigation
+        $(SELECTORS.CSV_TABLE).on("click", "tbody tr", handleRowClick);
+        
+        // Confirmation button
+        $confirmBtn.on("click", handleConfirmation);
+    }
+    
+    function handleRankingClick(e) {
+        if (isConfirmed) {
+            e.preventDefault();
+            return false;
+        }
+        
+        e.stopPropagation();
+        
+        const selectedRank = $(this).data("rank").toString();
+        const studyKey = $(this).data("study-key");
+        
+        updateRankings(studyKey, selectedRank);
+    }
+    
+    function handleRowClick(e) {
+        if (!$(e.target).hasClass("rank-radio") && !isConfirmed) {
+            const rowData = dataTable.row(this).data();
+            const rowIndex = dataTable.row(this).index();
+            window.location.href = `/detail/${rowIndex}`;
+        }
     }
     
     function updateRankings(studyKey, selectedRank) {
-        if (isConfirmed) return; // Don't allow changes if confirmed
+        if (isConfirmed) return;
+        
+        // Store previous state for potential rollback
+        const previousRankings = { ...savedRankings };
         
         // Clear previous rankings for this rank
-        for (var key in savedRankings) {
-            if (savedRankings[key] === selectedRank) {
-                delete savedRankings[key];
-                $(".rank-radio[data-study-key='" + key + "']:checked").prop("checked", false);
-            }
-        }
+        clearExistingRank(selectedRank);
         
         // Set new ranking
         savedRankings[studyKey] = selectedRank;
         
-        // Save to server
-        $.ajax({
-            url: "/save_ranking",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({rankings: savedRankings}),
-            success: function(response) {
-                console.log("Rankings saved");
+        // Update UI immediately
+        updateConfirmationState();
+        
+        // Debounced server save
+        debouncedSave(previousRankings);
+    }
+    
+    function clearExistingRank(selectedRank) {
+        for (const [key, rank] of Object.entries(savedRankings)) {
+            if (rank === selectedRank) {
+                delete savedRankings[key];
+                $(`.rank-radio[data-study-key='${key}']:checked`).prop("checked", false);
+            }
+        }
+    }
+    
+    function debouncedSave(previousRankings) {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+            saveRankingsToServer(previousRankings);
+        }, 300);
+    }
+    
+    async function saveRankingsToServer(previousRankings = null) {
+        try {
+            await $.ajax({
+                url: ENDPOINTS.SAVE_RANKING,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ rankings: savedRankings })
+            });
+            console.log("Rankings saved successfully");
+        } catch (error) {
+            console.error("Failed to save rankings:", error);
+            
+            if (previousRankings) {
+                // Rollback on error
+                savedRankings = previousRankings;
+                restoreRadioButtonState();
                 updateConfirmationState();
             }
+            
+            showError(MESSAGES.SAVE_ERROR);
+        }
+    }
+    
+    function restoreRadioButtonState() {
+        // Clear all radio buttons first
+        $(SELECTORS.RANK_RADIO).prop("checked", false);
+        
+        // Restore based on savedRankings
+        Object.entries(savedRankings).forEach(([studyKey, rank]) => {
+            $(`.rank-radio[data-study-key='${studyKey}'][data-rank='${rank}']`)
+                .prop("checked", true);
         });
     }
     
-    // Confirmation button handlers
-    $("#confirmBtn").click(function() {
-        if ($(this).prop("disabled")) return; // Don't allow if disabled
+    async function handleConfirmation() {
+        if ($confirmBtn.prop("disabled")) return;
         
-        if (confirm("Sind Sie sicher, dass Sie Ihre Auswahl bestätigen möchten? Sie können diese danach nicht mehr ändern.")) {
-            $.ajax({
-                url: "/confirm_rankings",
+        if (!confirm(MESSAGES.CONFIRM_DIALOG)) return;
+        
+        try {
+            await $.ajax({
+                url: ENDPOINTS.CONFIRM_RANKINGS,
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({confirmed: true}),
-                success: function(response) {
-                    isConfirmed = true;
-                    updateUIBasedOnConfirmation();
-                    alert("Ihre Auswahl wurde erfolgreich bestätigt!");
-                },
-                error: function() {
-                    alert("Fehler beim Bestätigen der Auswahl. Bitte versuchen Sie es erneut.");
-                }
+                data: JSON.stringify({ confirmed: true })
             });
+            
+            isConfirmed = true;
+            updateUIBasedOnConfirmation();
+            alert(MESSAGES.CONFIRM_SUCCESS);
+        } catch (error) {
+            console.error("Failed to confirm rankings:", error);
+            showError(MESSAGES.CONFIRM_ERROR);
         }
-    });
+    }
+    
+    function showError(message) {
+        // You could replace this with a more sophisticated notification system
+        alert(message);
+    }
 });
