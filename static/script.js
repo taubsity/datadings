@@ -110,7 +110,11 @@ $(document).ready(function () {
         
         // Update status message and rank displays
         updateStatusMessage(selectedRanks);
-        requiredRanks.forEach(rank => updateRankDisplay(rank, selectedRanks.has(rank)));
+        
+        // FIXED: Update ALL rank displays to reflect current state
+        requiredRanks.forEach(rank => {
+            updateRankDisplay(rank, selectedRanks.has(rank));
+        });
     }
     
     function updateStatusMessage(selectedRanks) {
@@ -133,9 +137,11 @@ $(document).ready(function () {
     }
     
     function updateRankDisplay(rank, isSelected) {
-        const $rankElement = $(`#rank${rank} .study-placeholder`);
+        // Use a direct child selector that doesn't rely on the dynamic class
+        const $rankElement = $(`#rank${rank} > span`);
         
         if (isSelected) {
+            // Find the current study for this rank
             const studyKey = Object.keys(savedRankings).find(key => savedRankings[key] === rank);
             const study = studyKey ? findStudyByKey(studyKey) : null;
             
