@@ -31,7 +31,7 @@ body {
 
 /* Layout utilities */
 .container {
-	max-width: 90%;
+	max-width: 100%;
 	margin: 0 auto;
 	padding: var(--spacing-md);
 }
@@ -149,57 +149,6 @@ p {
 	padding: var(--spacing-md);
 }
 
-/* Table styling */
-.table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: var(--spacing-lg);
-	table-layout: fixed; /* Forces consistent column widths */
-}
-
-.table th,
-.table td {
-	padding: 12px var(--spacing-sm);
-	text-align: left;
-	border-bottom: 1px solid var(--border-color);
-	vertical-align: top;
-	height: 60px; /* Fixed height for all cells */
-	overflow: hidden; /* Prevent content from expanding cell */
-}
-
-.table th {
-	background-color: var(--light-bg);
-	font-weight: 600;
-	position: sticky;
-	top: 0;
-}
-
-.table tbody tr {
-	transition: var(--transition);
-	height: 60px; /* Fixed row height */
-}
-
-.table tbody tr:hover {
-	cursor: pointer;
-	transform: translateY(-1px);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.table tbody tr:hover td {
-	background-color: var(--light-bg); /* Change text color on hover */
-}
-
-.table tbody tr td {
-	max-width: 200px;
-	white-space: normal;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 60px; /* Ensure consistent height */
-	box-sizing: border-box; /* Include padding in height calculation */
-}
-
 /* Ranking radio buttons */
 .ranking-options {
 	display: flex;
@@ -257,27 +206,8 @@ p {
 }
 
 .detail-container {
-	min-height: 100vh;
-	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-}
-
-.detail-card {
-	width: 80%;
-	max-width: 1000px;
-}
-
-.detail-table th {
-	width: 40%;
-	white-space: nowrap;
-	background-color: var(--light-bg);
-}
-
-.detail-table td {
-	width: 60%;
-	word-wrap: break-word;
 }
 
 /* Expandable content */
@@ -298,106 +228,106 @@ p {
 
 /* Confirmation section styles */
 .confirmed-selection {
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--spacing-md);
+	background-color: #d4edda;
+	border: 1px solid #c3e6cb;
+	padding: var(--spacing-md);
+	border-radius: var(--border-radius);
+	margin-bottom: var(--spacing-md);
 }
 
 .ranking-disabled {
-    opacity: 0.6;
-    pointer-events: none;
+	opacity: 0.6;
+	pointer-events: none;
 }
 
 .rank-radio:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+	cursor: not-allowed;
+	opacity: 0.5;
 }
 
 .table tbody tr.disabled-row {
-    cursor: default;
-    opacity: 0.7;
+	cursor: default;
+	opacity: 0.7;
 }
 
 .table tbody tr.disabled-row:hover {
-    transform: none;
-    box-shadow: none;
-    background-color: inherit;
+	transform: none;
+	box-shadow: none;
+	background-color: inherit;
 }
 
 /* Success alert styling */
 .bg-success {
-    background-color: var(--success-color) !important;
+	background-color: var(--success-color) !important;
 }
 
 .text-success {
-    color: var(--success-color) !important;
+	color: var(--success-color) !important;
 }
 
 /* Confirmation card fixed sizing */
 .confirmation-card {
-    min-height: 220px; /* Fixed minimum height */
+	min-height: 220px; /* Fixed minimum height */
 }
 
 .confirmation-card .card-body {
-    min-height: 160px; /* Fixed content area height */
+	min-height: 160px; /* Fixed content area height */
 }
 
 .selection-list {
-    min-height: 72px; /* Space for exactly 3 lines */
+	min-height: 72px; /* Space for exactly 3 lines */
 }
 
 .selection-item {
-    height: 24px; /* Fixed height per item */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	height: 24px; /* Fixed height per item */
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .study-placeholder {
-    color: var(--secondary-color);
-    font-style: italic;
+	color: var(--secondary-color);
+	font-style: italic;
 }
 
 .status-message {
-    height: 20px; /* Fixed height for status message */
-    overflow: hidden;
+	height: 20px; /* Fixed height for status message */
+	overflow: hidden;
 }
 
 .button-section {
-    height: 40px; /* Fixed height for button area */
-    display: flex;
-    align-items: center;
+	height: 40px; /* Fixed height for button area */
+	display: flex;
+	align-items: center;
 }
 
 /* Button disabled styling */
 .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+	opacity: 0.6;
+	cursor: not-allowed;
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color);
-    color: white;
+	background-color: var(--secondary-color);
+	color: white;
 }
 
 .btn-success {
-    background-color: var(--success-color);
-    color: white;
+	background-color: var(--success-color);
+	color: white;
 }
 
 .btn-success:hover:not(:disabled) {
-    background-color: #218838;
+	background-color: #218838;
 }
 
 /* Text styling for incomplete selections */
 .text-muted {
-    color: var(--secondary-color) !important;
+	color: var(--secondary-color) !important;
 }
 
 .text-warning {
-    color: var(--warning-color) !important;
+	color: var(--warning-color) !important;
 }
 
 /* Responsive design */
