@@ -191,10 +191,14 @@ h5 {
 .table td:nth-child(4) {
 	width: 50%;
 }
+.table th:nth-child(5), /* citation column */
+.table td:nth-child(5) {
+	width: 5%;
+}
 
 .table th:nth-child(9), /* Journal column */
 .table td:nth-child(9) {
-	width: 8%;
+	width: 7%;
 }
 
 /* Footer component */
