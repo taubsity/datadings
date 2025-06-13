@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study - Next Task</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="start-page flex-center">
+    <div class="card">
+        <div class="card-body">
+            <h1>First Task Completed</h1>
+            
+            <div class="participant-id-container">
+                <p>Thank you for completing the first task.</p>
+                <p>You will now proceed to the second ranking task.</p>
+            </div>
+            
+            <form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
+                <input type="hidden" id="user_id" name="user_id" value="{{ participant_id }}">
+                <input type="hidden" id="task" name="task" value="2">
+                <button type="submit" class="btn btn-primary">Start Next Task</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function prepareStudyStart() {
+            sessionStorage.setItem("startTimer", "true");
+        }
+    </script>
+</body>
+</html>

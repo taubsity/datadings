@@ -347,7 +347,7 @@ $(document).ready(function () {
         if (!confirm(MESSAGES.CONFIRM_DIALOG)) return;
         
         try {
-            await $.ajax({
+            const response = await $.ajax({
                 url: ENDPOINTS.CONFIRM_RANKINGS,
                 method: "POST",
                 contentType: "application/json",
@@ -355,49 +355,39 @@ $(document).ready(function () {
             });
             
             isConfirmed = true;
+            
+            // Handle next task redirection
+            if (response.next_task && response.redirect) {
+                // Show transition message
+                $statusText.html(
+                    '<span class="text-success">Erste Aufgabe abgeschlossen! Sie werden zur nächsten Aufgabe weitergeleitet...</span>'
+                );
+                
+                // Redirect after a short delay
+                setTimeout(function() {
+                    window.location.href = response.redirect;
+                }, 2000);
+                return;
+            }
+            
+            // Handle final task completion
+            if (response.task_complete) {
+                // Display user ID if available
+                if (response.user_id) {
+                    $statusText.html(
+                        '<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme. Ihre Teilnehmer-ID: <strong>' + 
+                        response.user_id + '</strong></span>'
+                    );
+                } else {
+                    $statusText.html('<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme.</span>');
+                }
+            }
+            
+            // Update the UI
             updateUIBasedOnConfirmation();
-            alert(MESSAGES.CONFIRM_SUCCESS);
         } catch (error) {
             console.error("Failed to confirm rankings:", error);
             showError(MESSAGES.CONFIRM_ERROR);
-        }
-    }
-    
-    function confirmRankings() {
-        try {
-            $.ajax({
-                url: "/confirm_rankings",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    confirmed: true
-                }),
-                success: function(response) {
-                    // Update UI to show confirmed state
-                    $("#confirmBtn").prop("disabled", true).text("Rankings Confirmed");
-                    $(".ranking-radio").prop("disabled", true);
-                    isConfirmed = true;
-                    
-                    // Display user ID if available
-                    if (response.user_id) {
-                        $("#statusText").html(
-                            '<div class="alert alert-success">Your rankings have been successfully confirmed! Your participant ID is: <strong>' + 
-                            response.user_id + '</strong></div>'
-                        );
-                    } else {
-                        $("#statusText").html('<div class="alert alert-success">Your rankings have been successfully confirmed!</div>');
-                    }
-                    
-                    // Update the UI to reflect confirmed state
-                    updateUIBasedOnConfirmation();
-                },
-                error: function(error) {
-                    console.error("Error confirming rankings:", error);
-                    $("#statusText").html('<div class="alert alert-danger">Failed to confirm rankings. Please try again.</div>');
-                }
-            });
-        } catch (e) {
-            console.error("Error in confirmRankings:", e);
         }
     }
     

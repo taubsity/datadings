@@ -17,11 +17,13 @@ def init_db():
         db.execute('''
             CREATE TABLE IF NOT EXISTS participants (
                 id TEXT PRIMARY KEY,
-                user_id TEXT UNIQUE,
+                user_id TEXT,
+                task INTEGER,
                 start_time TEXT,
                 confirmation_time TEXT,
                 rankings TEXT,
-                confirmed INTEGER
+                confirmed INTEGER,
+                UNIQUE(user_id, task)
             )
         ''')
         db.commit()
@@ -40,17 +42,24 @@ def save_participant_data(session_id, user_sessions):
     with closing(sqlite3.connect('study_results.db')) as db:
         rankings_json = json.dumps(session_data.get("rankings", {}))
         
+        # Get task information (default to 1 if not specified)
+        task = session_data.get("task", 1)
+        
         # Get existing user_id or generate a new one
         user_id = session_data.get("user_id")
         if not user_id:
             user_id = generate_unique_id()
             session_data["user_id"] = user_id
+
+        # Create composite ID for the primary key
+        composite_id = f"{session_id}_{task}"
         
         db.execute(
-            "INSERT OR REPLACE INTO participants VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT OR REPLACE INTO participants VALUES (?, ?, ?, ?, ?, ?, ?)",
             (
-                session_id,
+                composite_id,
                 user_id,
+                task,
                 session_data.get("start_time", datetime.now()).isoformat(),
                 session_data.get("confirmation_time", datetime.now()).isoformat(),
                 rankings_json,
@@ -62,23 +71,31 @@ def save_participant_data(session_id, user_sessions):
     return user_id
 
 def export_results_csv():
-    """Export all participant data as CSV"""
+    """Export all participant data as CSV with proper quoting"""
     output = io.StringIO()
-    writer = csv.writer(output)
     
-    # Write header
-    writer.writerow(['user_id', 'start_time', 'confirmation_time', 'confirmed', 'rank1', 'rank2', 'rank3'])
+    # Enable quoting for all fields
+    writer = csv.writer(output, quoting=csv.QUOTE_ALL)
+    
+    # Write header with task information
+    writer.writerow(['user_id', 'task', 'start_time', 'confirmation_time', 'confirmed', 'rank1', 'rank2', 'rank3'])
     
     with closing(sqlite3.connect('study_results.db')) as db:
-        for row in db.execute("SELECT user_id, start_time, confirmation_time, rankings, confirmed FROM participants"):
-            rankings = json.loads(row[3])
-            rank_data = {f'rank{rank}': study_key for study_key, rank in rankings.items() if rank in ['1', '2', '3']}
+        for row in db.execute("SELECT user_id, task, start_time, confirmation_time, rankings, confirmed FROM participants"):
+            rankings = json.loads(row[4])
+            rank_data = {}
             
+            # Convert rankings to rank1, rank2, rank3 format
+            for study_key, rank in rankings.items():
+                if rank in ['1', '2', '3']:
+                    rank_data[f'rank{rank}'] = study_key
+                    
             writer.writerow([
                 row[0],                      # user_id
-                row[1],                      # start_time
-                row[2],                      # confirmation_time
-                bool(row[4]),                # confirmed
+                row[1],                      # task
+                row[2],                      # start_time
+                row[3],                      # confirmation_time
+                bool(row[5]),                # confirmed
                 rank_data.get('rank1', ''),  # study ranked #1
                 rank_data.get('rank2', ''),  # study ranked #2
                 rank_data.get('rank3', '')   # study ranked #3

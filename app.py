@@ -31,52 +31,35 @@ CACHE_DURATION = timedelta(hours=1)
 
 
 # Load CSV Data
-def load_data():
+def load_data(task=1):
     global _data_cache, _cache_timestamp
-
+    
+    # Cache key incorporating task number
+    cache_key = f"task_{task}"
+    
     # Use cached data if available and fresh
-    if (
-        _data_cache
-        and _cache_timestamp
-        and datetime.now() - _cache_timestamp < CACHE_DURATION
-    ):
-        return _data_cache
+    if (_data_cache and _cache_timestamp and 
+        cache_key in _data_cache and
+        datetime.now() - _cache_timestamp < CACHE_DURATION):
+        return _data_cache[cache_key]
 
+    # Determine which file to load based on task
+    data_file = f"study_data_test{2 if task > 1 else ''}.csv"
+    
     # Load fresh data
     df = pd.read_csv(
-        "study_data_test.csv", encoding="utf-8", on_bad_lines="skip", sep=";"
+        data_file, encoding="utf-8", on_bad_lines="skip", sep=";"
     )
 
-    # Selecting main columns to display
-    displayed_columns = [
-        "First Author",
-        "Last Author",
-        "Title",
-        "Citation Count",
-        "Publikationsjahr",
-        "Oxford Evidence Level",
-        "Impact Factor",
-        "Journal",
-    ]
-
-    # Additional details (expandable)
-    expandable_columns = [
-        "Abstract",
-        "Citation Trend",
-        "Autoren",
-        "Studiendesign/Studienart",
-        "Methdische Qualität",
-        "Tumor Entität",
-        "Präregestriert",
-        "Metanalayse",
-    ]
-
-    # Filter the dataset
-    df_filtered = df[displayed_columns + expandable_columns].dropna(how="all")
-    _data_cache = df_filtered.to_dict(orient="records")
+    # Initialize cache if needed
+    if not _data_cache:
+        _data_cache = {}
+    
+    # Store data in cache with task-specific key
+    _data_cache[cache_key] = df.to_dict('records')
     _cache_timestamp = datetime.now()
-
-    return _data_cache
+    
+    return _data_cache[cache_key]
 
 
 # Initialize database when app starts
@@ -107,16 +90,19 @@ def index():
 def study():
     if request.method == "POST":
         user_id = request.form.get("user_id")
+        task = int(request.form.get("task", 1))
+        
         if user_id and user_id.strip():
             # Generate unique session ID
             session_id = str(uuid.uuid4())
 
             # Store minimal data in Flask session
             session["session_id"] = session_id
-            session["user_id"] = user_id.strip()  # Use the ID passed from form (the auto-generated one)
+            session["user_id"] = user_id.strip()
+            session["task"] = task
 
             # Store user data in memory with session ID
-            data = load_data()
+            data = load_data(task)
             import random
 
             indices = list(range(len(data)))
@@ -124,12 +110,13 @@ def study():
 
             user_sessions[session_id] = {
                 "user_id": user_id.strip(),
+                "task": task,
                 "shuffle_order": indices,
                 "start_time": datetime.now(),
-                "rankings": {},  # Store rankings server-side too
+                "rankings": {},
             }
 
-            return render_template("index.html")
+            return render_template("index.html", task=task)
         else:
             # Redirect back to start if no user ID provided
             return redirect(url_for("index"))
@@ -137,8 +124,10 @@ def study():
         # If GET request, check if session_id exists
         if "session_id" not in session:
             return redirect(url_for("index"))
-        return render_template("index.html")
-
+        
+        # Get task from session
+        task = session.get("task", 1)
+        return render_template("index.html", task=task)
 
 @app.route("/data")
 def get_data():
@@ -146,7 +135,10 @@ def get_data():
     if not session_id or session_id not in user_sessions:
         return jsonify([])
 
-    data = load_data()
+    # Get task from session
+    task = session.get("task", 1)
+    
+    data = load_data(task)
     shuffle_order = user_sessions[session_id]["shuffle_order"]
     shuffled_data = [data[i] for i in shuffle_order]
 
@@ -205,19 +197,33 @@ def confirm_rankings():
     if confirmed:
         user_id = save_participant_data(session_id, user_sessions)
         if user_id:
-            # Update session with user ID (in case it was generated in save_participant_data)
             session["user_id"] = user_id
+            
+        # Check if this is the first task
+        task = session.get("task", 1)
+        if task == 1:
+            return jsonify({
+                "success": True, 
+                "user_id": user_id,
+                "next_task": True,
+                "redirect": "/transition"
+            })
     
-    return jsonify({"success": True, "user_id": session.get("user_id")})
+    # Return regular response for final task
+    return jsonify({
+        "success": True, 
+        "user_id": session.get("user_id"),
+        "task_complete": True
+    })
 
 
-@app.route("/get_confirmation_status")
-def get_confirmation_status():
-    session_id = session.get("session_id")
-    if not session_id or session_id not in user_sessions:
-        return jsonify({"confirmed": False})
-
-    return jsonify({"confirmed": user_sessions[session_id].get("confirmed", False)})
+@app.route("/transition")
+def transition():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("index"))
+        
+    return render_template("transition.html", participant_id=user_id)
 
 
 @app.route("/timer.js")
@@ -256,6 +262,18 @@ def download_csv():
 def admin_page():
     # Add authentication here if needed
     return render_template("admin.html")
+
+
+@app.route("/get_confirmation_status")
+def get_confirmation_status():
+    session_id = session.get("session_id")
+    if not session_id or session_id not in user_sessions:
+        return jsonify({"confirmed": False})
+    
+    return jsonify({
+        "confirmed": user_sessions[session_id].get("confirmed", False),
+        "task": session.get("task", 1)
+    })
 
 
 if __name__ == "__main__":
