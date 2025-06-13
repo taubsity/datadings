@@ -363,6 +363,44 @@ $(document).ready(function () {
         }
     }
     
+    function confirmRankings() {
+        try {
+            $.ajax({
+                url: "/confirm_rankings",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    confirmed: true
+                }),
+                success: function(response) {
+                    // Update UI to show confirmed state
+                    $("#confirmBtn").prop("disabled", true).text("Rankings Confirmed");
+                    $(".ranking-radio").prop("disabled", true);
+                    isConfirmed = true;
+                    
+                    // Display user ID if available
+                    if (response.user_id) {
+                        $("#statusText").html(
+                            '<div class="alert alert-success">Your rankings have been successfully confirmed! Your participant ID is: <strong>' + 
+                            response.user_id + '</strong></div>'
+                        );
+                    } else {
+                        $("#statusText").html('<div class="alert alert-success">Your rankings have been successfully confirmed!</div>');
+                    }
+                    
+                    // Update the UI to reflect confirmed state
+                    updateUIBasedOnConfirmation();
+                },
+                error: function(error) {
+                    console.error("Error confirming rankings:", error);
+                    $("#statusText").html('<div class="alert alert-danger">Failed to confirm rankings. Please try again.</div>');
+                }
+            });
+        } catch (e) {
+            console.error("Error in confirmRankings:", e);
+        }
+    }
+    
     function showError(message) {
         // You could replace this with a more sophisticated notification system
         alert(message);

@@ -13,16 +13,19 @@
 		<div class="card">
 			<div class="card-body">
 				<h1>Welcome to the Study</h1>
-				<p>Please enter your User ID to begin the research study.</p>
-
+				
+				<div class="participant-id-container">
+					<p>Your unique participant ID is:</p>
+					<h2 class="participant-id">{{ participant_id }}</h2>
+					<p class="id-note"><strong>Please save this ID for your records.</strong></p>
+				</div>
+				
 				<form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
 					<input
-						type="text"
+						type="hidden"
 						id="user_id"
 						name="user_id"
-						class="form-input"
-						required
-						placeholder="Enter your ID"
+						value="{{ participant_id }}"
 					/>
 					<button type="submit" class="btn btn-primary">Start Study</button>
 				</form>
@@ -34,5 +37,3 @@
 				sessionStorage.setItem("startTimer", "true");
 			}
 		</script>
-	</body>
-</html>

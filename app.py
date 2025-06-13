@@ -7,10 +7,15 @@ from flask import (
     session,
     redirect,
     url_for,
+    send_file,  # Add send_file import
 )
 import pandas as pd
 import uuid
+import json  # Add json import
+import sqlite3  # Add sqlite3 import
+from contextlib import closing  # Add closing import
 from datetime import datetime, timedelta
+from db_utils import init_db, save_participant_data, generate_unique_id, export_results_csv
 
 app = Flask(__name__)
 app.secret_key = "your-secret-key-change-this"  # Add a secret key for sessions
@@ -74,9 +79,28 @@ def load_data():
     return _data_cache
 
 
+# Initialize database when app starts
+init_db()
+
 @app.route("/")
 def index():
-    return render_template("start.html")
+    # Generate a unique session ID
+    session_id = str(uuid.uuid4())
+    session["session_id"] = session_id
+    
+    # Generate a unique participant ID
+    participant_id = generate_unique_id()
+    session["user_id"] = participant_id
+    
+    # Initialize user session
+    user_sessions[session_id] = {
+        "user_id": participant_id,
+        "start_time": datetime.now(),
+        "rankings": {},
+        "confirmed": False
+    }
+    
+    return render_template("start.html", participant_id=participant_id)
 
 
 @app.route("/study", methods=["GET", "POST"])
@@ -88,9 +112,8 @@ def study():
             session_id = str(uuid.uuid4())
 
             # Store minimal data in Flask session
-            session.clear()
             session["session_id"] = session_id
-            session["user_id"] = user_id.strip()
+            session["user_id"] = user_id.strip()  # Use the ID passed from form (the auto-generated one)
 
             # Store user data in memory with session ID
             data = load_data()
@@ -111,7 +134,7 @@ def study():
             # Redirect back to start if no user ID provided
             return redirect(url_for("index"))
     else:
-        # If GET request, check if user_id exists in session
+        # If GET request, check if session_id exists
         if "session_id" not in session:
             return redirect(url_for("index"))
         return render_template("index.html")
@@ -169,13 +192,23 @@ def get_rankings():
 @app.route("/confirm_rankings", methods=["POST"])
 def confirm_rankings():
     session_id = session.get("session_id")
+    
     if not session_id or session_id not in user_sessions:
         return jsonify({"error": "Invalid session"}), 400
 
     data = request.get_json()
-    user_sessions[session_id]["confirmed"] = data.get("confirmed", False)
+    confirmed = data.get("confirmed", False)
+    user_sessions[session_id]["confirmed"] = confirmed
     user_sessions[session_id]["confirmation_time"] = datetime.now()
-    return jsonify({"success": True})
+    
+    # Save to database if confirmed
+    if confirmed:
+        user_id = save_participant_data(session_id, user_sessions)
+        if user_id:
+            # Update session with user ID (in case it was generated in save_participant_data)
+            session["user_id"] = user_id
+    
+    return jsonify({"success": True, "user_id": session.get("user_id")})
 
 
 @app.route("/get_confirmation_status")
@@ -190,6 +223,39 @@ def get_confirmation_status():
 @app.route("/timer.js")
 def timer_js():
     return send_from_directory("static", "timer.js")
+
+
+# Add export endpoints
+@app.route("/admin/export", methods=["GET"])
+def export_results():
+    # Add authentication here if needed
+    results = []
+    with closing(sqlite3.connect('study_results.db')) as db:
+        for row in db.execute("SELECT user_id, start_time, confirmation_time, rankings, confirmed FROM participants"):
+            results.append({
+                "user_id": row[0],
+                "start_time": row[1],
+                "confirmation_time": row[2],
+                "rankings": json.loads(row[3]),
+                "confirmed": bool(row[4])
+            })
+    return jsonify(results)
+
+@app.route("/admin/export_csv", methods=["GET"])
+def download_csv():
+    # Add authentication here if needed
+    return send_file(
+        export_results_csv(),
+        mimetype='text/csv',
+        download_name='study_results.csv',
+        as_attachment=True
+    )
+
+
+@app.route("/admin")
+def admin_page():
+    # Add authentication here if needed
+    return render_template("admin.html")
 
 
 if __name__ == "__main__":

@@ -264,3 +264,10 @@ h5 {
 	margin-bottom: var(--spacing-sm);
 	overflow: hidden;
 }
+
+.participant-id {
+	font-weight: 600;
+	color: var(--primary-color);
+	margin: var(--spacing-sm);
+	font-size: 50px;
+}
