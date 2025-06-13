@@ -152,11 +152,18 @@ h5 {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	padding: var(--spacing-sm);
-}
-
-.table td {
 	height: 40px;
 	vertical-align: middle;
+}
+
+/* Make rows appear clickable with pointer cursor */
+.table tbody tr {
+    cursor: pointer;
+}
+
+/* Reset cursor to default for ranking column (first column) */
+.table tbody tr td:first-child {
+    cursor: default;
 }
 
 /* row numbers

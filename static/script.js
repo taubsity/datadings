@@ -265,7 +265,14 @@ $(document).ready(function () {
     }
     
     function handleRowClick(e) {
-        if (!$(e.target).hasClass("rank-radio") && !isConfirmed) {
+        // Check if the click was in the ranking column (first cell)
+        const isFirstColumn = $(e.target).closest('td').index() === 0;
+        
+        // Only open detail view if:
+        // 1. Not clicking on a radio button
+        // 2. Not clicking anywhere in the ranking column
+        // 3. Study is not confirmed
+        if (!$(e.target).hasClass("rank-radio") && !isFirstColumn && !isConfirmed) {
             const rowData = dataTable.row(this).data();
             const rowIndex = dataTable.row(this).index();
             window.location.href = `/detail/${rowIndex}`;
