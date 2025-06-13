@@ -18,106 +18,181 @@
 		/>
 	</head>
 	<body class="flex-center flex-column">
-		<div class="card fixed-width-card">
+		<!-- Training explanation card - only shown when task=0 -->
+		{% if task == 0 %}
+		<div class="card fixed-width-card" id="trainingCard">
+			<div class="card-header bg-info text-white">
+				<h4 class="mb-0">Training Task: How to Rank Studies</h4>
+				<button
+					type="button"
+					class="btn-close text-white"
+					aria-label="Close"
+					onclick="document.getElementById('trainingCard').style.display='none'"
+				></button>
+			</div>
 			<div class="card-body">
-				<div class="task-indicator">
-					<span class="badge bg-primary">Task {{ task }}</span>
+				<div class="alert alert-warning">
+					<strong>
+						Das ist eine Schulungsaufgabe, um Ihnen zu helfen, die
+						Benutzeroberfläche zu verstehen.
+					</strong>
 				</div>
-				<p>
-					Die Datenbank enthält eine Liste von Studien aus der medizinischen
-					Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
-					Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
-					Impact-Faktor und dem Journal.
-				</p>
+
+				<h5>Einleitung:</h5>
+				<ol>
+					<li>
+						<strong>Überprüfen Sie die Studien</strong> in der Tabelle unten.
+						<div class="text-muted">
+							<small>
+								Jede Zeile stellt eine wissenschaftliche Studie mit Autor, Titel
+								und wichtigen Kennzahlen dar.
+							</small>
+						</div>
+					</li>
+					<li>
+						<strong>Klicken Sie auf eine Zeile</strong>, um weitere detaillierte
+						Informationen zu dieser Studie zu anzeigen.
+						<div class="text-muted">
+							<small>
+								Ein Popup zeigt die vollständige Zusammenfassung und weitere
+								Details an.
+							</small>
+						</div>
+					</li>
+					<li>
+						<strong>Bewerten Sie Ihre Top 3 Studien</strong> mit den
+						Radiobuttons in jeder Spalte.
+						<div class="text-muted">
+							<small>
+								Wählen Sie eine Studie für jeden Rang (1., 2. und 3. Rang).
+							</small>
+						</div>
+					</li>
+					<li>
+						<strong> Klicken Sie auf "Auswahl bestätigen"</strong>, wenn Sie
+						Ihre Bewertungen abgeschlossen haben.
+						<div class="text-muted">
+							<small>
+								Sie müssen genau eine Studie für jeden Rang auswählen, um
+								fortzufahren.
+							</small>
+						</div>
+					</li>
+				</ol>
+
+				<div class="alert alert-info">
+					Nachdem Sie diese Schulungsaufgabe abgeschlossen haben, werden Sie zu
+					den eigentlichen Studienaufgaben weitergeleitet.
+				</div>
 			</div>
 		</div>
-
-		<div class="card fixed-width-card">
-			<div class="card-body">
-				<table id="csvTable" class="table">
-					<thead>
-						<tr>
-							<th>Ranking</th>
-							<th>Erstautor</th>
-							<th>Letztautor</th>
-							<th>Titel</th>
-							<th>Zitationen</th>
-							<th>Jahr</th>
-							<th>Oxford Evidenz</th>
-							<th>Impact-Faktor</th>
-							<th>Journal</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
+		{% endif %}
+		<div class="container">
+			<div class="card fixed-width-card">
+				<div class="card-body">
+					<div class="task-indicator">
+						{% if task == 0 %}
+						<span class="badge bg-info">Training Task</span>
+						{% else %}
+						<span class="badge bg-primary">Task {{ task }}</span>
+						{% endif %}
+					</div>
+					<p>
+						Die Datenbank enthält eine Liste von Studien aus der medizinischen
+						Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
+						Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
+						Impact-Faktor und dem Journal.
+					</p>
+				</div>
 			</div>
-		</div>
 
-		<div class="card fixed-width-card" id="confirmationSection">
-			<div class="card-header">
-				<h5>Ihre Auswahl bestätigen</h5>
+			<div class="card fixed-width-card">
+				<div class="card-body">
+					<table id="csvTable" class="table">
+						<thead>
+							<tr>
+								<th>Ranking</th>
+								<th>Erstautor</th>
+								<th>Letztautor</th>
+								<th>Titel</th>
+								<th>Zitationen</th>
+								<th>Jahr</th>
+								<th>Oxford Evidenz</th>
+								<th>Impact-Faktor</th>
+								<th>Journal</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
 			</div>
-			<div class="card-body">
-				<h6>Ihre Top 3 Studien:</h6>
-				<div class="selection-list">
-					<div class="selection-item" id="rank1">
-						<strong>1. Rang:</strong>
-						<span class="study-placeholder"
-							>Bitte wählen Sie eine Studie aus</span
+
+			<div class="card fixed-width-card" id="confirmationSection">
+				<div class="card-header">
+					<h5>Ihre Auswahl bestätigen</h5>
+				</div>
+				<div class="card-body">
+					<h6>Ihre Top 3 Studien:</h6>
+					<div class="selection-list">
+						<div class="selection-item" id="rank1">
+							<strong>1. Rang:</strong>
+							<span class="study-placeholder"
+								>Bitte wählen Sie eine Studie aus</span
+							>
+						</div>
+						<div class="selection-item" id="rank2">
+							<strong>2. Rang:</strong>
+							<span class="study-placeholder"
+								>Bitte wählen Sie eine Studie aus</span
+							>
+						</div>
+						<div class="selection-item" id="rank3">
+							<strong>3. Rang:</strong>
+							<span class="study-placeholder"
+								>Bitte wählen Sie eine Studie aus</span
+							>
+						</div>
+					</div>
+					<div class="status-message">
+						<small class="text-muted" id="statusText"
+							>Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die
+							entsprechenden Ranking-Buttons (1, 2, 3) klicken.</small
 						>
 					</div>
-					<div class="selection-item" id="rank2">
-						<strong>2. Rang:</strong>
-						<span class="study-placeholder"
-							>Bitte wählen Sie eine Studie aus</span
+					<div>
+						<button
+							type="button"
+							class="btn btn-secondary"
+							id="confirmBtn"
+							disabled
 						>
+							Auswahl bestätigen
+						</button>
 					</div>
-					<div class="selection-item" id="rank3">
-						<strong>3. Rang:</strong>
-						<span class="study-placeholder"
-							>Bitte wählen Sie eine Studie aus</span
-						>
-					</div>
-				</div>
-				<div class="status-message">
-					<small class="text-muted" id="statusText"
-						>Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden
-						Ranking-Buttons (1, 2, 3) klicken.</small
-					>
-				</div>
-				<div>
-					<button
-						type="button"
-						class="btn btn-secondary"
-						id="confirmBtn"
-						disabled
-					>
-						Auswahl bestätigen
-					</button>
 				</div>
 			</div>
-		</div>
 
-		<!-- Confirmed Section -->
-		<div
-			class="card fixed-width-card"
-			id="confirmedSection"
-			style="display: none"
-		>
-			<div class="card-header bg-success text-white">
-				<h5>✓ Auswahl bestätigt</h5>
+			<!-- Confirmed Section -->
+			<div
+				class="card fixed-width-card"
+				id="confirmedSection"
+				style="display: none"
+			>
+				<div class="card-header bg-success text-white">
+					<h5>✓ Auswahl bestätigt</h5>
+				</div>
+				<div class="card-body">
+					<p class="text-success">
+						Ihre Ranking-Auswahl wurde erfolgreich bestätigt und kann nicht mehr
+						geändert werden.
+					</p>
+					<div id="finalSummary"></div>
+				</div>
 			</div>
-			<div class="card-body">
-				<p class="text-success">
-					Ihre Ranking-Auswahl wurde erfolgreich bestätigt und kann nicht mehr
-					geändert werden.
-				</p>
-				<div id="finalSummary"></div>
+			<!-- Footer with timer -->
+			<div class="footer">
+				<div id="timer" class="timer">00:00:00</div>
 			</div>
-		</div>
-		<!-- Footer with timer -->
-		<div class="footer">
-			<div id="timer" class="timer">00:00:00</div>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -9,17 +9,23 @@
 <body class="start-page flex-center">
     <div class="card">
         <div class="card-body">
-            <h1>First Task Completed</h1>
+            <h1>{{ message }}</h1>
             
             <div class="participant-id-container">
-                <p>Thank you for completing the first task.</p>
-                <p>You will now proceed to the second ranking task.</p>
+                <p>Thank you for completing the {% if next_task == 1 %}training task{% else %}first task{% endif %}.</p>
+                <p>{{ description }}</p>
             </div>
             
             <form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
                 <input type="hidden" id="user_id" name="user_id" value="{{ participant_id }}">
-                <input type="hidden" id="task" name="task" value="2">
-                <button type="submit" class="btn btn-primary">Start Next Task</button>
+                <input type="hidden" id="task" name="task" value="{{ next_task }}">
+                <button type="submit" class="btn btn-primary">
+                    {% if next_task == 1 %}
+                        Start Main Study
+                    {% else %}
+                        Start Next Task
+                    {% endif %}
+                </button>
             </form>
         </div>
     </div>

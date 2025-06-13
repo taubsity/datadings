@@ -20,6 +20,11 @@
 					<p class="id-note"><strong>Please save this ID for your records.</strong></p>
 				</div>
 				
+				<div class="study-info">
+					<p>You will begin with a brief training task to get familiar with the interface.</p>
+					<p>After completing the training, you'll proceed to the main study tasks.</p>
+				</div>
+				
 				<form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
 					<input
 						type="hidden"
@@ -27,7 +32,8 @@
 						name="user_id"
 						value="{{ participant_id }}"
 					/>
-					<button type="submit" class="btn btn-primary">Start Study</button>
+					<input type="hidden" id="task" name="task" value="0" />
+					<button type="submit" class="btn btn-primary">Start Training</button>
 				</form>
 			</div>
 		</div>
@@ -37,3 +43,5 @@
 				sessionStorage.setItem("startTimer", "true");
 			}
 		</script>
+	</body>
+</html>

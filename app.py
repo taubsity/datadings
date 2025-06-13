@@ -44,7 +44,12 @@ def load_data(task=1):
         return _data_cache[cache_key]
 
     # Determine which file to load based on task
-    data_file = f"study_data_test{2 if task > 1 else ''}.csv"
+    if task == 0:
+        data_file = "study_data_test0.csv"  # Training data
+    elif task > 1:
+        data_file = "study_data_test2.csv"  # Task 2+ data
+    else:
+        data_file = "study_data_test.csv"   # Task 1 data
     
     # Load fresh data
     df = pd.read_csv(
@@ -67,30 +72,18 @@ init_db()
 
 @app.route("/")
 def index():
-    # Generate a unique session ID
-    session_id = str(uuid.uuid4())
-    session["session_id"] = session_id
+    # Generate a unique participant ID if needed
+    if 'participant_id' not in session:
+        session['participant_id'] = generate_unique_id()
     
-    # Generate a unique participant ID
-    participant_id = generate_unique_id()
-    session["user_id"] = participant_id
-    
-    # Initialize user session
-    user_sessions[session_id] = {
-        "user_id": participant_id,
-        "start_time": datetime.now(),
-        "rankings": {},
-        "confirmed": False
-    }
-    
-    return render_template("start.html", participant_id=participant_id)
-
+    return render_template("start.html", participant_id=session['participant_id'])
 
 @app.route("/study", methods=["GET", "POST"])
 def study():
     if request.method == "POST":
         user_id = request.form.get("user_id")
-        task = int(request.form.get("task", 1))
+        # Default to task 0 (training) when starting the study
+        task = int(request.form.get("task", 0))
         
         if user_id and user_id.strip():
             # Generate unique session ID
@@ -126,7 +119,7 @@ def study():
             return redirect(url_for("index"))
         
         # Get task from session
-        task = session.get("task", 1)
+        task = session.get("task", 0)
         return render_template("index.html", task=task)
 
 @app.route("/data")
@@ -184,37 +177,52 @@ def get_rankings():
 @app.route("/confirm_rankings", methods=["POST"])
 def confirm_rankings():
     session_id = session.get("session_id")
-    
     if not session_id or session_id not in user_sessions:
-        return jsonify({"error": "Invalid session"}), 400
+        return jsonify({"error": "Session not found"}), 400
 
-    data = request.get_json()
-    confirmed = data.get("confirmed", False)
-    user_sessions[session_id]["confirmed"] = confirmed
+    # Mark rankings as confirmed
+    user_sessions[session_id]["confirmed"] = True
     user_sessions[session_id]["confirmation_time"] = datetime.now()
+
+    # Save to database
+    save_participant_data(session_id, user_sessions)
+
+    current_task = session.get("task", 0)
     
-    # Save to database if confirmed
-    if confirmed:
-        user_id = save_participant_data(session_id, user_sessions)
-        if user_id:
-            session["user_id"] = user_id
-            
-        # Check if this is the first task
-        task = session.get("task", 1)
-        if task == 1:
-            return jsonify({
-                "success": True, 
-                "user_id": user_id,
-                "next_task": True,
-                "redirect": "/transition"
-            })
+    # If this was the training task (0), move to task 1
+    if current_task == 0:
+        next_task = 1
+        # Save the user_id for continuity
+        user_id = user_sessions[session_id]["user_id"]
+        
+        return jsonify({
+            "success": True,
+            "next_task": True,
+            "redirect": url_for("task_transition", 
+                               participant_id=user_id, 
+                               next_task=next_task)
+        })
     
-    # Return regular response for final task
-    return jsonify({
-        "success": True, 
-        "user_id": session.get("user_id"),
-        "task_complete": True
-    })
+    # If this was task 1, move to task 2
+    elif current_task == 1:
+        next_task = 2
+        user_id = user_sessions[session_id]["user_id"]
+        
+        return jsonify({
+            "success": True, 
+            "next_task": True,
+            "redirect": url_for("task_transition", 
+                               participant_id=user_id, 
+                               next_task=next_task)
+        })
+    
+    # Otherwise this was the final task
+    else:
+        return jsonify({
+            "success": True, 
+            "task_complete": True,
+            "user_id": user_sessions[session_id]["user_id"]
+        })
 
 
 @app.route("/transition")
@@ -274,6 +282,21 @@ def get_confirmation_status():
         "confirmed": user_sessions[session_id].get("confirmed", False),
         "task": session.get("task", 1)
     })
+
+
+@app.route("/task_transition/<participant_id>/<int:next_task>")
+def task_transition(participant_id, next_task):
+    # Prepare for the next task
+    message = "Training Task Completed!" if next_task == 1 else "First Task Completed!"
+    description = "You will now proceed to the main study." if next_task == 1 else "You will now proceed to the second ranking task."
+    
+    return render_template(
+        "transition.html", 
+        participant_id=participant_id, 
+        next_task=next_task,
+        message=message,
+        description=description
+    )
 
 
 if __name__ == "__main__":
