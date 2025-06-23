@@ -216,7 +216,18 @@ def confirm_rankings():
                                next_task=next_task)
         })
     
-    # Otherwise this was the final task
+    # If this was task 2, redirect to debriefing
+    elif current_task == 2:
+        user_id = user_sessions[session_id]["user_id"]
+        
+        return jsonify({
+            "success": True, 
+            "task_complete": True,
+            "user_id": user_id,
+            "redirect": url_for("debriefing")  # Redirect to debriefing page
+        })
+    
+    # Otherwise this was some other task
     else:
         return jsonify({
             "success": True, 
@@ -297,6 +308,16 @@ def task_transition(participant_id, next_task):
         message=message,
         description=description
     )
+
+
+@app.route("/debriefing")
+def debriefing():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("index"))
+    
+    # Get participant details if needed for the debriefing content
+    return render_template("debriefing.html", user_id=user_id)
 
 
 if __name__ == "__main__":

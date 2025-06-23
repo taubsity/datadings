@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Studien-Debriefing</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css') }}"
+		/>
+	</head>
+	<body class="flex-center flex-column">
+		<div class="card fixed-width-card">
+			<div class="card-header bg-primary text-white">
+				<h4 class="mb-0">Studie abgeschlossen - Debriefing</h4>
+			</div>
+			<div class="card-body">
+				<div class="alert alert-success">
+					<h5><strong>Vielen Dank für Ihre Teilnahme!</strong></h5>
+					<p>Sie haben alle Aufgaben erfolgreich abgeschlossen.</p>
+					<p>Ihre Teilnehmer-ID: <strong>{{ user_id }}</strong></p>
+				</div>
+
+				<h5>Über diese Studie:</h5>
+				<p>
+					Diese Studie untersuchte, wie Forscher und Mediziner wissenschaftliche
+					Literatur bewerten und priorisieren. Ihr Beitrag hilft uns zu
+					verstehen, wie verschiedene Faktoren (wie Autoren, Zitationen,
+					Impact-Faktor, etc.) die Wahrnehmung und Auswahl von Studien
+					beeinflussen.
+				</p>
+
+				<h5>Nächste Schritte:</h5>
+				<p>
+					Die gesammelten Daten werden anonym ausgewertet und für
+					Forschungszwecke verwendet. Wenn Sie Fragen zu dieser Studie haben
+					oder Ihre Daten zurückziehen möchten, kontaktieren Sie bitte den
+					Studienleiter unter der E-Mail-Adresse: studie@example.com
+				</p>
+
+				<div class="mt-4 text-center">
+					<p>Sie können dieses Fenster nun schließen.</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>

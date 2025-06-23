@@ -158,12 +158,12 @@ h5 {
 
 /* Make rows appear clickable with pointer cursor */
 .table tbody tr {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 /* Reset cursor to default for ranking column (first column) */
 .table tbody tr td:first-child {
-    cursor: default;
+	cursor: default;
 }
 
 /* row numbers

@@ -385,9 +385,22 @@ $(document).ready(function () {
                 return;
             }
             
-            // Handle final task completion
+            // Handle final task completion with debriefing redirect
             if (response.task_complete) {
-                // Display user ID if available
+                // Show transition message
+                $statusText.html(
+                    '<span class="text-success">Alle Aufgaben abgeschlossen! Sie werden zur Debriefing-Seite weitergeleitet...</span>'
+                );
+                
+                // If there's a redirect URL for debriefing, use it
+                if (response.redirect) {
+                    setTimeout(function() {
+                        window.location.href = response.redirect;
+                    }, 2000);
+                    return;
+                }
+                
+                // Fallback if no redirect provided
                 if (response.user_id) {
                     $statusText.html(
                         '<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme. Ihre Teilnehmer-ID: <strong>' + 
