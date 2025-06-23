@@ -13,34 +13,60 @@
 		<div class="card">
 			<div class="card-body">
 				<h1>Welcome to the Study</h1>
-				
+
 				<div class="participant-id-container">
-					<p>Your unique participant ID is:</p>
-					<h2 class="participant-id">{{ participant_id }}</h2>
-					<p class="id-note"><strong>Please save this ID for your records.</strong></p>
+					<p>Please enter your participant ID:</p>
+					<form
+						class="form"
+						action="/study"
+						method="POST"
+						onsubmit="return validateForm()"
+					>
+						<div class="mb-3">
+							<input
+								type="text"
+								id="user_id"
+								name="user_id"
+								class="form-control"
+								required
+								placeholder="Enter your ID"
+							/>
+						</div>
+						<input type="hidden" id="task" name="task" value="0" />
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">
+								Start Training
+							</button>
+						</div>
+					</form>
+					<p class="id-note mt-3">
+						<strong>Note:</strong> If you don't have an ID, please contact the
+						study administrator.
+					</p>
 				</div>
-				
+
 				<div class="study-info">
-					<p>You will begin with a brief training task to get familiar with the interface.</p>
-					<p>After completing the training, you'll proceed to the main study tasks.</p>
+					<p>
+						You will begin with a brief training task to get familiar with the
+						interface.
+					</p>
+					<p>
+						After completing the training, you'll proceed to the main study
+						tasks.
+					</p>
 				</div>
-				
-				<form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
-					<input
-						type="hidden"
-						id="user_id"
-						name="user_id"
-						value="{{ participant_id }}"
-					/>
-					<input type="hidden" id="task" name="task" value="0" />
-					<button type="submit" class="btn btn-primary">Start Training</button>
-				</form>
 			</div>
 		</div>
 
 		<script>
-			function prepareStudyStart() {
+			function validateForm() {
+				const userId = document.getElementById("user_id").value.trim();
+				if (!userId) {
+					alert("Please enter your participant ID");
+					return false;
+				}
 				sessionStorage.setItem("startTimer", "true");
+				return true;
 			}
 		</script>
 	</body>
