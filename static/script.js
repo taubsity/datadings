@@ -359,68 +359,107 @@ $(document).ready(function () {
     async function handleConfirmation() {
         if ($confirmBtn.prop("disabled")) return;
         
-        if (!confirm(MESSAGES.CONFIRM_DIALOG)) return;
-        
-        try {
-            const response = await $.ajax({
-                url: ENDPOINTS.CONFIRM_RANKINGS,
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ confirmed: true })
-            });
+        // Show custom confirmation dialog instead of using confirm()
+        showConfirmationDialog().then(async (confirmed) => {
+            if (!confirmed) return;
             
-            isConfirmed = true;
-            
-            // Handle next task redirection
-            if (response.next_task && response.redirect) {
-                // Show transition message
-                $statusText.html(
-                    '<span class="text-success">Erste Aufgabe abgeschlossen! Sie werden zur nächsten Aufgabe weitergeleitet...</span>'
-                );
+            try {
+                const response = await $.ajax({
+                    url: ENDPOINTS.CONFIRM_RANKINGS,
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ confirmed: true })
+                });
                 
-                // Redirect after a short delay
-                setTimeout(function() {
-                    window.location.href = response.redirect;
-                }, 2000);
-                return;
-            }
-            
-            // Handle final task completion with debriefing redirect
-            if (response.task_complete) {
-                // Show transition message
-                $statusText.html(
-                    '<span class="text-success">Alle Aufgaben abgeschlossen! Sie werden zur Debriefing-Seite weitergeleitet...</span>'
-                );
+                isConfirmed = true;
                 
-                // If there's a redirect URL for debriefing, use it
-                if (response.redirect) {
+                // Handle next task redirection
+                if (response.next_task && response.redirect) {
+                    // Show transition message
+                    $statusText.html(
+                        '<span class="text-success">Erste Aufgabe abgeschlossen! Sie werden zur nächsten Aufgabe weitergeleitet...</span>'
+                    );
+                    
+                    // Redirect after a short delay
                     setTimeout(function() {
                         window.location.href = response.redirect;
                     }, 2000);
                     return;
                 }
                 
-                // Fallback if no redirect provided
-                if (response.user_id) {
+                // Handle final task completion with debriefing redirect
+                if (response.task_complete) {
+                    // Show transition message
                     $statusText.html(
-                        '<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme. Ihre Teilnehmer-ID: <strong>' + 
-                        response.user_id + '</strong></span>'
+                        '<span class="text-success">Alle Aufgaben abgeschlossen! Sie werden zur Debriefing-Seite weitergeleitet...</span>'
                     );
-                } else {
-                    $statusText.html('<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme.</span>');
+                    
+                    // If there's a redirect URL for debriefing, use it
+                    if (response.redirect) {
+                        setTimeout(function() {
+                            window.location.href = response.redirect;
+                        }, 2000);
+                        return;
+                    }
+                    
+                    // Fallback if no redirect provided
+                    if (response.user_id) {
+                        $statusText.html(
+                            '<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme. Ihre Teilnehmer-ID: <strong>' + 
+                            response.user_id + '</strong></span>'
+                        );
+                    } else {
+                        $statusText.html('<span class="text-success">Alle Aufgaben abgeschlossen! Vielen Dank für Ihre Teilnahme.</span>');
+                    }
                 }
+                
+                // Update the UI
+                updateUIBasedOnConfirmation();
+            } catch (error) {
+                console.error("Failed to confirm rankings:", error);
+                showError(MESSAGES.CONFIRM_ERROR);
             }
+        });
+    }
+    
+    function showConfirmationDialog() {
+        return new Promise((resolve) => {
+            const $modal = $("#confirmationModal");
+            const $cancelBtn = $("#cancelConfirmBtn");
+            const $proceedBtn = $("#proceedConfirmBtn");
             
-            // Update the UI
-            updateUIBasedOnConfirmation();
-        } catch (error) {
-            console.error("Failed to confirm rankings:", error);
-            showError(MESSAGES.CONFIRM_ERROR);
-        }
+            // Set the message
+            $("#confirmationMessage").text(MESSAGES.CONFIRM_DIALOG);
+            
+            // Show the modal
+            $modal.fadeIn(200);
+            
+            // Handle cancel button click
+            $cancelBtn.off("click").on("click", function() {
+                $modal.fadeOut(200);
+                resolve(false);
+            });
+            
+            // Handle confirm button click
+            $proceedBtn.off("click").on("click", function() {
+                $modal.fadeOut(200);
+                resolve(true);
+            });
+            
+            // Allow clicking outside to cancel
+            $modal.off("click").on("click", function(e) {
+                if (e.target === this) {
+                    $modal.fadeOut(200);
+                    resolve(false);
+                }
+            });
+        });
     }
     
     function showError(message) {
-        // You could replace this with a more sophisticated notification system
-        alert(message);
+        $statusText
+            .removeClass("text-success")
+            .addClass("text-danger")
+            .text(message);
     }
 });
