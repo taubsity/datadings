@@ -258,8 +258,16 @@ $(document).ready(function () {
         
         e.stopPropagation();
         
-        const selectedRank = $(this).data("rank").toString();
-        const studyKey = $(this).data("study-key");
+        const $this = $(this);
+        const selectedRank = $this.data("rank").toString();
+        const studyKey = $this.data("study-key");
+        
+        // Check if this radio button is already selected
+        if (savedRankings[studyKey] === selectedRank) {
+            // Already selected, prevent unselection
+            e.preventDefault();
+            return;
+        }
         
         updateRankings(studyKey, selectedRank);
     }
