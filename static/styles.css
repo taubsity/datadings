@@ -130,6 +130,7 @@ h5 {
 
 .form-input {
 	padding: var(--spacing-sm) var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	border: solid var(--border-color);
 	border-radius: var(--border-radius);
 	transition: var(--transition);
