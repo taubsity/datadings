@@ -252,7 +252,7 @@ $(document).ready(function () {
             },
             { 
                 data: "Oxford Evidence Level", 
-                title: "KI✨<br/>Oxford Evidenz", 
+                title: "✨<strong>Mit KI bestimmt</strong>✨<br/>Oxford Evidenz", 
                 orderable: false,
                 defaultContent: "-" 
             },
@@ -267,7 +267,7 @@ $(document).ready(function () {
                 title: "Journal", 
                 orderable: false,
                 defaultContent: "-" 
-            }
+            },
         ];
     }
     

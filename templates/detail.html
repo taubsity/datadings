@@ -27,30 +27,25 @@
 					</button>
 				</div>
 				<div class="card-body">
-					<p><strong>Abstract:</strong> {{ row.Abstract or "Keine Angabe" }}</p>
-					<p><strong>Autoren:</strong> {{ row.Autoren or "Keine Angabe" }}</p>
+					<p><strong>Abstract:</strong> {{ row.get('Abstract', 'Keine Angabe') }}</p>
+					<p><strong>Autoren:</strong> {{ row.get('Autoren', 'Keine Angabe') }}</p>
 					<p>
-						<strong>Citation Trend:</strong> {{ row.Citation_Trend or "Keine
-						Angabe" }}
+						<strong>Citation Trend:</strong> {{ row.get('Citation Trend', 'Keine Angabe') }}
 					</p>
 					<p>
-						<strong>Studiendesign/Studienart:</strong> {{ row.Studiendesign or
-						"Keine Angabe" }}
+						<strong>Studiendesign/Studienart:</strong> {{ row.get('Studiendesign/Studienart', 'Keine Angabe') }}
 					</p>
 					<p>
-						<strong>Methdische Qualität:</strong> {{ row.Methdische_Qualität or
-						"Keine Angabe" }}
+						<strong>Methodische Qualität:</strong> {{ row.get('Methdische Qualität', 'Keine Angabe') }}
 					</p>
 					<p>
-						<strong>Tumor Entität:</strong> {{ row.Tumor_Entität or "Keine
-						Angabe" }}
+						<strong>Tumor Entität:</strong> {{ row.get('Tumor Entität', 'Keine Angabe') }}
 					</p>
 					<p>
-						<strong>Präregestriert:</strong> {{ row.Präregestriert or "Keine
-						Angabe" }}
+						<strong>Präregistriert:</strong> {{ row.get('Präregestriert', 'Keine Angabe') }}
 					</p>
 					<p>
-						<strong>Metanalayse:</strong> {{ row.Metanalyse or "Keine Angabe" }}
+						<strong>Metaanalyse:</strong> {{ row.get('Metanalayse', 'Keine Angabe') }}
 					</p>
 				</div>
 			</div>

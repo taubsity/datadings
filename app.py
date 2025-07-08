@@ -66,7 +66,6 @@ def load_data(task=1):
         encoding="utf-8",
         sep=";",
         quotechar='"',
-        on_bad_lines="skip",
         dtype=str,
     )
     print(f"Loaded {len(df)} rows of data")
@@ -84,6 +83,13 @@ def load_data(task=1):
             "Impact Factor": str(row.get("Impact Factor", "")),
             "Journal": str(row.get("Journal", "")),
             "Abstract": str(row.get("Abstract", "")),
+            "Citation Trend": str(row.get("Citation Trend", "")),
+            "Autoren": str(row.get("Autoren", "")),
+            "Studiendesign/Studienart": str(row.get("Studiendesign/Studienart", "")),
+            "Methdische Qualität": str(row.get("Methdische Qualität", "")),
+            "Tumor Entität": str(row.get("Tumor Entität", "")),
+            "Präregestriert": str(row.get("Präregestriert", "")),
+            "Metanalayse": str(row.get("Metanalayse", "")),
             # Include any other columns that might be needed
         }
         records.append(record)
@@ -184,11 +190,17 @@ def detail(row_id):
     if not session_id or session_id not in user_sessions:
         return redirect(url_for("index"))
 
-    data = load_data()
+    # Get task from session
+    task = session.get("task", 1)
+    
+    # Load data with the correct task
+    data = load_data(task)
     shuffle_order = user_sessions[session_id]["shuffle_order"]
     shuffled_data = [data[i] for i in shuffle_order]
 
     if 0 <= row_id < len(shuffled_data):
+        # Print keys for debugging
+        print(f"Debug - Row data keys: {shuffled_data[row_id].keys()}")
         return render_template("detail.html", row=shuffled_data[row_id])
     return "Detail not found", 404
 

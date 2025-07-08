@@ -92,16 +92,28 @@
 				<div class="task-indicator">
 					{% if task == 0 %}
 					<span class="badge bg-info">Training Task</span>
+					<p>
+						Die Datenbank enthält eine Liste von Studien aus der medizinischen
+						Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
+						Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
+						Impact-Faktor und dem Journal.
+					</p>
+					{% elif task == 1 %}
+					<span class="badge bg-primary">Task {{ task }}</span>
+					<p>
+						Welche Therapieoption gibt es für Patienten, die kein Ansprechen
+						oder einen Progress auf eine Anti-PD1-Antikörper-Therapie in der
+						fortgeschrittenen Situation haben und deren Tumor keine
+						BRAFV600-Mutation hat?
+					</p>
+					{% elif task == 2 %}
+					<span class="badge bg-primary">Task {{ task }}</span>
+					<p>Indikation zur selektiven Lymphknotendissektion beim Melanom.</p>
 					{% else %}
 					<span class="badge bg-primary">Task {{ task }}</span>
+					<p>Default task description here.</p>
 					{% endif %}
 				</div>
-				<p>
-					Die Datenbank enthält eine Liste von Studien aus der medizinischen
-					Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
-					Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
-					Impact-Faktor und dem Journal.
-				</p>
 			</div>
 		</div>
 
@@ -200,15 +212,15 @@
 		<script src="{{ url_for('static', filename='timer.js') }}"></script>
 
 		<!-- Custom confirmation dialog -->
-		<div class="modal-overlay" id="confirmationModal" style="display: none;">
+		<div class="modal-overlay" id="confirmationModal" style="display: none">
 			<div class="card confirmation-card">
 				<div class="card-header">
 					<h5>Bestätigung erforderlich</h5>
 				</div>
 				<div class="card-body">
 					<p id="confirmationMessage">
-						Sind Sie sicher, dass Sie Ihre Auswahl bestätigen möchten? Sie können
-						diese danach nicht mehr ändern.
+						Sind Sie sicher, dass Sie Ihre Auswahl bestätigen möchten? Sie
+						können diese danach nicht mehr ändern.
 					</p>
 					<div class="confirmation-buttons">
 						<button
