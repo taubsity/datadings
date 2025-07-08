@@ -75,7 +75,7 @@ h5 {
 }
 
 .fixed-width-card {
-	width: 1800px;
+	width: 1900px;
 }
 
 .start-card {
@@ -187,14 +187,18 @@ h5 {
 8 if
 9 journal
 */
+.table th:nth-child(0), /* First Author column */
+.table td:nth-child(0) {
+	width: 5%;
+}
 
 .table th:nth-child(2), /* First Author column */
 .table td:nth-child(2) {
-	width: 8%;
+	width: 7%;
 }
 .table th:nth-child(3), /* Last Author column */
 .table td:nth-child(3) {
-	width: 7%;
+	width: 6%;
 }
 
 .table th:nth-child(4), /* Title column */
@@ -212,7 +216,7 @@ h5 {
 
 .table th:nth-child(9), /* Journal column */
 .table td:nth-child(9) {
-	width: 9%;
+	width: 12%;
 }
 
 /* Footer component */
