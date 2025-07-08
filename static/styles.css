@@ -75,7 +75,7 @@ h5 {
 }
 
 .fixed-width-card {
-	width: 1700px;
+	width: 1800px;
 }
 
 .card-header {
@@ -181,20 +181,20 @@ h5 {
 
 .table th:nth-child(2), /* First Author column */
 .table td:nth-child(2) {
-	width: 7.5%;
+	width: 8%;
 }
 .table th:nth-child(3), /* Last Author column */
 .table td:nth-child(3) {
-	width: 7.5%;
+	width: 7%;
 }
 
 .table th:nth-child(4), /* Title column */
 .table td:nth-child(4) {
-	width: 44%;
+	width: 46%;
 }
 .table th:nth-child(5), /* citation column */
 .table td:nth-child(5) {
-	width: 5%;
+	width: 4%;
 }
 .table th:nth-child(7), /* citation column */
 .table td:nth-child(7) {
@@ -203,7 +203,7 @@ h5 {
 
 .table th:nth-child(9), /* Journal column */
 .table td:nth-child(9) {
-	width: 8%;
+	width: 9%;
 }
 
 /* Footer component */
