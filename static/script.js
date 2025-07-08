@@ -177,9 +177,17 @@ $(document).ready(function () {
     }
     
     function findStudyByKey(studyKey) {
-        return tableData.find(study => 
-            `${study["First Author"]}_${study["Title"]}` === studyKey
-        );
+        // Try to split the key - if it fails, use a more robust approach
+        try {
+            const [firstName, title] = studyKey.split('_');
+            return tableData.find(study => 
+                (study["First Author"] === firstName && study["Title"] === title) ||
+                `${study["First Author"]}_${study["Title"]}` === studyKey
+            );
+        } catch (error) {
+            console.log("Error finding study by key:", error);
+            return null;
+        }
     }
     
     async function initializeTable() {
