@@ -60,14 +60,40 @@ def load_data(task=1):
         data_file = "task1_transformed.csv"  # Task 1 data
 
     # Load fresh data
-    df = pd.read_csv(data_file, encoding="utf-8", on_bad_lines="skip", sep=";")
+    print(f"Loading data from file: {data_file}")
+    df = pd.read_csv(
+        data_file,
+        encoding="utf-8",
+        sep=";",
+        quotechar='"',
+        on_bad_lines="skip",
+        dtype=str,
+    )
+    print(f"Loaded {len(df)} rows of data")
+
+    # Convert DataFrame to dictionary with explicit column mapping to ensure consistency
+    records = []
+    for _, row in df.iterrows():
+        record = {
+            "First Author": str(row.get("First Author", "")),
+            "Last Author": str(row.get("Last Author", "")),
+            "Title": str(row.get("Title", "")),
+            "Citation Count": str(row.get("Citation Count", "")),
+            "Publikationsjahr": str(row.get("Publikationsjahr", "")),
+            "Oxford Evidence Level": str(row.get("Oxford Evidence Level", "")),
+            "Impact Factor": str(row.get("Impact Factor", "")),
+            "Journal": str(row.get("Journal", "")),
+            "Abstract": str(row.get("Abstract", "")),
+            # Include any other columns that might be needed
+        }
+        records.append(record)
 
     # Initialize cache if needed
     if not _data_cache:
         _data_cache = {}
 
     # Store data in cache with task-specific key
-    _data_cache[cache_key] = df.to_dict("records")
+    _data_cache[cache_key] = records
     _cache_timestamp = datetime.now()
 
     return _data_cache[cache_key]

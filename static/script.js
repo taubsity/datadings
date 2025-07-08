@@ -39,7 +39,7 @@ $(document).ready(function () {
     const $confirmBtn = $(SELECTORS.CONFIRM_BTN);
     const $statusText = $(SELECTORS.STATUS_TEXT);
     const $confirmationSection = $(SELECTORS.CONFIRMATION_SECTION);
-    const $confirmedSection = $(SELECTORS.CONFIRMED_SECTION);
+    const $confirmedSection = $(SELECTORS.FIRMED_SECTION);
     const $finalSummary = $(SELECTORS.FINAL_SUMMARY);
     
     // Initialize application
@@ -212,14 +212,54 @@ $(document).ready(function () {
                 orderable: false,
                 render: renderRankingColumn
             },
-            { data: "First Author", title: "Erstautor", orderable: false },
-            { data: "Last Author", title: "Letztautor", orderable: false },
-            { data: "Title", title: "Titel", orderable: false },
-            { data: "Citation Count", title: "Zitationen", orderable: false },
-            { data: "Publikationsjahr", title: "Jahr", orderable: false },
-            { data: "Oxford Evidence Level", title: "KI✨<br/>Oxford Evidenz", orderable: false },
-            { data: "Impact Factor", title: "IF", orderable: false },
-            { data: "Journal", title: "Journal", orderable: false }
+            { 
+                data: "First Author", 
+                title: "Erstautor", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Last Author", 
+                title: "Letztautor", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Title", 
+                title: "Titel", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Citation Count", 
+                title: "Zitationen", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Publikationsjahr", 
+                title: "Jahr", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Oxford Evidence Level", 
+                title: "KI✨<br/>Oxford Evidenz", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Impact Factor", 
+                title: "IF", 
+                orderable: false,
+                defaultContent: "-" 
+            },
+            { 
+                data: "Journal", 
+                title: "Journal", 
+                orderable: false,
+                defaultContent: "-" 
+            }
         ];
     }
     
