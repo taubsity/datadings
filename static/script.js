@@ -252,7 +252,7 @@ $(document).ready(function () {
             },
             { 
                 data: "Oxford Evidence Level", 
-                title: "✨<strong>Mit KI bestimmt</strong>✨<br/>Oxford Evidenz", 
+                title: '<img src="/static/eyetracking_ai_label.png" alt="KI" class="ai-label" title="Diese Daten wurden mit KI generiert"> <span>Oxford Evidenz</span>', 
                 orderable: false,
                 defaultContent: "-" 
             },

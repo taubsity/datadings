@@ -324,3 +324,13 @@ h5 {
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
 }
+
+.ai-label {
+    position: relative;
+    display: inline-block;
+    height: 42px;
+    width: auto;
+    vertical-align: middle;
+    cursor: default;
+}
+

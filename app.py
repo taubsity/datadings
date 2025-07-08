@@ -53,11 +53,11 @@ def load_data(task=1):
 
     # Determine which file to load based on task
     if task == 0:
-        data_file = "study_data_test0.csv"  # Training data
+        data_file = "data/study_data_test0.csv"  # Training data
     elif task > 1:
-        data_file = "task2_transformed.csv"  # Task 2+ data
+        data_file = "data/task2_transformed.csv"  # Task 2+ data
     else:
-        data_file = "task1_transformed.csv"  # Task 1 data
+        data_file = "data/task1_transformed.csv"  # Task 1 data
 
     # Load fresh data
     print(f"Loading data from file: {data_file}")
