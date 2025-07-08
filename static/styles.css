@@ -78,6 +78,13 @@ h5 {
 	width: 1800px;
 }
 
+.start-card {
+	width: 1000px;
+	max-width: 100%;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
 .card-header {
 	width: 100%;
 	background-color: var(--light-bg);
@@ -90,6 +97,8 @@ h5 {
 .card-body {
 	width: 100%;
 	padding: var(--spacing-md);
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
 
 /* Button styles */
