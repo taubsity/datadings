@@ -1,148 +1,163 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Study Application</title>
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-        />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='styles.css') }}"
-        />
-    </head>
-    <body class="flex-center flex-column">
-        <div class="card fixed-width-card">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Studienteilnahme - Briefing</h4>
-            </div>
-            <div class="card-body">
-                <h1>
-                	Herzlich willkommen und vielen Dank für Ihr Interesse an unserer Studie!
-                </h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Study Application</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css') }}"
+		/>
+	</head>
+	<body class="flex-center flex-column">
+		<div class="card fixed-width-card">
+			<div class="card-header bg-primary text-white">
+				<h4 class="mb-0">Studienteilnahme - Briefing</h4>
+			</div>
+			<div class="card-body">
+				<p>
+					Herzlich willkommen und vielen Dank für Ihr Interesse an unserer
+					Studie!
+				</p>
 
-                <p>
-                    Diese Studie wird im Rahmen eines Promotionsprojektes im
-                    Graduiertenkolleg WisPerMed durchgeführt. Die Untersuchung dient dazu
-                    das Suchverhalten von Ärztinnen und Ärzten bei der Literaturrecherche
-                    zu analysieren, um in Zukunft verbesserte Suchwerkzeuge entwickeln zu
-                    können.
-                </p>
-                <p>
-                    In der Studie wird mithilfe von Eye-Tracking erfasst, wie Sie bei der
-                    wissenschaftlichen Literaturrecherche vorgehen. Dazu bearbeiten Sie
-                    zwei unterschiedliche Fragestellungen, zu denen Sie geeignete
-                    wissenschaftliche Publikationen recherchieren sollen. Anschließend
-                    beantworten Sie einige kurze Fragebögen sowie Fragen zu demografischen
-                    Angaben. Die Teilnahme dauert ca. 15 Minuten.
-                </p>
-                <p>
-                    Die Teilnahme an der Studie ist freiwillig. Sie können jederzeit und
-                    ohne Angabe von Gründen die Teilnahme an dieser Studie beenden, ohne
-                    dass Ihnen daraus Nachteile entstehen. Wichtige Hinweise zur
-                    Datenverarbeitung/-sicherheit: Die Rechtsgrundlage zur Verarbeitung
-                    der Sie betreffenden, personenbezogenen Daten bildet bei Studien Ihre
-                    freiwillige schriftliche Einwilligung gemäß DS-GVO (Art. 6 Abs. 1
-                    Buchst. a). <u>Alle Daten werden anonymisiert gespeichert und lassen
-                    demnach keinerlei Rückschlüsse auf Ihre Person zu.</u> Anonymisierte Daten
-                    können zum Zwecke von Studien-Replikationen öffentlich zugänglich
-                    gemacht werden. Die Daten werden mindestens 10 Jahre nach Datenauswertung, bzw.
-                    mindestens 10 Jahre nach Erscheinen einer Publikation zu dieser Studie
-                    aufbewahrt.
-                </p>
-                <p>
-                    <u>Um an der Studie teilzunehmen, müssen Sie mindestens 18 Jahre alt sein
-                    und als Arzt / Ärztin berufstätig sein.</u>
-                </p>
-                <p>Wir freuen uns auf Ihre Teilnahme!</p>
-                <p>
-                    <b>Durch einen Klick auf "Weiter" stimmen Sie der Verwendung Ihrer Daten
-                    in anonymisierter Form zu und versichern, dass Sie mindestens 18 Jahre
-                    alt sind.</b>
-                </p>
+				<p>
+					Diese Studie wird im Rahmen eines Promotionsprojektes im
+					Graduiertenkolleg WisPerMed durchgeführt. Die Untersuchung dient dazu
+					das Suchverhalten von Ärztinnen und Ärzten bei der Literaturrecherche
+					zu analysieren, um in Zukunft verbesserte Suchwerkzeuge entwickeln zu
+					können.
+				</p>
+				<p>
+					In der Studie wird mithilfe von Eye-Tracking erfasst, wie Sie bei der
+					wissenschaftlichen Literaturrecherche vorgehen. Dazu bearbeiten Sie
+					zwei unterschiedliche Fragestellungen, zu denen Sie geeignete
+					wissenschaftliche Publikationen recherchieren sollen. Anschließend
+					beantworten Sie einige kurze Fragebögen sowie Fragen zu demografischen
+					Angaben. Die Teilnahme dauert ca. 15 Minuten.
+				</p>
+				<p>
+					Die Teilnahme an der Studie ist freiwillig. Sie können jederzeit und
+					ohne Angabe von Gründen die Teilnahme an dieser Studie beenden, ohne
+					dass Ihnen daraus Nachteile entstehen. Wichtige Hinweise zur
+					Datenverarbeitung/-sicherheit: Die Rechtsgrundlage zur Verarbeitung
+					der Sie betreffenden, personenbezogenen Daten bildet bei Studien Ihre
+					freiwillige schriftliche Einwilligung gemäß DS-GVO (Art. 6 Abs. 1
+					Buchst. a).
+					<u
+						>Alle Daten werden anonymisiert gespeichert und lassen demnach
+						keinerlei Rückschlüsse auf Ihre Person zu.</u
+					>
+					Anonymisierte Daten können zum Zwecke von Studien-Replikationen
+					öffentlich zugänglich gemacht werden. Die Daten werden mindestens 10
+					Jahre nach Datenauswertung, bzw. mindestens 10 Jahre nach Erscheinen
+					einer Publikation zu dieser Studie aufbewahrt.
+				</p>
+				<p>
+					<u
+						>Um an der Studie teilzunehmen, müssen Sie mindestens 18 Jahre alt
+						sein und als Arzt / Ärztin berufstätig sein.</u
+					>
+				</p>
+				<p>Wir freuen uns auf Ihre Teilnahme!</p>
+				<p>
+					<b
+						>Durch einen Klick auf "Weiter" stimmen Sie der Verwendung Ihrer
+						Daten in anonymisierter Form zu und versichern, dass Sie mindestens
+						18 Jahre alt sind.</b
+					>
+				</p>
 
-                <div class="form-check mb-4">
-                    <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="consent"
-                        required
-                    />
-                    <label class="form-check-label" for="consent">
-                        Ich stimme der Verwendung meiner Daten in anonymisierter Form zu und
-                        versichere, dass Ich mindestens 18 Jahre alt bin.
-                    </label>
-                </div>
-                    <form
-                        class="form"
-                        action="/study"
-                        method="POST"
-                        onsubmit="return validateForm()"
-                    >
-                        <div class="mb-3">
-                            <label for="user_id" class="form-label"
-                                >Geben Sie Ihre Studien-ID ein:</label
-                            >
-                            <input
-                                type="text"
-                                id="user_id"
-                                name="user_id"
-                                class="form-control"
-                                required
-                                placeholder="Enter your ID"
-                            />
-                        </div>
-                        <input type="hidden" id="task" name="task" value="0" />
-                        <div class="text-center">
-                            <button type="submit" id="submitBtn" class="btn btn-primary" disabled>Weiter</button>
-                        </div>
-                    </form>
-            </div>
-        </div>
+				<div class="form-check mb-4">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						id="consent"
+						required
+					/>
+					<label class="form-check-label" for="consent">
+						Ich stimme der Verwendung meiner Daten in anonymisierter Form zu und
+						versichere, dass Ich mindestens 18 Jahre alt bin.
+					</label>
+				</div>
+				<form
+					class="form"
+					action="/study"
+					method="POST"
+					onsubmit="return validateForm()"
+				>
+					<div class="mb-3">
+						<label for="user_id" class="form-label"
+							>Geben Sie Ihre Studien-ID ein:</label
+						>
+						<input
+							type="text"
+							id="user_id"
+							name="user_id"
+							class="form-control"
+							required
+							placeholder="Enter your ID"
+						/>
+					</div>
+					<input type="hidden" id="task" name="task" value="0" />
+					<div class="text-center">
+						<button
+							type="submit"
+							id="submitBtn"
+							class="btn btn-primary"
+							disabled
+						>
+							Weiter
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const userIdInput = document.getElementById('user_id');
-                const consentCheckbox = document.getElementById('consent');
-                const submitButton = document.getElementById('submitBtn');
-                
-                // Function to validate form and update button state
-                function updateButtonState() {
-                    const userIdFilled = userIdInput.value.trim() !== '';
-                    const consentChecked = consentCheckbox.checked;
-                    
-                    // Enable button only if both conditions are met
-                    submitButton.disabled = !(userIdFilled && consentChecked);
-                }
-                
-                // Add event listeners to input field and checkbox
-                userIdInput.addEventListener('input', updateButtonState);
-                consentCheckbox.addEventListener('change', updateButtonState);
-                
-                // Initial check
-                updateButtonState();
-            });
-            
-            function validateForm() {
-                const userId = document.getElementById("user_id").value.trim();
-                if (!userId) {
-                    alert("Bitte geben Sie Ihre Studien-ID ein.");
-                    return false;
-                }
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const userIdInput = document.getElementById("user_id");
+				const consentCheckbox = document.getElementById("consent");
+				const submitButton = document.getElementById("submitBtn");
 
-                const consent = document.getElementById("consent");
-                if (!consent.checked) {
-                    alert("Bitte stimmen Sie der Datenverarbeitung zu, um fortzufahren.");
-                    return false;
-                }
+				// Function to validate form and update button state
+				function updateButtonState() {
+					const userIdFilled = userIdInput.value.trim() !== "";
+					const consentChecked = consentCheckbox.checked;
 
-                sessionStorage.setItem("startTimer", "true");
-                return true;
-            }
-        </script>
-    </body>
+					// Enable button only if both conditions are met
+					submitButton.disabled = !(userIdFilled && consentChecked);
+				}
+
+				// Add event listeners to input field and checkbox
+				userIdInput.addEventListener("input", updateButtonState);
+				consentCheckbox.addEventListener("change", updateButtonState);
+
+				// Initial check
+				updateButtonState();
+			});
+
+			function validateForm() {
+				const userId = document.getElementById("user_id").value.trim();
+				if (!userId) {
+					alert("Bitte geben Sie Ihre Studien-ID ein.");
+					return false;
+				}
+
+				const consent = document.getElementById("consent");
+				if (!consent.checked) {
+					alert("Bitte stimmen Sie der Datenverarbeitung zu, um fortzufahren.");
+					return false;
+				}
+
+				sessionStorage.setItem("startTimer", "true");
+				return true;
+			}
+		</script>
+	</body>
 </html>
