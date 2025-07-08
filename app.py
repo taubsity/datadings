@@ -365,11 +365,11 @@ def get_confirmation_status():
 @app.route("/task_transition/<participant_id>/<int:next_task>")
 def task_transition(participant_id, next_task):
     # Prepare for the next task
-    message = "Training Task Completed!" if next_task == 1 else "First Task Completed!"
+    message = "Trainingsaufgabe abgeschlossen!" if next_task == 1 else "Erste Aufgabe abgeschlossen!"
     description = (
-        "You will now proceed to the main study."
+        "Sie werden nun zur Hauptstudie weitergeleitet."
         if next_task == 1
-        else "You will now proceed to the second ranking task."
+        else "Sie werden nun zur zweiten Bewertungsaufgabe weitergeleitet."
     )
 
     return render_template(

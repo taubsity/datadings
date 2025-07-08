@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study - Next Task</title>
+    <title>Studie - Nächste Aufgabe</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body class="start-page flex-center">
@@ -12,7 +12,7 @@
             <h1>{{ message }}</h1>
             
             <div class="participant-id-container">
-                <p>Thank you for completing the {% if next_task == 1 %}training task{% else %}first task{% endif %}.</p>
+                <p>Vielen Dank für das Abschließen der {% if next_task == 1 %}Übungsaufgabe{% else %}ersten Aufgabe{% endif %}.</p>
                 <p>{{ description }}</p>
             </div>
             
@@ -21,9 +21,9 @@
                 <input type="hidden" id="task" name="task" value="{{ next_task }}">
                 <button type="submit" class="btn btn-primary">
                     {% if next_task == 1 %}
-                        Start Main Study
+                        Hauptstudie starten
                     {% else %}
-                        Start Next Task
+                        Nächste Aufgabe starten
                     {% endif %}
                 </button>
             </form>
