@@ -57,7 +57,7 @@ def load_data(task=1):
     elif task > 1:
         data_file = "study_data_test2.csv"  # Task 2+ data
     else:
-        data_file = "study_data_test.csv"  # Task 1 data
+        data_file = "task1_transformed.csv"  # Task 1 data
 
     # Load fresh data
     df = pd.read_csv(data_file, encoding="utf-8", on_bad_lines="skip", sep=";")
