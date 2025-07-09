@@ -39,7 +39,7 @@ function startTimerDisplay(startTime) {
     
     // Create audio element for notification sound
     var audioAlert = new Audio();
-    audioAlert.src = "/static/alerto.mp3"; // Make sure to add this file to your static folder
+    audioAlert.src = "/static/alert.mp3"; // Make sure to add this file to your static folder
     audioAlert.preload = "auto";
 
     function updateTimer() {
