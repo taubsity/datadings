@@ -232,6 +232,23 @@ body {
 /* Timer styling */
 .timer {
 	font-weight: 600;
+	font-size: large;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.blink {
+	animation: blink 1s linear infinite;
 }
 
 /* Page-specific layouts */
@@ -294,36 +311,35 @@ body {
 
 /* Modal overlay styles */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1050;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1050;
 }
 
 /* Confirmation card styling */
 .confirmation-card {
-    width: 500px;
+	width: 500px;
 }
 
 .confirmation-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--spacing-md);
+	margin-top: var(--spacing-md);
 }
 
 .ai-label {
-    position: relative;
-    display: inline-block;
-    height: 42px;
-    width: auto;
-    vertical-align: middle;
-    cursor: default;
+	position: relative;
+	display: inline-block;
+	height: 42px;
+	width: auto;
+	vertical-align: middle;
+	cursor: default;
 }
-
