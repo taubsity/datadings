@@ -70,13 +70,6 @@ body {
 	width: 1900px;
 }
 
-.start-card {
-	width: 1000px;
-	max-width: 100%;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-}
-
 .card-header {
 	width: 100%;
 	margin-top: 5px;
