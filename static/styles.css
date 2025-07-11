@@ -174,8 +174,8 @@ body {
 2 First Author
 3 last Author
 4 Title
-5 citation
-6 Year
+5 Year
+6 citation
 7 oxford
 8 if
 9 journal
@@ -198,8 +198,8 @@ body {
 .table td:nth-child(4) {
 	width: 46%;
 }
-.table th:nth-child(5), /* citation column */
-.table td:nth-child(5) {
+.table th:nth-child(6), /* citation column */
+.table td:nth-child(6) {
 	width: 4%;
 }
 .table th:nth-child(7), /* oxford column */

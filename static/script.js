@@ -239,14 +239,14 @@ $(document).ready(function () {
                 defaultContent: "-" 
             },
             { 
-                data: "Citation Count", 
-                title: "Zitationen", 
+                data: "Publikationsjahr", 
+                title: "Jahr", 
                 orderable: false,
                 defaultContent: "-" 
             },
             { 
-                data: "Publikationsjahr", 
-                title: "Jahr", 
+                data: "Citation Count", 
+                title: "Zitationen", 
                 orderable: false,
                 defaultContent: "-" 
             },
