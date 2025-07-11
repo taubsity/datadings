@@ -27,13 +27,19 @@
 					</button>
 				</div>
 				<div class="card-body">
-					<p><strong>Abstract:</strong> {{ row.get('Abstract', 'Keine Angabe') }}</p>
-					<p><strong>Autoren:</strong> {{ row.get('Autoren', 'Keine Angabe') }}</p>
 					<p>
-						<strong>Studiendesign/Studienart:</strong> {{ row.get('Studiendesign/Studienart', 'Keine Angabe') }}
+						<strong>Abstract:</strong> {{ row.get('Abstract', 'Keine Angabe') }}
 					</p>
 					<p>
-						<strong>Tumor Entität:</strong> {{ row.get('Tumor Entität', 'Keine Angabe') }}
+						<strong>Autoren:</strong> {{ row.get('Autoren', 'Keine Angabe') }}
+					</p>
+					<p>
+						<strong>Studiendesign/Studienart:</strong> {{
+						row.get('Studiendesign/Studienart', 'Keine Angabe') }}
+					</p>
+					<p>
+						<strong>Tumor Entität:</strong> {{ row.get('Tumor Entität', 'Keine
+						Angabe') }}
 					</p>
 				</div>
 			</div>

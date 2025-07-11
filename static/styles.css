@@ -177,8 +177,8 @@ body {
 5 Year
 6 citation
 7 oxford
-8 if
-9 journal
+8 journal
+9 if
 */
 .table th:nth-child(0), /* First Author column */
 .table td:nth-child(0) {
@@ -207,8 +207,8 @@ body {
 	width: 6%;
 }
 
-.table th:nth-child(9), /* Journal column */
-.table td:nth-child(9) {
+.table th:nth-child(8), /* Journal column */
+.table td:nth-child(8) {
 	width: 12%;
 }
 

@@ -257,14 +257,14 @@ $(document).ready(function () {
                 defaultContent: "-" 
             },
             { 
-                data: "Impact Factor", 
-                title: "IF", 
+                data: "Journal", 
+                title: "Journal", 
                 orderable: false,
                 defaultContent: "-" 
             },
             { 
-                data: "Journal", 
-                title: "Journal", 
+                data: "Impact Factor", 
+                title: "IF", 
                 orderable: false,
                 defaultContent: "-" 
             },
