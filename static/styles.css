@@ -343,3 +343,30 @@ body {
 	vertical-align: middle;
 	cursor: default;
 }
+
+/* Styles für die Oxford Evidence Level Tabelle */
+.evidence-table {
+	width: 50%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.evidence-table th:first-child,
+.evidence-table td:first-child {
+	width: 50px;
+	padding: 5px;
+}
+
+.evidence-table th:last-child,
+.evidence-table td:last-child {
+	width: calc(50% - 50px);
+	padding: 5px;
+}
+
+/* AI Label im Informationstext */
+.alert .ai-label {
+	height: 20px;
+	width: auto;
+	vertical-align: text-bottom;
+	margin-right: 5px;
+}
