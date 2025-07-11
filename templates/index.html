@@ -22,7 +22,8 @@
 		{% if task == 0 %}
 		<div class="card fixed-width-card" id="trainingCard">
 			<div class="card-header bg-info text-white">
-				<h4 class="mb-0">Training Task: How to Rank Studies</h4>
+				<h4 class="mb-0">Das ist eine Schulungsaufgabe, um Ihnen zu helfen, die
+						Benutzeroberfläche zu verstehen.</h4>
 				<button
 					type="button"
 					class="btn-close text-white"
@@ -31,13 +32,6 @@
 				></button>
 			</div>
 			<div class="card-body">
-				<div class="alert alert-warning">
-					<strong>
-						Das ist eine Schulungsaufgabe, um Ihnen zu helfen, die
-						Benutzeroberfläche zu verstehen.
-					</strong>
-				</div>
-
 				<h5>Einleitung:</h5>
 				<ol>
 					<li>
@@ -91,7 +85,7 @@
 			<div class="card-body">
 				<div class="task-indicator">
 					{% if task == 0 %}
-					<span class="badge bg-info">Training Task</span>
+					<span class="badge bg-info">Übungsaufgabe</span>
 					<p>
 						Die Datenbank enthält eine Liste von Studien aus der medizinischen
 						Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
@@ -99,7 +93,7 @@
 						Impact-Faktor und dem Journal.
 					</p>
 					{% elif task == 1 %}
-					<span class="badge bg-primary">Task {{ task }}</span>
+					<span class="badge bg-primary">Aufgabe {{ task }}</span>
 					<p>
 						Welche Therapieoption gibt es für Patienten, die kein Ansprechen
 						oder einen Progress auf eine Anti-PD1-Antikörper-Therapie in der
@@ -107,11 +101,11 @@
 						BRAFV600-Mutation hat?
 					</p>
 					{% elif task == 2 %}
-					<span class="badge bg-primary">Task {{ task }}</span>
+					<span class="badge bg-primary">Aufgabe {{ task }}</span>
 					<p>Indikation zur selektiven Lymphknotendissektion beim Melanom.</p>
 					{% else %}
-					<span class="badge bg-primary">Task {{ task }}</span>
-					<p>Default task description here.</p>
+					<span class="badge bg-primary">Aufgabe {{ task }}</span>
+					<p>Standardaufgabenbeschreibung.</p>
 					{% endif %}
 				</div>
 			</div>
