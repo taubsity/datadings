@@ -266,6 +266,7 @@ body {
 
 .detail-body {
 	background-color: var(--secondary-color);
+	font-size: 14px;
 }
 
 .detail-container {
