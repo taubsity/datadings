@@ -202,7 +202,7 @@ body {
 .table td:nth-child(5) {
 	width: 4%;
 }
-.table th:nth-child(7), /* citation column */
+.table th:nth-child(7), /* oxford column */
 .table td:nth-child(7) {
 	width: 6%;
 }
