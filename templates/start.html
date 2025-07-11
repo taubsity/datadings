@@ -70,19 +70,6 @@
 						18 Jahre alt sind.</b
 					>
 				</p>
-
-				<div class="form-check mb-4">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						id="consent"
-						required
-					/>
-					<label class="form-check-label" for="consent">
-						Ich stimme der Verwendung meiner Daten in anonymisierter Form zu und
-						versichere, dass Ich mindestens 18 Jahre alt bin.
-					</label>
-				</div>
 				<form
 					class="form"
 					action="/study"
@@ -121,21 +108,18 @@
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
 				const userIdInput = document.getElementById("user_id");
-				const consentCheckbox = document.getElementById("consent");
 				const submitButton = document.getElementById("submitBtn");
 
 				// Function to validate form and update button state
 				function updateButtonState() {
 					const userIdFilled = userIdInput.value.trim() !== "";
-					const consentChecked = consentCheckbox.checked;
 
 					// Enable button only if both conditions are met
-					submitButton.disabled = !(userIdFilled && consentChecked);
+					submitButton.disabled = !(userIdFilled);
 				}
 
 				// Add event listeners to input field and checkbox
 				userIdInput.addEventListener("input", updateButtonState);
-				consentCheckbox.addEventListener("change", updateButtonState);
 
 				// Initial check
 				updateButtonState();
@@ -145,12 +129,6 @@
 				const userId = document.getElementById("user_id").value.trim();
 				if (!userId) {
 					alert("Bitte geben Sie Ihre Studien-ID ein.");
-					return false;
-				}
-
-				const consent = document.getElementById("consent");
-				if (!consent.checked) {
-					alert("Bitte stimmen Sie der Datenverarbeitung zu, um fortzufahren.");
 					return false;
 				}
 
