@@ -154,7 +154,11 @@ def study():
                 "rankings": {},
             }
 
-            return render_template("index.html", task=task)
+            # Nach Start: Weiterleitung auf die neue instructions.html
+            if task == 0:
+                return render_template("instructions.html", user_id=user_id)
+            # Für alle anderen Tasks wie bisher auf index.html
+            return redirect(url_for("index_page"))
         else:
             # Redirect back to start if no user ID provided
             return redirect(url_for("index"))
@@ -166,6 +170,14 @@ def study():
         # Get task from session
         task = session.get("task", 0)
         return render_template("index.html", task=task)
+
+
+@app.route("/index")
+def index_page():
+    # Index-Seite wie bisher
+    task = session.get("task", 0)
+    user_id = session.get("user_id")
+    return render_template("index.html", task=task, user_id=user_id)
 
 
 @app.route("/data")

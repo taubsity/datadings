@@ -368,3 +368,11 @@ body {
 	vertical-align: text-bottom;
 	margin-right: 5px;
 }
+
+/* Big font instructions styles */
+.instructions-bigfont .card-body {
+    font-size: 1.25rem;
+}
+.instructions-bigfont .card-header h4 {
+    font-size: 2rem;
+}
