@@ -373,5 +373,10 @@ def debriefing():
     return render_template("debriefing.html", user_id=user_id)
 
 
+@app.route("/oxford_explanation")
+def oxford_explanation():
+    return render_template("oxford_explanation.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
