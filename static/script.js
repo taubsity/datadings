@@ -192,9 +192,12 @@ $(document).ready(function () {
     
     async function initializeTable() {
         try {
-            const data = await $.getJSON(ENDPOINTS.DATA);
+            // Die Task-Nummer aus der URL extrahieren
+            const match = window.location.pathname.match(/\/index\/(\d+)/);
+            const task = match ? parseInt(match[1], 10) : 0;
+            // Die Task-Nummer an den DATA-Endpunkt übergeben (falls Backend dies unterstützt)
+            const data = await $.getJSON(ENDPOINTS.DATA + `?task=${task}`);
             tableData = data;
-            
             dataTable = $(SELECTORS.CSV_TABLE).DataTable({
                 data: data,
                 searching: false,
@@ -204,7 +207,6 @@ $(document).ready(function () {
                 lengthChange: false,
                 columns: getTableColumns()
             });
-            
             updateUIBasedOnConfirmation();
         } catch (error) {
             console.error('Failed to initialize table:', error);
@@ -336,7 +338,6 @@ $(document).ready(function () {
     function handleRowClick(e) {
         // Check if the click was in the ranking column (first cell)
         const isFirstColumn = $(e.target).closest('td').index() === 0;
-        
         // Only open detail view if:
         // 1. Not clicking on a radio button
         // 2. Not clicking anywhere in the ranking column
@@ -344,7 +345,9 @@ $(document).ready(function () {
         if (!$(e.target).hasClass("rank-radio") && !isFirstColumn && !isConfirmed) {
             const rowData = dataTable.row(this).data();
             const rowIndex = dataTable.row(this).index();
-            window.location.href = `/detail/${rowIndex}`;
+            const match = window.location.pathname.match(/\/index\/(\d+)/);
+            const task = match ? parseInt(match[1], 10) : 0;
+            window.location.href = `/detail/${rowIndex}/${task}`;
         }
     }
     

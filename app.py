@@ -118,33 +118,21 @@ def index():
     return render_template("start.html")
 
 
-@app.route("/study", methods=["GET", "POST"])
-def study():
+@app.route("/study/<int:task>", methods=["GET", "POST"])
+def study_task(task):
     if request.method == "POST":
         user_id = request.form.get("user_id")
-        # Default to task 0 (training) when starting the study
-        task = int(request.form.get("task", 0))
-
         if user_id and user_id.strip():
-            # Generate unique session ID
             session_id = str(uuid.uuid4())
-
-            # Store both IDs - user entered and system generated
             system_id = session.get("system_id", generate_unique_id())
-
-            # Store minimal data in Flask session
             session["session_id"] = session_id
             session["user_id"] = user_id.strip()
             session["system_id"] = system_id
             session["task"] = task
-
-            # Store user data in memory with session ID
             data = load_data(task)
             import random
-
             indices = list(range(len(data)))
             random.shuffle(indices)
-
             user_sessions[session_id] = {
                 "user_id": user_id.strip(),
                 "system_id": system_id,
@@ -153,29 +141,19 @@ def study():
                 "start_time": datetime.now(),
                 "rankings": {},
             }
-
-            # Nach Start: Weiterleitung auf die neue instructions.html
             if task == 0:
                 return render_template("instructions.html", user_id=user_id)
-            # Für alle anderen Tasks wie bisher auf index.html
-            return redirect(url_for("index_page"))
+            return redirect(url_for("index_page", task=task))
         else:
-            # Redirect back to start if no user ID provided
             return redirect(url_for("index"))
     else:
-        # If GET request, check if session_id exists
         if "session_id" not in session:
             return redirect(url_for("index"))
-
-        # Get task from session
-        task = session.get("task", 0)
         return render_template("index.html", task=task)
 
 
-@app.route("/index")
-def index_page():
-    # Index-Seite wie bisher
-    task = session.get("task", 0)
+@app.route("/index/<int:task>")
+def index_page(task):
     user_id = session.get("user_id")
     return render_template("index.html", task=task, user_id=user_id)
 
@@ -183,37 +161,29 @@ def index_page():
 @app.route("/data")
 def get_data():
     session_id = session.get("session_id")
+    # Task aus Query-Parameter oder Session holen
+    task = request.args.get("task", type=int)
+    if task is None:
+        task = session.get("task", 1)
     if not session_id or session_id not in user_sessions:
         return jsonify([])
-
-    # Get task from session
-    task = session.get("task", 1)
-
     data = load_data(task)
     shuffle_order = user_sessions[session_id]["shuffle_order"]
     shuffled_data = [data[i] for i in shuffle_order]
-
     return jsonify(shuffled_data)
 
 
-@app.route("/detail/<int:row_id>")
-def detail(row_id):
+@app.route("/detail/<int:row_id>/<int:task>")
+def detail(row_id, task):
     session_id = session.get("session_id")
     if not session_id or session_id not in user_sessions:
-        return redirect(url_for("index"))
-
-    # Get task from session
-    task = session.get("task", 1)
-    
-    # Load data with the correct task
+        return redirect(url_for("index_page", task=task))
     data = load_data(task)
     shuffle_order = user_sessions[session_id]["shuffle_order"]
     shuffled_data = [data[i] for i in shuffle_order]
-
     if 0 <= row_id < len(shuffled_data):
-        # Print keys for debugging
         print(f"Debug - Row data keys: {shuffled_data[row_id].keys()}")
-        return render_template("detail.html", row=shuffled_data[row_id])
+        return render_template("detail.html", row=shuffled_data[row_id], task=task)
     return "Detail not found", 404
 
 

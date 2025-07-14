@@ -16,7 +16,7 @@
                 <p>{{ description }}</p>
             </div>
             
-            <form class="form" action="/study" method="POST" onsubmit="prepareStudyStart()">
+            <form class="form" action="/study/{{ next_task }}" method="POST" onsubmit="prepareStudyStart()">
                 <input type="hidden" id="user_id" name="user_id" value="{{ participant_id }}">
                 <input type="hidden" id="task" name="task" value="{{ next_task }}">
                 <button type="submit" class="btn btn-primary">
