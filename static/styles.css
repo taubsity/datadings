@@ -277,6 +277,12 @@ body {
 	align-items: center;
 }
 
+.detail-separator {
+    border: none;
+    border-top: 3px solid #444;
+    margin: 12px 0;
+}
+
 /* Selection components */
 .selection-list {
 	overflow: hidden;
@@ -381,4 +387,11 @@ body {
 }
 .instructions-bigfont .card-header h4 {
     font-size: 2.5rem;
+}
+
+.rank-radio {
+    width: 28px;
+    height: 28px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
 }
