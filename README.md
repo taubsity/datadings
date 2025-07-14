@@ -1,3 +1,4 @@
+<!-- Kommentar hinzugefügt am 14.07.2025: Test-Commit durch GitHub Copilot Agent. -->
 # Setup
 Install requirements and start app.
 ```sh
