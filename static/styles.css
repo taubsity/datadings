@@ -373,6 +373,12 @@ body {
 .instructions-bigfont .card-body {
     font-size: 1.25rem;
 }
-.instructions-bigfont .card-header h4 {
+.instructions-bigfont .card-body p,
+.instructions-bigfont .card-body li,
+.instructions-bigfont .card-body ul,
+.instructions-bigfont .card-body ol {
     font-size: 2rem;
+}
+.instructions-bigfont .card-header h4 {
+    font-size: 2.5rem;
 }
