@@ -13,6 +13,9 @@
 		/>
 	</head>
 	<body class="detail-body flex-center">
+		<div class="timer-container">
+			<div id="timer" class="timer">00:00:00</div>
+		</div>
 		<div class="detail-container">
 			<div class="card">
 				<div class="card-header">
@@ -47,11 +50,6 @@
 
 				</div>
 			</div>
-		</div>
-
-		<!-- Footer with timer -->
-		<div class="footer">
-			<div id="timer" class="timer">00:00:00</div>
 		</div>
 
 		<script src="{{ url_for('static', filename='timer.js') }}"></script>

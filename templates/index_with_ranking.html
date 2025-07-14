@@ -18,10 +18,6 @@
 		/>
 	</head>
 	<body class="flex-center flex-column">
-    <div class="timer-container">
-        <div id="timer" class="timer">00:00:00</div>
-    </div>
-
 		<!-- Training explanation card - only shown when task=0 -->
 		{% if task == 0 %}
 		<div class="card fixed-width-card" id="trainingCard">
@@ -101,8 +97,38 @@
 			</div>
 		</div>
 
-
-		
+		<div class="card fixed-width-card" id="confirmationSection">
+			<div class="card-header">
+				<h4>Ihre Auswahl bestätigen</h4>
+			</div>
+			<div class="card-body">
+				<p>Ihre Top 3 Studien:</p>
+				<div class="selection-list">
+					<div class="selection-item" id="rank1">
+						<strong>1. Rang:</strong>
+						<span class="study-placeholder"
+							>Bitte wählen Sie eine Studie aus</span
+						>
+					</div>
+					<div class="selection-item" id="rank2">
+						<strong>2. Rang:</strong>
+						<span class="study-placeholder"
+							>Bitte wählen Sie eine Studie aus</span
+						>
+					</div>
+					<div class="selection-item" id="rank3">
+						<strong>3. Rang:</strong>
+						<span class="study-placeholder"
+							>Bitte wählen Sie eine Studie aus</span
+						>
+					</div>
+				</div>
+				<div class="status-message">
+					<p class="text-muted" id="statusText"
+						>Wählen Sie Ihre Top 3 Studien aus, indem Sie auf die entsprechenden
+						Ranking-Buttons (1, 2, 3) klicken.</p
+					>
+				</div>
 				<div>
 					<button
 						type="button"
@@ -114,6 +140,7 @@
 					</button>
 				</div>
 			</div>
+		</div>
 
 		<!-- Confirmed Section -->
 		<div
@@ -131,6 +158,10 @@
 				</p>
 				<div id="finalSummary"></div>
 			</div>
+		</div>
+		<!-- Footer with timer -->
+		<div class="footer">
+			<div id="timer" class="timer">00:00:00</div>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
