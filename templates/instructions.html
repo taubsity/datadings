@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studienanleitung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body class="flex-center flex-column">
+    <div class="card fixed-width-card mt-5">
+        <div class="card-header">
+            <h4 class="mb-0">Einleitung</h4>
+        </div>
+        <div class="card-body">
+            <p>
+                In dieser Studie werden Sie mit Fragestellungen konfrontiert, für die Sie Studien aus der medizinischen Literatur recherchieren sollen. Diese Studien werden Ihnen in einer Tabelle angezeigt.
+            </p>
+            <ol>
+                <li>
+                    Überprüfen Sie die Studien in der Tabelle unten.
+                    <div class="text-muted">
+                        <!-- <small>
+                            Jede Zeile stellt eine wissenschaftliche Studie mit Autor, Titel und wichtigen Kennzahlen dar.
+                        </small> -->
+                    </div>
+                </li>
+                <li>
+                    Klicken Sie auf eine Zeile, um weitere detaillierte Informationen zu dieser Studie zu anzeigen.
+                    <div class="text-muted">
+                        <!-- <small>
+                            Ein Popup zeigt die vollständige Zusammenfassung und weitere Details an.
+                        </small> -->
+                    </div>
+                </li>
+                <li>
+                    Bewerten Sie die Studien nach ihrer Relevanz für die Fragestellung und wählen Sie Ihre Top 3 aus (1. = beste/relevanteste Studie).
+                    <div class="text-muted">
+                        <!-- <small>
+                            Wählen Sie eine Studie für jeden Rang (1., 2. und 3. Rang).
+                        </small> -->
+                    </div>
+                </li>
+                <li>
+                    Klicken Sie auf "Auswahl bestätigen", wenn Sie Ihre Bewertungen abgeschlossen haben.
+                    <div class="text-muted">
+                        <!-- <small>
+                            Sie müssen genau eine Studie für jeden Rang auswählen, um fortzufahren.
+                        </small> -->
+                    </div>
+                </li>
+            </ol>
+            <p>
+                Nachdem Sie diese Schulungsaufgabe abgeschlossen haben, werden Sie zu den eigentlichen Studienaufgaben weitergeleitet.
+            </p>
+            <div class="alert alert-warning">
+                <strong>Zeitlimit:</strong> Sie haben 4 Minuten Zeit für diese Aufgabe.
+                <ul>
+                    <li>Der Countdown ist unten in der Mitte sichtbar.</li>
+                    <li>Bei 30 Sekunden verbleibender Zeit ertönt ein Signalton.</li>
+                    <li>Sie können Ihre Auswahl jederzeit innerhalb des Zeitlimits ändern.</li>
+                    <li>Sie können auch vor Ablauf der Zeit abgeben, indem Sie auf "Auswahl bestätigen" klicken.</li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+                <form action="{{ url_for('index_page') }}" method="get">
+                    <button type="submit" class="btn btn-primary">Weiter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
