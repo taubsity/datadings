@@ -13,15 +13,26 @@
 		/>
 	</head>
 	<body class="detail-body flex-center">
-		<div class="detail-header-bar">
-			<div class="task-header-left">
-				<span class="badge bg-primary">Aufgabe {{ task }}</span>
-			</div>
-			<div class="task-header-right">
-				<div id="timer" class="timer">00:00:00</div>
-			</div>
-		</div>
-		<div class="detail-container">
+    <div class="card fixed-width-card detail-header-bar">
+        <div class="task-header-row">
+            <div class="task-header-left">
+                <span class="badge bg-primary">Aufgabe {{ task }}</span>
+            </div>
+            <div class="task-header-center text-start">
+                {% if task == 1 %}
+                <h4 class="mt-2 mb-2">What treatment option is available for patients with advanced disease who show no response or progression on anti-PD-1 antibody therapy and whose tumor does not carry a BRAF V600 mutation?</h4>
+                {% elif task == 2 %}
+                <h4 class="mt-2 mb-2">What are the indications for selective lymph node dissection in melanoma?</h4>
+                {% else %}
+                <p class="mt-2 mb-2">Standardaufgabenbeschreibung.</p>
+                {% endif %}
+            </div>
+            <div class="task-header-right">
+                <div id="timer" class="timer">00:00:00</div>
+            </div>
+        </div>
+    </div>
+    <div class="detail-container">
 			<div class="card">
 				<div class="card-header">
 					<h4>Detailansicht</h4>

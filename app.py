@@ -53,7 +53,7 @@ def load_data(task=1):
 
     # Determine which file to load based on task
     if task == 0:
-        data_file = "data/study_data_test0.csv"  # Training data
+        data_file = "data/study_data_test_new.csv"  # Training data
     elif task > 1:
         data_file = "data/task2_transformed.csv"  # Task 2+ data
     else:

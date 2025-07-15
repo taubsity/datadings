@@ -470,3 +470,10 @@ body {
     position: static;
     margin: 0;
 }
+.card.detail-header-bar {
+    border-radius: 8px;
+    margin-top: 18px;
+}
+.card.fixed-width-card.detail-header-bar {
+    margin: 18px auto 0 auto;
+}
