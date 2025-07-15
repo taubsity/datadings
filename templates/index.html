@@ -18,10 +18,6 @@
 		/>
 	</head>
 	<body class="flex-center flex-column">
-    <div class="timer-container">
-        <div id="timer" class="timer">00:00:00</div>
-    </div>
-
 		<!-- Training explanation card - only shown when task=0 -->
 		{% if task == 0 %}
 		<div class="card fixed-width-card" id="trainingCard">
@@ -40,34 +36,25 @@
 		</div>
 
 		{% if task != 0 %}
-		<div class="card fixed-width-card">
-			<div class="card-body">
-				<div class="task-indicator">
-					{% if task == 0 %}
-					<span class="badge bg-info">Übungsaufgabe</span>
-					<p>
-						Die Datenbank enthält eine Liste von Studien aus der medizinischen
-						Literatur. Die Datenbank enthält Informationen zu den Autoren, dem
-						Titel, der Anzahl der Zitationen, dem Jahr, der Oxford-Evidenz, dem
-						Impact-Faktor und dem Journal.
-					</p>
-					{% elif task == 1 %}
-					<span class="badge bg-primary">Aufgabe {{ task }}</span>
-					<h4 class="mt-4">
-						What treatment option is available for patients with advanced disease who show no response or progression on anti-PD-1 antibody therapy and whose tumor does not carry a BRAF V600 mutation?					
-				</h4>
-					{% elif task == 2 %}
-					<span class="badge bg-primary">Aufgabe {{ task }}</span>
-					<h4 class="mt-4">
-						What are the indications for selective lymph node dissection in melanoma?
-				</h4>
-					{% else %}
-					<span class="badge bg-primary">Aufgabe {{ task }}</span>
-					<p>Standardaufgabenbeschreibung.</p>
-					{% endif %}
-				</div>
-			</div>
-		</div>
+		<div class="card fixed-width-card task-header-card">
+    <div class="task-header-row">
+        <div class="task-header-left">
+            <span class="badge bg-primary">Aufgabe {{ task }}</span>
+        </div>
+        <div class="task-header-center text-start">
+            {% if task == 1 %}
+            <h4 class="mt-2 mb-2">What treatment option is available for patients with advanced disease who show no response or progression on anti-PD-1 antibody therapy and whose tumor does not carry a BRAF V600 mutation?</h4>
+            {% elif task == 2 %}
+            <h4 class="mt-2 mb-2">What are the indications for selective lymph node dissection in melanoma?</h4>
+            {% else %}
+            <p class="mt-2 mb-2">Standardaufgabenbeschreibung.</p>
+            {% endif %}
+        </div>
+        <div class="task-header-right">
+            <div id="timer" class="timer">00:00:00</div>
+        </div>
+    </div>
+</div>
 		{% endif %}
 
 		<div class="card fixed-width-card">
