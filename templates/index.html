@@ -20,20 +20,20 @@
 	<body class="flex-center flex-column">
 		<!-- Training explanation card - only shown when task=0 -->
 		{% if task == 0 %}
-		<div class="card fixed-width-card" id="trainingCard">
-			<div class="card-header">
-				<h4 class="mb-0">Übungsaufgabe</h4>
-			</div>
-			<div class="card-body">
-	
-				<p>
-					Does regular sunscreen use reduce the risk of cutaneous melanoma?
-				</p>
-
-		</div>
-				
-			{% endif %}
-		</div>
+		<div class="card fixed-width-card task-header-card">
+    <div class="task-header-row">
+        <div class="task-header-left">
+            <span class="badge bg-info">Übungsaufgabe</span>
+        </div>
+        <div class="task-header-center text-start">
+            <h4 class="mt-2 mb-2">Does regular sunscreen use reduce the risk of cutaneous melanoma?</h4>
+        </div>
+        <div class="task-header-right">
+            <div id="timer" class="timer">00:00:00</div>
+        </div>
+    </div>
+</div>
+		{% endif %}
 
 		{% if task != 0 %}
 		<div class="card fixed-width-card task-header-card">
