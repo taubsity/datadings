@@ -16,19 +16,9 @@
 	--transition: all 0.2s ease;
 }
 
-/* Global reset and base styles */
-* {
-	font-family: var(--font-family);
-	font-size: 14px;
-}
-
-p, b, u, ul, ol, li, strong, span, label, input {
-	font-size: 18px;
-}
-
 html,
 body {
-	margin: 0 0 30px 0;
+	margin: 0 0 0 0;
 	padding: 0;
 	overflow: hidden !important;
 }
@@ -415,20 +405,6 @@ body {
 	width: auto;
 	vertical-align: text-bottom;
 	margin-right: 5px;
-}
-
-/* Big font instructions styles */
-.instructions-bigfont .card-body {
-    font-size: 1.25rem;
-}
-.instructions-bigfont .card-body p,
-.instructions-bigfont .card-body li,
-.instructions-bigfont .card-body ul,
-.instructions-bigfont .card-body ol {
-    font-size: 2rem;
-}
-.instructions-bigfont .card-header h4 {
-    font-size: 2.5rem;
 }
 
 .rank-radio {

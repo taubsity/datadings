@@ -218,7 +218,7 @@ $(document).ready(function () {
         return [
             {
                 data: null,
-                title: "<span>Ranking</span><br/><span style='font-size:1.3rem;'>1.&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;&nbsp;&nbsp;&nbsp;3.</span>",
+                title: "<span>Ranking</span><br/><span>1.&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;&nbsp;&nbsp;&nbsp;3.</span>",
                 orderable: false,
                 render: renderRankingColumn
             },

@@ -1,46 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oxford Evidenz Erklärung</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-</head>
-<body class="flex-center flex-column">
-    <div class="card fixed-width-card mt-5">
-        <div class="card-header">
-            <h4 class="mb-0">Oxford Evidenz Erklärung</h4>
-        </div>
-        <div class="card-body">
-            <p class="mt-4">
-                <img
-                    src="{{ url_for('static', filename='eyetracking_ai_label.png') }}"
-                    alt="KI"
-                    class="ai-label"
-                    style="height: 42px; width: auto; margin-right: 5px"
-                />
-                <strong>
-                    Dieses Label beudetet, dass die <b>Künstliche Intelligenz</b> die nötigen Informationen aus den Studien extrahiert und das Evidenzlevel bestimmt hat.
-                </strong>
-            </p>
-            <p><strong>Was ist die Oxford Evidenz?</strong></p>
-            <p>
-                Das Oxford Levels of Evidence (OCEBM) ist ein 5-stufiges Schema, das die Qualität medizinischer Studien für verschiedene Fragestellungen (Therapie, Diagnose, Prognose u.a.) einordnet. Je niedriger die Zahl, desto höher die Evidenz.
-            </p>
-            <ol>
-                <li>Systematische Übersichten hochwertiger Primärstudien / einzelne, klar positive RCTs</li>
-                <li>Einzelne RCTs oder hochwertige prospektive Kohortenstudien</li>
-                <li>Nicht-randomisierte kontrollierte Kohorten- oder Fall-Kontroll-Studien</li>
-                <li>Unkontrollierte Fallserien, retrospektive Vergleiche, Registerdaten</li>
-                <li>Expertenmeinung, biologisches Plausibilitäts- oder Labor-/Tier-Evidenz</li>
-            </ol>
-            <div class="d-flex justify-content-end mt-4">
-                <form action="{{ url_for('index_page', task=0) }}" method="get">
-                    <button type="submit" class="btn btn-primary">Weiter</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Oxford Evidenz Level</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css') }}"
+		/>
+	</head>
+	<body class="flex-center flex-column">
+		<div class="card fixed-width-card">
+			<div class="card-header">
+				<h4 class="mb-0">Oxford Evidenz Level Erklärung</h4>
+			</div>
+			<div class="card-body" style="font-size: 1.2rem">
+				<p>
+					Das Oxford Levels of Evidence (OCEBM) ist ein 5-stufiges Schema, das
+					die Qualität medizinischer Studien für verschiedene Fragestellungen
+					(Therapie, Diagnose, Prognose u.a.) einordnet. Je niedriger die Zahl,
+					desto höher die Evidenz.
+				</p>
+				<p>
+					<b>1. Level:</b> Systematische Übersichten hochwertiger Primärstudien
+					/ einzelne, klar positive RCTs
+				</p>
+				<p>
+					<b>2. Level:</b> Einzelne RCTs oder hochwertige prospektive
+					Kohortenstudien
+				</p>
+				<p>
+					<b>3. Level:</b> Nicht-randomisierte kontrollierte Kohorten- oder
+					Fall-Kontroll-Studien
+				</p>
+				<p>
+					<b>4. Level:</b> Unkontrollierte Fallserien, retrospektive Vergleiche,
+					Registerdaten
+				</p>
+				<p>
+					<b>5. Level:</b> Expertenmeinung, biologisches Plausibilitäts- oder
+					Labor-/Tier-Evidenz
+				</p>
+				<br />
+				<p>
+					Dieses Label beudetet, dass eine <b>Künstliche Intelligenz</b> die
+					nötigen Informationen aus den Studien extrahiert und das Evidenzlevel
+					bestimmt hat.
+				</p>
+				<img
+					src="{{ url_for('static', filename='eyetracking_ai_label.png') }}"
+					alt="KI"
+					style="height: 80px; width: auto; margin: 0 auto; display: block"
+				/>
+				<div class="d-flex justify-content-end mt-4">
+					<form action="{{ url_for('index_page', task=0) }}" method="get">
+						<button type="submit" class="btn btn-primary">Weiter</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
