@@ -180,7 +180,7 @@ table.dataTable tbody tr {
 
 .table th:nth-child(2), /* First Author column */
 .table td:nth-child(2) {
-	width: 7%;
+	width: 6%;
 }
 .table th:nth-child(3), /* Last Author column */
 .table td:nth-child(3) {
