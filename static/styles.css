@@ -174,7 +174,7 @@ table.dataTable tbody tr {
 
 .table th:nth-child(1), /* Rank column */
 .table td:nth-child(1) {
-	width: 7%;
+	width: 6.5%;
 }
 
 .table th:nth-child(2), /* First Author column */
