@@ -145,7 +145,6 @@ body {
 .table td {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	padding: var(--spacing-sm);
 	height: 40px;
 	vertical-align: middle;
 }
@@ -208,23 +207,6 @@ table.dataTable tbody tr {
 .table th:nth-child(9), /* IF column */
 .table td:nth-child(9) {
 	width: 3%;
-}
-
-/* Footer component */
-.footer {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	width: 100%;
-	height: 30px;
-	background: white;
-	border-top: 1px solid var(--border-color);
-	padding: var(--spacing-sm) var(--spacing-sm);
-	z-index: 1000;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 /* Timer styling */
@@ -418,10 +400,6 @@ table.dataTable tbody tr {
 	cursor: pointer;
 }
 
-.task-header-card {
-	margin-bottom: 18px;
-	padding: 8px 0 8px 0;
-}
 .task-header-row {
 	display: flex;
 	align-items: center;
@@ -444,7 +422,7 @@ table.dataTable tbody tr {
 	margin-bottom: 8px;
 }
 .task-header-right {
-	min-width: 160px;
+	min-width: 140px;
 	text-align: right;
 	margin-right: 8px;
 }
