@@ -188,11 +188,11 @@ table.dataTable tbody tr {
 
 .table th:nth-child(5), /* year column */
 .table td:nth-child(5) {
-	width: 4%;
+	width: 3%;
 }
 .table th:nth-child(6), /* citation column */
 .table td:nth-child(6) {
-	width: 5%;
+	width: 6%;
 }
 .table th:nth-child(7), /* oxford column */
 .table td:nth-child(7) {
