@@ -195,8 +195,14 @@ $(document).ready(function () {
             // Die Task-Nummer aus der URL extrahieren
             const match = window.location.pathname.match(/\/index\/(\d+)/);
             const task = match ? parseInt(match[1], 10) : 0;
+            
+            // Check URL for any query parameters and clean if needed
+            if (window.location.search) {
+                history.replaceState(null, '', `/index/${task}`);
+            }
+            
             // Die Task-Nummer an den DATA-Endpunkt übergeben (falls Backend dies unterstützt)
-            const data = await $.getJSON(ENDPOINTS.DATA + `?task=${task}`);
+            const data = await $.getJSON(`/data?task=${task}`);
             tableData = data;
             dataTable = $(SELECTORS.CSV_TABLE).DataTable({
                 data: data,
@@ -338,7 +344,7 @@ $(document).ready(function () {
             const rowIndex = dataTable.row(this).index();
             const match = window.location.pathname.match(/\/index\/(\d+)/);
             const task = match ? parseInt(match[1], 10) : 0;
-            window.location.href = `/detail/${rowIndex}/${task}`;
+            window.location.href = `/set_detail/${rowIndex}/${task}`;
         }
     }
     

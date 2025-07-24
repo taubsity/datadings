@@ -152,9 +152,16 @@ def study_task(task):
         return render_template("index.html", task=task)
 
 
-@app.route("/index/<int:task>")
+@app.route("/index/<int:task>", methods=["GET"])
 def index_page(task):
     user_id = session.get("user_id")
+    # Set the task in the session
+    session["task"] = task
+    
+    # If there are query parameters, redirect to clean URL
+    if request.query_string:
+        return redirect(f"/index/{task}")
+        
     return render_template("index.html", task=task, user_id=user_id)
 
 
@@ -172,19 +179,64 @@ def get_data():
     shuffled_data = [data[i] for i in shuffle_order]
     return jsonify(shuffled_data)
 
-
-@app.route("/detail/<int:row_id>/<int:task>")
-def detail(row_id, task):
+@app.route("/data/<int:task>")
+def get_data_by_task(task):
     session_id = session.get("session_id")
     if not session_id or session_id not in user_sessions:
-        return redirect(url_for("index_page", task=task))
+        return jsonify([])
     data = load_data(task)
     shuffle_order = user_sessions[session_id]["shuffle_order"]
     shuffled_data = [data[i] for i in shuffle_order]
+    return jsonify(shuffled_data)
+
+
+@app.route("/detail")
+def detail_view():
+    # If there are query parameters, redirect to clean URL
+    if request.query_string:
+        return redirect("/detail")
+    
+    session_id = session.get("session_id")
+    if not session_id or session_id not in user_sessions:
+        return redirect(url_for("index"))
+    
+    # Get the current row_id and task from the session
+    row_id = session.get("current_detail_row_id")
+    task = session.get("task", 1)
+    
+    if row_id is None:
+        return redirect(url_for("index_page", task=task))
+    
+    data = load_data(task)
+    shuffle_order = user_sessions[session_id]["shuffle_order"]
+    shuffled_data = [data[i] for i in shuffle_order]
+    
     if 0 <= row_id < len(shuffled_data):
-        print(f"Debug - Row data keys: {shuffled_data[row_id].keys()}")
         return render_template("detail.html", row=shuffled_data[row_id], task=task)
+    
     return "Detail not found", 404
+
+@app.route("/set_detail/<int:row_id>/<int:task>")
+def set_detail(row_id, task):
+    session_id = session.get("session_id")
+    if not session_id or session_id not in user_sessions:
+        return redirect(url_for("index"))
+    
+    # Store the current detail info in the session
+    session["current_detail_row_id"] = row_id
+    
+    # Redirect to the consistent detail URL
+    return redirect(url_for("detail_view"))
+
+# Keep the original route for backward compatibility
+@app.route("/detail/<int:row_id>/<int:task>")
+def detail(row_id, task):
+    # Store the detail info in the session
+    session["current_detail_row_id"] = row_id
+    session["task"] = task
+    
+    # Redirect to the new consistent URL
+    return redirect(url_for("detail_view"))
 
 
 # API to save/load rankings
@@ -375,11 +427,17 @@ def debriefing():
 
 @app.route("/oxford_explanation")
 def oxford_explanation():
+    # If there are query parameters, redirect to clean URL
+    if request.query_string:
+        return redirect("/oxford_explanation")
     return render_template("oxford_explanation.html")
 
 
 @app.route("/training_transition")
 def training_transition():
+    # If there are query parameters, redirect to clean URL
+    if request.query_string:
+        return redirect("/training_transition")
     return render_template("training_transition.html")
 
 
