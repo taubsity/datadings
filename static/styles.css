@@ -192,7 +192,7 @@ table.dataTable tbody tr {
 }
 .table th:nth-child(6), /* citation column */
 .table td:nth-child(6) {
-	width: 6%;
+	width: 5.5%;
 }
 .table th:nth-child(7), /* oxford column */
 .table td:nth-child(7) {
