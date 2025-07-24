@@ -292,7 +292,6 @@ table.dataTable tbody tr {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 60px;
 }
 
 .detail-separator {
