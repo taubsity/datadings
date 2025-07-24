@@ -172,6 +172,10 @@ table.dataTable tbody tr {
 8 journal
 9 if
 */
+.table th:nth-child(0), /* Ranking column */
+.table td:nth-child(0) {
+	width: 5%;
+}
 .table th:nth-child(1), /* First Author column */
 .table td:nth-child(1) {
 	width: 5%;
@@ -188,11 +192,11 @@ table.dataTable tbody tr {
 
 .table th:nth-child(5), /* year column */
 .table td:nth-child(5) {
-	width: 2.5%;
+	width: 4%;
 }
 .table th:nth-child(6), /* citation column */
 .table td:nth-child(6) {
-	width: 4.5%;
+	width: 5%;
 }
 .table th:nth-child(7), /* oxford column */
 .table td:nth-child(7) {
@@ -234,18 +238,18 @@ table.dataTable tbody tr {
 }
 
 .timer-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 18px;
-    margin-bottom: 0;
-    position: absolute;
-    top: 18px;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    pointer-events: none;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 18px;
+	margin-bottom: 0;
+	position: absolute;
+	top: 18px;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	pointer-events: none;
 }
 
 @keyframes blink {
@@ -287,35 +291,35 @@ table.dataTable tbody tr {
 }
 
 .detail-header-bar {
-    background: white;
-    padding: 8px 0 8px 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
+	background: white;
+	padding: 8px 0 8px 0;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
 }
 .detail-header-bar .task-header-left {
-    min-width: 120px;
+	min-width: 120px;
 }
 .detail-header-bar .task-header-right {
-    min-width: 160px;
-    text-align: right;
+	min-width: 160px;
+	text-align: right;
 }
 .detail-container {
-    width: 1600px;
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
+	width: 1600px;
+	height: 90vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 60px;
 }
 
 .detail-separator {
-    border: none;
-    border-top: 3px solid #444;
-    margin: 12px 0;
+	border: none;
+	border-top: 3px solid #444;
+	margin: 12px 0;
 }
 
 /* Selection components */
@@ -411,50 +415,49 @@ table.dataTable tbody tr {
 }
 
 .rank-radio {
-    width: 28px;
-    height: 28px;
-    accent-color: var(--primary-color);
-    cursor: pointer;
+	width: 28px;
+	height: 28px;
+	accent-color: var(--primary-color);
+	cursor: pointer;
 }
 
 .task-header-card {
-    margin-bottom: 18px;
-    padding: 8px 0 8px 0;
+	margin-bottom: 18px;
+	padding: 8px 0 8px 0;
 }
 .task-header-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
 }
 .task-header-left {
-    min-width: 115px;
+	min-width: 115px;
 	margin-left: 8px;
 }
 .task-header-center {
-    flex-grow: 1;
-    text-align: center;
+	flex-grow: 1;
+	text-align: center;
 }
 .task-header-center h4,
 .task-header-center p {
-    font-size: 1.2rem;
-    text-align: left;
-    margin-top: 8px;
-    margin-bottom: 8px;
+	font-size: 1.2rem;
+	text-align: left;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 .task-header-right {
-    min-width: 160px;
-    text-align: right;
+	min-width: 160px;
+	text-align: right;
 	margin-right: 8px;
-
 }
 .task-header-right .timer-container {
-    position: static;
+	position: static;
 }
 .card.detail-header-bar {
-    border-radius: 8px;
-    margin-top: 18px;
+	border-radius: 8px;
+	margin-top: 18px;
 }
 .card.fixed-width-card.detail-header-bar {
-    margin: 18px auto 0 auto;
+	margin: 18px auto 0 auto;
 }
