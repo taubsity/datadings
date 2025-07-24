@@ -293,7 +293,7 @@ table.dataTable tbody tr {
 
 .detail-container .card {
 	margin-top: 90px;
-	height: 950px;
+	height: 900px;
 	width: 1800px;
 	display: flex;
 	flex-direction: column;
