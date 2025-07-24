@@ -208,9 +208,9 @@ table.dataTable tbody tr {
 	width: 12%;
 }
 
-.table th:nth-child(9), /* Journal column */
+.table th:nth-child(9), /* IF column */
 .table td:nth-child(9) {
-	width: 2%;
+	width: 3%;
 }
 
 /* Footer component */
