@@ -252,18 +252,9 @@ $(document).ready(function () {
                 orderable: false,
                 defaultContent: "-" 
             },
-            //hier die alte oxford column ohne das sternchen
-            //{ 
-              //  data: "Oxford Evidence Level", 
-              //  title: '<img src="/static/eyetracking_ai_label.png" alt="KI" class="ai-label mb-2" title="Diese Daten wurden mit KI generiert"> <span>Oxford Evidenz</span>', 
-                //orderable: false,
-                //defaultContent: "-" 
-            //},
-
-
             { 
                 data: "Oxford Evidence Level", 
-                title: '<img src="/static/eyetracking_ai_label.png" alt="KI" class="ai-label mb-2" title="Diese Daten wurden mit KI generiert"> <span>Oxford Evidenz &#10024;</span>', 
+                title: '<img src="/static/eyetracking_ai_label.png" alt="KI" class="ai-label" title="Diese Daten wurden mit KI generiert"> <span>Oxford Evidenz &#10024;</span>', 
                 orderable: false,
                 defaultContent: "-",
                 render: function(data, type, row) {
