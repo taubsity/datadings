@@ -188,7 +188,7 @@ table.dataTable tbody tr {
 
 .table th:nth-child(5), /* year column */
 .table td:nth-child(5) {
-	width: 2.5%;
+	width: 3%;
 }
 .table th:nth-child(6), /* citation column */
 .table td:nth-child(6) {
@@ -299,6 +299,38 @@ table.dataTable tbody tr {
 	border: none;
 	border-top: 3px solid #444;
 	margin: 12px 0;
+}
+
+.detail-columns {
+	display: flex;
+	gap: 20px;
+	width: 100%;
+}
+
+.detail-column-left {
+	flex: 3;
+}
+
+.detail-column-right {
+	flex: 1;
+}
+
+.detail-info-box {
+	margin-bottom: 15px;
+	padding: 15px;
+	background-color: var(--light-bg);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--border-color);
+}
+
+.detail-abstract {
+	padding: 15px;
+	background-color: var(--light-bg);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--border-color);
+	height: 100%;
+	overflow-y: auto;
+	max-height: 60vh;
 }
 
 /* Selection components */

@@ -46,24 +46,28 @@
 					</button>
 				</div>
 				<div class="card-body">
-					<p>
-						<strong>Studiendesign/Studienart:</strong> {{
-						row.get('Studiendesign/Studienart', 'Keine Angabe') }}
-					</p>
-					<hr class="detail-separator">
-					<p>
-						<strong>Tumor Entität:</strong> {{ row.get('Tumor Entität', 'Keine
-						Angabe') }}
-					</p>
-					<hr class="detail-separator">
-					<p>
-						<strong>Abstract:</strong> {{ row.get('Abstract', 'Keine Angabe') }}
-					</p>
-					<hr class="detail-separator">
-					<p>
-						<strong>Autoren:</strong> {{ row.get('Autoren', 'Keine Angabe') }}
-					</p>
-
+					<div class="detail-columns">
+						<div class="detail-column-left">
+							<div class="detail-abstract">
+								<h5>Abstract</h5>
+								<p>{{ row.get('Abstract', 'Keine Angabe') }}</p>
+							</div>
+						</div>
+						<div class="detail-column-right">
+							<div class="detail-info-box">
+								<strong>Studiendesign/Studienart:</strong>
+								<p>{{ row.get('Studiendesign/Studienart', 'Keine Angabe') }}</p>
+							</div>
+							<div class="detail-info-box">
+								<strong>Tumor Entität:</strong>
+								<p>{{ row.get('Tumor Entität', 'Keine Angabe') }}</p>
+							</div>
+							<div class="detail-info-box">
+								<strong>Autoren:</strong>
+								<p>{{ row.get('Autoren', 'Keine Angabe') }}</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
