@@ -16,6 +16,10 @@
 	--transition: all 0.2s ease;
 }
 
+* {
+	font-family: var(--font-family);
+}
+
 html,
 body {
 	margin: 0 0 0 0;
@@ -53,7 +57,6 @@ body {
 /* Component styles */
 .card {
 	height: auto;
-	background: white;
 	border: 1px solid var(--border-color);
 	border-radius: var(--border-radius);
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -148,7 +151,8 @@ body {
 }
 
 /* Make rows appear clickable with pointer cursor */
-.table tbody tr {
+.table tbody tr,
+table.dataTable tbody tr {
 	cursor: pointer;
 }
 
@@ -168,8 +172,8 @@ body {
 8 journal
 9 if
 */
-.table th:nth-child(0), /* First Author column */
-.table td:nth-child(0) {
+.table th:nth-child(1), /* First Author column */
+.table td:nth-child(1) {
 	width: 5%;
 }
 
@@ -182,13 +186,13 @@ body {
 	width: 6%;
 }
 
-.table th:nth-child(4), /* Title column */
-.table td:nth-child(4) {
-	width: 46%;
+.table th:nth-child(5), /* year column */
+.table td:nth-child(5) {
+	width: 2.5%;
 }
 .table th:nth-child(6), /* citation column */
 .table td:nth-child(6) {
-	width: 4%;
+	width: 4.5%;
 }
 .table th:nth-child(7), /* oxford column */
 .table td:nth-child(7) {
@@ -198,6 +202,11 @@ body {
 .table th:nth-child(8), /* Journal column */
 .table td:nth-child(8) {
 	width: 12%;
+}
+
+.table th:nth-child(9), /* Journal column */
+.table td:nth-child(9) {
+	width: 2%;
 }
 
 /* Footer component */
@@ -219,8 +228,8 @@ body {
 
 /* Timer styling */
 .timer {
-	font-weight: 600;
-	font-size: 1.5rem;
+	font-weight: 800;
+	font-size: 1.2rem;
 	letter-spacing: 2px;
 }
 
@@ -279,9 +288,6 @@ body {
 
 .detail-header-bar {
     background: white;
-    width: 100vw;
-    max-width: none;
-    margin-bottom: 0;
     padding: 8px 0 8px 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     display: flex;
@@ -289,9 +295,6 @@ body {
     justify-content: space-between;
     position: fixed;
     top: 0;
-    left: 0;
-    z-index: 200;
-    border-radius: 0;
 }
 .detail-header-bar .task-header-left {
     min-width: 120px;
@@ -425,7 +428,8 @@ body {
     width: 100%;
 }
 .task-header-left {
-    min-width: 120px;
+    min-width: 115px;
+	margin-left: 8px;
 }
 .task-header-center {
     flex-grow: 1;
@@ -441,10 +445,11 @@ body {
 .task-header-right {
     min-width: 160px;
     text-align: right;
+	margin-right: 8px;
+
 }
 .task-header-right .timer-container {
     position: static;
-    margin: 0;
 }
 .card.detail-header-bar {
     border-radius: 8px;
