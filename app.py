@@ -378,5 +378,10 @@ def oxford_explanation():
     return render_template("oxford_explanation.html")
 
 
+@app.route("/training_transition")
+def training_transition():
+    return render_template("training_transition.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
