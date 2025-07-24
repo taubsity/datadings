@@ -172,22 +172,19 @@ table.dataTable tbody tr {
 8 journal
 9 if
 */
-.table th:nth-child(0), /* Ranking column */
-.table td:nth-child(0) {
-	width: 5%;
-}
-.table th:nth-child(1), /* First Author column */
+
+.table th:nth-child(1), /* Rank column */
 .table td:nth-child(1) {
-	width: 5%;
+	width: 6%;
 }
 
 .table th:nth-child(2), /* First Author column */
 .table td:nth-child(2) {
-	width: 6%;
+	width: 7%;
 }
 .table th:nth-child(3), /* Last Author column */
 .table td:nth-child(3) {
-	width: 6%;
+	width: 5%;
 }
 
 .table th:nth-child(5), /* year column */
