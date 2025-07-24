@@ -183,7 +183,7 @@ table.dataTable tbody tr {
 }
 .table th:nth-child(3), /* Last Author column */
 .table td:nth-child(3) {
-	width: 6%;
+	width: 6.5;
 }
 
 .table th:nth-child(5), /* year column */
