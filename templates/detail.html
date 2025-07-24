@@ -12,65 +12,75 @@
 			href="{{ url_for('static', filename='styles.css') }}"
 		/>
 	</head>
-	<body class="detail-body flex-center">
-    <div class="card fixed-width-card detail-header-bar">
-        <div class="task-header-row">
-            <div class="task-header-left">
-                <span class="badge {% if task == 0 %}bg-info">Übungsaufgabe{% else %}bg-primary">Aufgabe {{ task }}{% endif %}</span>
-            </div>
-            <div class="task-header-center">
-                {% if task == 0 %}
-                <h4 class="mt-2 mb-2">Does regular sunscreen use reduce the risk of cutaneous melanoma?</h4>
-                {% elif task == 1 %}
-                <h4 class="mt-2 mb-2">What treatment option is available for patients with advanced disease who show no response or progression on anti-PD-1 antibody therapy and whose tumor does not carry a BRAF V600 mutation?</h4>
-                {% elif task == 2 %}
-                <h4 class="mt-2 mb-2">What are the indications for selective lymph node dissection in melanoma?</h4>
-                {% endif %}
-            </div>
-            <div class="task-header-right">
-                <div id="timer" class="timer">00:00:00</div>
-            </div>
-        </div>
-    </div>
-    <div class="detail-container">
-			<div class="card">
-				<div class="card-header">
-					<h5>{{ row.get('Title', 'Detailansicht') }}</h5>
-					<button
-						type="button"
-						class="btn btn-secondary"
-						onclick="window.location.href='/index/{{ task }}'"
-						aria-label="Schließen"
+	<body class="detail-body flex-center flex-column">
+		<div class="card fixed-width-card task-header-bar">
+			<div class="task-header-row">
+				<div class="task-header-left">
+					<span class="badge {% if task == 0 %}bg-info"
+						>Übungsaufgabe{% else %}bg-primary">Aufgabe {{ task }}{% endif
+						%}</span
 					>
-						✕
-					</button>
 				</div>
-				<div class="card-body">
-					<div class="detail-columns">
-						<div class="detail-column-left">
-							<div class="detail-abstract">
-								<h5>Abstract</h5>
-								<p>{{ row.get('Abstract', 'Keine Angabe') }}</p>
+				<div class="task-header-center text-start">
+					{% if task == 0 %}
+					<h4 class="mt-2 mb-2">
+						Does regular sunscreen use reduce the risk of cutaneous melanoma?
+					</h4>
+					{% elif task == 1 %}
+					<h4 class="mt-2 mb-2">
+						What treatment option is available for patients with advanced
+						disease who show no response or progression on anti-PD-1 antibody
+						therapy and whose tumor does not carry a BRAF V600 mutation?
+					</h4>
+					{% elif task == 2 %}
+					<h4 class="mt-2 mb-2">
+						What are the indications for selective lymph node dissection in
+						melanoma?
+					</h4>
+					{% endif %}
+				</div>
+				<div class="task-header-right">
+					<div id="timer" class="timer">00:00:00</div>
+				</div>
+			</div>
+		</div>
+		<div class="card detail-card">
+			<div class="card-header">
+				<h5>{{ row.get('Title', 'Detailansicht') }}</h5>
+				<button
+					type="button"
+					class="btn btn-secondary"
+					onclick="window.location.href='/index/{{ task }}'"
+					aria-label="Schließen"
+				>
+					✕
+				</button>
+			</div>
+			<div class="card-body">
+				<div class="detail-columns">
+					<div class="detail-column-left">
+						<div class="detail-abstract">
+							<h5>Abstract</h5>
+							<p>{{ row.get('Abstract', 'Keine Angabe') }}</p>
+						</div>
+					</div>
+					<div class="detail-column-right">
+						<div class="detail-info-box">
+							<h5>Studiendesign/Studienart:</h5>
+							<div class="info-content">
+								<p>{{ row.get('Studiendesign/Studienart', 'Keine Angabe') }}</p>
 							</div>
 						</div>
-						<div class="detail-column-right">
-							<div class="detail-info-box">
-								<h5>Studiendesign/Studienart:</h5>
-								<div class="info-content">
-									<p>{{ row.get('Studiendesign/Studienart', 'Keine Angabe') }}</p>
-								</div>
+						<div class="detail-info-box">
+							<h5>Tumor Entität:</h5>
+							<div class="info-content">
+								<p>{{ row.get('Tumor Entität', 'Keine Angabe') }}</p>
 							</div>
-							<div class="detail-info-box">
-								<h5>Tumor Entität:</h5>
-								<div class="info-content">
-									<p>{{ row.get('Tumor Entität', 'Keine Angabe') }}</p>
-								</div>
-							</div>
-							<div class="detail-info-box">
-								<h5>Autoren:</h5>
-								<div class="info-content">
-									<p>{{ row.get('Autoren', 'Keine Angabe') }}</p>
-								</div>
+						</div>
+						<div class="detail-info-box">
+							<h5>Autoren:</h5>
+							<div class="info-content">
+								<p>{{ row.get('Autoren', 'Keine Angabe') }}</p>
 							</div>
 						</div>
 					</div>
