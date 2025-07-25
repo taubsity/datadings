@@ -46,7 +46,7 @@
 		</div>
 		<div class="card detail-card">
 			<div class="card-header">
-				<h5>{{ row.get('Title', 'Detailansicht') }}</h5>
+				<h5><b>Titel: </b>{{ row.get('Title', 'Detailansicht') }}</h5>
 				<button
 					type="button"
 					class="btn btn-secondary"
@@ -60,25 +60,25 @@
 				<div class="detail-columns">
 					<div class="detail-column-left">
 						<div class="detail-abstract">
-							<h5>Abstract</h5>
+							<h5><b>Abstract:</b></h5>
 							<p>{{ row.get('Abstract', 'Keine Angabe') }}</p>
 						</div>
 					</div>
 					<div class="detail-column-right">
 						<div class="detail-info-box">
-							<h5>Studiendesign/Studienart:</h5>
+							<h5><b>Studiendesign/Studienart:</b></h5>
 							<div class="info-content">
 								<p>{{ row.get('Studiendesign/Studienart', 'Keine Angabe') }}</p>
 							</div>
 						</div>
 						<div class="detail-info-box">
-							<h5>Tumor Entität:</h5>
+							<h5><b>Tumor Entität:</b></h5>
 							<div class="info-content">
 								<p>{{ row.get('Tumor Entität', 'Keine Angabe') }}</p>
 							</div>
 						</div>
 						<div class="detail-info-box">
-							<h5>Autoren:</h5>
+							<h5><b>Autoren:</b></h5>
 							<div class="info-content">
 								<p>{{ row.get('Autoren', 'Keine Angabe') }}</p>
 							</div>
